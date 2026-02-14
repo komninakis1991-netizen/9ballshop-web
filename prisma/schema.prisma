@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String
+  price       Float
+  currency    String   @default("EUR")
+  category    String
+  brand       String
+  images      String   @default("[]")
+  inStock     Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  coverImage  String   @default("")
+  author      String   @default("Marios Komninakis")
+  publishedAt DateTime @default(now())
+  tags        String   @default("[]")
+  mediumUrl   String   @default("")
+}
