@@ -1,7 +1,8 @@
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import BlogCard from "@/components/BlogCard";
 
 export default async function BlogPage() {
+  const prisma = await getPrisma();
   const posts = await prisma.blogPost.findMany({
     orderBy: { publishedAt: "desc" },
   });

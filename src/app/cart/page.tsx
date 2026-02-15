@@ -26,6 +26,7 @@ function saveCart(items: CartItem[]) {
 export default function CartPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [checkingOut, setCheckingOut] = useState(false);
 
   useEffect(() => {
     setCart(getCart());
@@ -148,10 +149,37 @@ export default function CartPage() {
                   Continue Shopping
                 </Link>
                 <button
-                  onClick={() => alert("Stripe Checkout integration coming soon!")}
-                  className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
+                  disabled={checkingOut}
+                  onClick={async () => {
+                    setCheckingOut(true);
+                    try {
+                      const res = await fetch("/api/checkout", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          items: cart.map((item) => ({
+                            name: item.name,
+                            price: item.price,
+                            currency: item.currency,
+                            quantity: item.quantity,
+                          })),
+                        }),
+                      });
+                      const data = await res.json();
+                      if (data.url) {
+                        window.location.href = data.url;
+                      } else {
+                        alert(data.error || "Checkout failed. Please try again.");
+                        setCheckingOut(false);
+                      }
+                    } catch {
+                      alert("Checkout failed. Please try again.");
+                      setCheckingOut(false);
+                    }
+                  }}
+                  className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider disabled:opacity-50"
                 >
-                  Proceed to Checkout
+                  {checkingOut ? "Redirecting..." : "Proceed to Checkout"}
                 </button>
               </div>
             </div>

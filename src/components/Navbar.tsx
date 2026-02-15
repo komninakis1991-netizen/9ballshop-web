@@ -2,9 +2,45 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, loading } = useAuth();
+
+  const authLink = loading ? null : user ? (
+    <Link
+      href="/account"
+      className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
+    >
+      Account
+    </Link>
+  ) : (
+    <Link
+      href="/login"
+      className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
+    >
+      Login
+    </Link>
+  );
+
+  const mobileAuthLink = loading ? null : user ? (
+    <Link
+      href="/account"
+      onClick={() => setMobileOpen(false)}
+      className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
+    >
+      Account
+    </Link>
+  ) : (
+    <Link
+      href="/login"
+      onClick={() => setMobileOpen(false)}
+      className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
+    >
+      Login
+    </Link>
+  );
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-gold/20">
@@ -18,6 +54,9 @@ export default function Navbar() {
             <Link href="/shop" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               Shop
             </Link>
+            <Link href="/lessons" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              Lessons
+            </Link>
             <Link href="/blog" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               Blog
             </Link>
@@ -30,6 +69,7 @@ export default function Navbar() {
             >
               Cart
             </Link>
+            {authLink}
           </div>
 
           <button
@@ -54,6 +94,9 @@ export default function Navbar() {
             <Link href="/shop" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               Shop
             </Link>
+            <Link href="/lessons" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              Lessons
+            </Link>
             <Link href="/blog" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               Blog
             </Link>
@@ -63,6 +106,7 @@ export default function Navbar() {
             <Link href="/cart" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               Cart
             </Link>
+            {mobileAuthLink}
           </div>
         </div>
       )}

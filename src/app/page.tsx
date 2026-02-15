@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
 import BlogCard from "@/components/BlogCard";
 
 export default async function Home() {
+  const prisma = await getPrisma();
   const featuredProducts = await prisma.product.findMany({
     where: { featured: true },
     take: 8,
@@ -18,7 +19,7 @@ export default async function Home() {
     <div className="bg-navy min-h-screen">
       {/* Hero */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,168,67,0.08)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(135,10,10,0.08)_0%,transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(16,185,129,0.05)_0%,transparent_50%)]" />
         <div className="relative text-center px-4 max-w-4xl mx-auto">
           <p className="text-gold/70 text-sm uppercase tracking-[0.3em] mb-6 font-body">
@@ -64,6 +65,7 @@ export default async function Home() {
               currency={product.currency}
               category={product.category}
               brand={product.brand}
+              images={product.images}
             />
           ))}
         </div>

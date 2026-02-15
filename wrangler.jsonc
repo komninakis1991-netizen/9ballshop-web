@@ -1,0 +1,23 @@
+{
+  "name": "9ballshop-web",
+  "main": ".open-next/worker.js",
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+  "kv_namespaces": [
+    {
+      "binding": "NEXT_INC_CACHE_KV",
+      "id": "07a35d94c0d34ce089e845f7442c8447"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "9ballshop-db",
+      "database_id": "757d4707-d171-4f2f-ae05-c15d9eb4e09e"
+    }
+  ]
+}

@@ -1,15 +1,17 @@
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import BlogCard from "@/components/BlogCard";
 
 export async function generateStaticParams() {
+  const prisma = await getPrisma();
   const posts = await prisma.blogPost.findMany({ select: { slug: true } });
   return posts.map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const prisma = await getPrisma();
   const { slug } = await params;
   const post = await prisma.blogPost.findUnique({ where: { slug } });
 

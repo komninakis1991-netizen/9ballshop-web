@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -33,4 +34,18 @@ model BlogPost {
   publishedAt DateTime @default(now())
   tags        String   @default("[]")
   mediumUrl   String   @default("")
+}
+
+model User {
+  id                Int      @id @default(autoincrement())
+  email             String   @unique
+  passwordHash      String
+  name              String   @default("")
+  phone             String   @default("")
+  addressStreet     String   @default("")
+  addressCity       String   @default("")
+  addressPostalCode String   @default("")
+  addressCountry    String   @default("")
+  stripeCustomerId  String   @default("")
+  createdAt         DateTime @default(now())
 }

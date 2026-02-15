@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { AuthProvider } from "@/components/AuthProvider";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
-        <Navbar />
-        <main className="pt-16 min-h-screen">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <main className="pt-16 min-h-screen">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

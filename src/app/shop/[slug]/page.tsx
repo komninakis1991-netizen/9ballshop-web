@@ -1,15 +1,17 @@
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductCard from "@/components/ProductCard";
 
 export async function generateStaticParams() {
+  const prisma = await getPrisma();
   const products = await prisma.product.findMany({ select: { slug: true } });
   return products.map((p) => ({ slug: p.slug }));
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const prisma = await getPrisma();
   const { slug } = await params;
   const product = await prisma.product.findUnique({ where: { slug } });
 
@@ -21,6 +23,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   });
 
   const currencySymbol = product.currency === "EUR" ? "\u20AC" : "$";
+  const imageList: string[] = JSON.parse(product.images);
+  const hasImage = imageList.length > 0 && imageList[0].startsWith("http");
 
   return (
     <div className="bg-navy min-h-screen">
@@ -35,12 +39,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </nav>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Product Image Placeholder */}
-          <div className="aspect-square bg-navy-light border border-gold/10 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-gold/40 font-heading text-6xl mb-4">9</p>
-              <p className="text-cream/30 text-sm uppercase tracking-widest">{product.brand}</p>
-            </div>
+          {/* Product Image */}
+          <div className="aspect-square bg-navy-light border border-gold/10 rounded-lg flex items-center justify-center overflow-hidden">
+            {hasImage ? (
+              <img src={imageList[0]} alt={product.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="text-center">
+                <p className="text-gold/40 font-heading text-6xl mb-4">9</p>
+                <p className="text-cream/30 text-sm uppercase tracking-widest">{product.brand}</p>
+              </div>
+            )}
           </div>
 
           {/* Product Details */}
@@ -93,6 +101,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   currency={p.currency}
                   category={p.category}
                   brand={p.brand}
+                  images={p.images}
                 />
               ))}
             </div>
