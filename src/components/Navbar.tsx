@@ -49,11 +49,12 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="font-heading text-2xl font-bold text-gold tracking-wider">
+          <Link href="/" className="font-heading text-2xl font-bold text-gold tracking-wider flex-shrink-0">
             9BALLSHOP
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop nav links */}
+          <div className="hidden lg:flex items-center gap-6">
             <Link href="/shop" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.shop}
             </Link>
@@ -79,14 +80,14 @@ export default function Navbar() {
               {t.nav.cart}
             </Link>
             {authLink}
-            <LanguageToggle />
           </div>
 
-          <div className="flex items-center gap-3 md:hidden">
+          {/* Language toggle + mobile hamburger — always visible */}
+          <div className="flex items-center gap-3">
             <LanguageToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="text-cream p-2"
+              className="lg:hidden text-cream p-2"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +103,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-navy-light border-t border-gold/10">
+        <div className="lg:hidden bg-navy-light border-t border-gold/10">
           <div className="px-4 py-4 space-y-3">
             <Link href="/shop" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.shop}
