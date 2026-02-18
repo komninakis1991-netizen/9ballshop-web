@@ -10,6 +10,7 @@ const en = {
     account: "Account",
     login: "Login",
     collaborate: "Collaborate",
+    customJerseys: "Custom Jerseys",
   },
 
   // Footer
@@ -410,6 +411,53 @@ const en = {
       "I would love to hear from you. Whether you have a specific idea in mind or want to explore the possibilities, reach out and let\u2019s discuss how we can create a partnership that benefits both of us.",
     ctaInstagram: "Message on Instagram",
     ctaEmail: "Send an Email",
+  },
+
+  // Custom Jerseys page
+  customJerseys: {
+    subtitle: "Custom Billiards Apparel",
+    title: "Design Your Own Billiards Jersey",
+    heroDescription:
+      "Create a fully custom billiards jersey that matches your style and identity. Premium Italian fabric, full sublimation printing, and no minimum order required.",
+    designCta: "Design Your Jersey",
+    featuresTitle: "Why Choose Custom",
+    featuresDescription:
+      "Every jersey is crafted to the highest standards using premium materials and cutting-edge printing technology.",
+    featureSublimationTitle: "Sublimation Printing",
+    featureSublimationText:
+      "Full-color, all-over printing that never fades, cracks, or peels. Your design becomes part of the fabric itself.",
+    featureFabricTitle: "Italian Oekotex Fabric",
+    featureFabricText:
+      "Premium Italian-made fabric certified to Oekotex standards. Lightweight, breathable, and built for performance at the table.",
+    featureNoMinimumTitle: "No Minimum Order",
+    featureNoMinimumText:
+      "Order a single jersey or outfit your entire team. No minimums, no compromises on quality.",
+    featureMadeInItalyTitle: "Made in Italy",
+    featureMadeInItalyText:
+      "Designed and manufactured in Italy by VIS Sportwear, specialists in custom billiards apparel since day one.",
+    howTitle: "How It Works",
+    howStep1Title: "Design",
+    howStep1Text:
+      "Use the VIS configurator to create your custom jersey. Choose colors, add logos, text, and graphics.",
+    howStep2Title: "Send",
+    howStep2Text:
+      "Submit your design or send it to us for review. We can help you fine-tune the details.",
+    howStep3Title: "Confirm",
+    howStep3Text:
+      "We review your design and confirm the final version with you before production begins.",
+    howStep4Title: "Receive",
+    howStep4Text:
+      "Your custom jersey is produced and shipped directly to you. Ready to wear at the table.",
+    ctaTitle: "Ready to Stand Out?",
+    ctaDescription:
+      "Design a jersey that is uniquely yours. Whether you are a solo player or an entire team, we have got you covered.",
+    startDesigning: "Start Designing",
+    poweredBy: "Powered by VIS Sportwear",
+    contactTitle: "Have Questions?",
+    contactDescription:
+      "Not sure where to start? Reach out and we will help you create the perfect jersey.",
+    contactInstagram: "Message on Instagram",
+    contactEmail: "Send an Email",
   },
 
   // Category labels

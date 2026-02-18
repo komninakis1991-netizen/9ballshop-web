@@ -42,6 +42,7 @@ export default function Footer() {
               <li><Link href="/lessons" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.lessons}</Link></li>
               <li><Link href="/blog" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.blog}</Link></li>
               <li><Link href="/collaborate" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.collaborate}</Link></li>
+              <li><Link href="/custom-jerseys" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.customJerseys}</Link></li>
             </ul>
           </div>
           <div>
