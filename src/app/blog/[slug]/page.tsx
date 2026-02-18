@@ -1,8 +1,11 @@
 import { getPrisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import BlogCard from "@/components/BlogCard";
+import T from "@/components/T";
+import LocaleDate from "@/components/LocaleDate";
 
 export async function generateStaticParams() {
   const prisma = await getPrisma();
@@ -30,10 +33,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         {/* Breadcrumb */}
         <nav className="mb-8 text-sm">
-          <Link href="/blog" className="text-cream/40 hover:text-gold transition-colors">Blog</Link>
+          <Link href="/blog" className="text-cream/40 hover:text-gold transition-colors"><T k="blog.title" /></Link>
           <span className="text-cream/20 mx-2">/</span>
           <span className="text-cream/60 line-clamp-1">{post.title}</span>
         </nav>
+
+        {/* Cover Image */}
+        {post.coverImage && (
+          <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-10">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+          </div>
+        )}
 
         {/* Header */}
         <div className="mb-10">
@@ -50,13 +67,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="flex items-center gap-4 text-sm text-cream/40">
             <span>{post.author}</span>
             <span>&middot;</span>
-            <span>
-              {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
+            <LocaleDate date={post.publishedAt} />
           </div>
         </div>
 
@@ -82,8 +93,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <div>
               <h3 className="text-cream font-heading text-xl mb-2">{post.author}</h3>
               <p className="text-cream/50 text-sm leading-relaxed mb-3">
-                Pool player, entrepreneur, and writer. Sharing insights on performance,
-                discipline, and the billiards lifestyle.
+                <T k="blog.authorBio" />
               </p>
               {post.mediumUrl && (
                 <a
@@ -92,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   rel="noopener noreferrer"
                   className="text-gold text-sm hover:text-gold-light transition-colors"
                 >
-                  Read on Medium &rarr;
+                  <T k="blog.readOnMedium" /> &rarr;
                 </a>
               )}
             </div>
@@ -103,7 +113,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-          <h2 className="font-heading text-2xl text-cream mb-8">More Articles</h2>
+          <h2 className="font-heading text-2xl text-cream mb-8"><T k="blog.moreArticles" /></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedPosts.map((p) => (
               <BlogCard
@@ -111,6 +121,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 title={p.title}
                 slug={p.slug}
                 excerpt={p.excerpt}
+                coverImage={p.coverImage}
                 publishedAt={p.publishedAt}
                 tags={p.tags}
               />

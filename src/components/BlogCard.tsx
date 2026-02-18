@@ -1,14 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
+import LocaleDate from "@/components/LocaleDate";
 
 interface BlogCardProps {
   title: string;
   slug: string;
   excerpt: string;
+  coverImage: string;
   publishedAt: Date;
   tags: string;
 }
 
-export default function BlogCard({ title, slug, excerpt, publishedAt, tags }: BlogCardProps) {
+export default function BlogCard({ title, slug, excerpt, coverImage, publishedAt, tags }: BlogCardProps) {
   const parsedTags: string[] = JSON.parse(tags);
 
   return (
@@ -16,8 +21,20 @@ export default function BlogCard({ title, slug, excerpt, publishedAt, tags }: Bl
       href={`/blog/${slug}`}
       className="group block bg-navy-light border border-gold/10 hover:border-gold/40 rounded-lg overflow-hidden transition-all duration-300"
     >
-      <div className="h-48 bg-slate-mid flex items-center justify-center">
-        <p className="text-gold/30 font-heading text-4xl">9</p>
+      <div className="relative h-48 bg-slate-mid">
+        {coverImage ? (
+          <Image
+            src={coverImage}
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="h-full flex items-center justify-center">
+            <p className="text-gold/30 font-heading text-4xl">9</p>
+          </div>
+        )}
       </div>
       <div className="p-6">
         <div className="flex gap-2 mb-3 flex-wrap">
@@ -32,7 +49,7 @@ export default function BlogCard({ title, slug, excerpt, publishedAt, tags }: Bl
         </h3>
         <p className="text-cream/50 text-sm line-clamp-2 mb-3">{excerpt}</p>
         <p className="text-cream/30 text-xs">
-          {new Date(publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          <LocaleDate date={publishedAt} />
         </p>
       </div>
     </Link>

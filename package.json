@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.16.5",
-    "@prisma/adapter-d1": "^7.4.0",
+    "@prisma/adapter-d1": "^6.19.2",
     "@prisma/client": "^6.19.2",
     "@stripe/stripe-js": "^8.7.0",
     "dotenv": "^17.2.4",
@@ -20,6 +20,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-markdown": "^10.1.0",
+    "resend": "^6.9.2",
     "stripe": "^20.3.1"
   },
   "prisma": {

@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-navy-light border-t border-gold/10 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -8,31 +13,39 @@ export default function Footer() {
           <div>
             <h3 className="font-heading text-xl text-gold mb-4">9BALLSHOP</h3>
             <p className="text-cream/60 text-sm leading-relaxed">
-              Premium billiards equipment for serious players. Curated by Marios Komninakis.
+              {t.footer.tagline}
             </p>
           </div>
           <div>
-            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">Shop</h4>
+            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">{t.footer.shopHeading}</h4>
             <ul className="space-y-2">
-              {["Cues", "Shafts", "Balls", "Gloves", "Cases", "Accessories"].map((cat) => (
-                <li key={cat}>
-                  <Link href={`/shop?category=${cat}`} className="text-cream/50 hover:text-gold text-sm transition-colors">
-                    {cat}
+              {[
+                { key: "playing-cues", label: t.footer.cues },
+                { key: "shafts", label: t.footer.shafts },
+                { key: "balls", label: t.footer.balls },
+                { key: "gloves", label: t.footer.gloves },
+                { key: "cue-cases", label: t.footer.cases },
+                { key: "chalks", label: t.footer.chalks },
+              ].map((cat) => (
+                <li key={cat.key}>
+                  <Link href={`/shop/category/${cat.key}`} className="text-cream/50 hover:text-gold text-sm transition-colors">
+                    {cat.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">Company</h4>
+            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">{t.footer.companyHeading}</h4>
             <ul className="space-y-2">
-              <li><Link href="/about" className="text-cream/50 hover:text-gold text-sm transition-colors">About</Link></li>
-              <li><Link href="/lessons" className="text-cream/50 hover:text-gold text-sm transition-colors">Lessons</Link></li>
-              <li><Link href="/blog" className="text-cream/50 hover:text-gold text-sm transition-colors">Blog</Link></li>
+              <li><Link href="/about" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.about}</Link></li>
+              <li><Link href="/lessons" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.lessons}</Link></li>
+              <li><Link href="/blog" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.blog}</Link></li>
+              <li><Link href="/collaborate" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.nav.collaborate}</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">Connect</h4>
+            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">{t.footer.connectHeading}</h4>
             <ul className="space-y-2">
               <li><a href="https://facebook.com/komni91" target="_blank" rel="noopener noreferrer" className="text-cream/50 hover:text-gold text-sm transition-colors inline-flex items-center gap-2">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -58,7 +71,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gold/10 mt-8 pt-8 text-center">
-          <p className="text-cream/40 text-sm">&copy; {new Date().getFullYear()} 9BallShop. All rights reserved.</p>
+          <p className="text-cream/40 text-sm">&copy; {new Date().getFullYear()} {t.footer.copyright}</p>
         </div>
       </div>
     </footer>

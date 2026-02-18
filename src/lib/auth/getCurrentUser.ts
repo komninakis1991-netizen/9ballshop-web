@@ -12,6 +12,7 @@ export type SafeUser = {
   addressPostalCode: string;
   addressCountry: string;
   stripeCustomerId: string;
+  isAdmin: boolean;
   createdAt: Date;
 };
 
@@ -35,6 +36,7 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
       addressPostalCode: true,
       addressCountry: true,
       stripeCustomerId: true,
+      isAdmin: true,
       createdAt: true,
     },
   });

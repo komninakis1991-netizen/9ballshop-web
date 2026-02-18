@@ -7,10 +7,11 @@ import { setSessionCookie } from "@/lib/auth/cookies";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, name } = (await request.json()) as {
+    const { email, password, name, phone } = (await request.json()) as {
       email?: string;
       password?: string;
       name?: string;
+      phone?: string;
     };
 
     if (!email || !password) {
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest) {
       const customer = await stripe.customers.create({
         email,
         name: name || undefined,
+        phone: phone || undefined,
         metadata: { source: "9ballshop-web" },
       });
       stripeCustomerId = customer.id;
@@ -57,6 +59,7 @@ export async function POST(request: NextRequest) {
         email,
         passwordHash,
         name: name || "",
+        phone: phone || "",
         stripeCustomerId,
       },
     });

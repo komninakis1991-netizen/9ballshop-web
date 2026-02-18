@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function AccountPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const { user, loading, logout, refreshUser } = useAuth();
 
@@ -55,11 +57,11 @@ export default function AccountPage() {
     setSaving(false);
 
     if (res.ok) {
-      setMessage("Profile updated successfully");
+      setMessage(t.account.updateSuccess);
       await refreshUser();
     } else {
       const data = await res.json();
-      setMessage(data.error || "Failed to update profile");
+      setMessage(data.error || t.account.updateFailed);
     }
   };
 
@@ -71,7 +73,7 @@ export default function AccountPage() {
   if (loading || !user) {
     return (
       <div className="min-h-screen bg-navy flex items-center justify-center">
-        <p className="text-cream/50">Loading...</p>
+        <p className="text-cream/50">{t.account.loading}</p>
       </div>
     );
   }
@@ -80,17 +82,17 @@ export default function AccountPage() {
     <div className="min-h-screen bg-navy px-4 py-12">
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="font-heading text-3xl text-gold">My Account</h1>
+          <h1 className="font-heading text-3xl text-gold">{t.account.title}</h1>
           <button
             onClick={handleLogout}
             className="text-cream/50 hover:text-cream text-sm border border-cream/20 rounded-lg px-4 py-2 transition-colors"
           >
-            Log Out
+            {t.account.logOut}
           </button>
         </div>
 
         <div className="bg-navy-light border border-gold/10 rounded-xl p-6 mb-6">
-          <p className="text-cream/50 text-sm">Email</p>
+          <p className="text-cream/50 text-sm">{t.account.email}</p>
           <p className="text-cream">{user.email}</p>
         </div>
 
@@ -99,7 +101,7 @@ export default function AccountPage() {
           className="bg-navy-light border border-gold/10 rounded-xl p-6 space-y-5"
         >
           <h2 className="font-heading text-xl text-gold mb-2">
-            Profile Details
+            {t.account.profileDetails}
           </h2>
 
           {message && (
@@ -116,7 +118,7 @@ export default function AccountPage() {
 
           <div>
             <label htmlFor="name" className="block text-cream/70 text-sm mb-1">
-              Name
+              {t.account.name}
             </label>
             <input
               id="name"
@@ -132,7 +134,7 @@ export default function AccountPage() {
               htmlFor="phone"
               className="block text-cream/70 text-sm mb-1"
             >
-              Phone
+              {t.account.phone}
             </label>
             <input
               id="phone"
@@ -148,7 +150,7 @@ export default function AccountPage() {
               htmlFor="street"
               className="block text-cream/70 text-sm mb-1"
             >
-              Street Address
+              {t.account.streetAddress}
             </label>
             <input
               id="street"
@@ -165,7 +167,7 @@ export default function AccountPage() {
                 htmlFor="city"
                 className="block text-cream/70 text-sm mb-1"
               >
-                City
+                {t.account.city}
               </label>
               <input
                 id="city"
@@ -180,7 +182,7 @@ export default function AccountPage() {
                 htmlFor="postalCode"
                 className="block text-cream/70 text-sm mb-1"
               >
-                Postal Code
+                {t.account.postalCode}
               </label>
               <input
                 id="postalCode"
@@ -197,7 +199,7 @@ export default function AccountPage() {
               htmlFor="country"
               className="block text-cream/70 text-sm mb-1"
             >
-              Country
+              {t.account.country}
             </label>
             <input
               id="country"
@@ -213,7 +215,7 @@ export default function AccountPage() {
             disabled={saving}
             className="w-full bg-gold text-navy font-heading font-bold py-3 rounded-lg hover:bg-gold/90 transition-colors disabled:opacity-50"
           >
-            {saving ? "Saving..." : "Save Changes"}
+            {saving ? t.account.saving : t.account.saveChanges}
           </button>
         </form>
       </div>

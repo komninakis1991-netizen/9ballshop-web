@@ -4,9 +4,9 @@
   --color-navy: #0a0f1a;
   --color-navy-light: #111827;
   --color-navy-lighter: #1a2332;
-  --color-gold: #870A0A;
-  --color-gold-light: #a01010;
-  --color-gold-dark: #6b0808;
+  --color-gold: #d4a843;
+  --color-gold-light: #e8c87a;
+  --color-gold-dark: #b8912e;
   --color-emerald: #10b981;
   --color-emerald-dark: #059669;
   --color-slate-dark: #111827;
@@ -25,7 +25,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #870A0A #111827;
+  scrollbar-color: #d4a843 #111827;
 }
 
 body {
@@ -39,6 +39,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::selection {
-  background-color: #870A0A;
+  background-color: #d4a843;
   color: #0a0f1a;
 }

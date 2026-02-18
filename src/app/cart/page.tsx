@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useLanguage } from "@/components/LanguageProvider";
 
 interface CartItem {
   id: number;
@@ -24,9 +26,10 @@ function saveCart(items: CartItem[]) {
 }
 
 export default function CartPage() {
+  const router = useRouter();
+  const { t } = useLanguage();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [mounted, setMounted] = useState(false);
-  const [checkingOut, setCheckingOut] = useState(false);
 
   useEffect(() => {
     setCart(getCart());
@@ -52,25 +55,25 @@ export default function CartPage() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (!mounted) {
-    return <div className="bg-navy min-h-screen flex items-center justify-center"><p className="text-cream/40">Loading cart...</p></div>;
+    return <div className="bg-navy min-h-screen flex items-center justify-center"><p className="text-cream/40">{t.cart.loading}</p></div>;
   }
 
   return (
     <div className="bg-navy min-h-screen">
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <div className="text-center mb-12">
-          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">Your Selection</p>
-          <h1 className="font-heading text-4xl md:text-5xl text-cream">Cart</h1>
+          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">{t.cart.subtitle}</p>
+          <h1 className="font-heading text-4xl md:text-5xl text-cream">{t.cart.title}</h1>
         </div>
 
         {cart.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-cream/40 text-lg mb-6">Your cart is empty.</p>
+            <p className="text-cream/40 text-lg mb-6">{t.cart.empty}</p>
             <Link
               href="/shop"
               className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
             >
-              Browse Shop
+              {t.cart.browseShop}
             </Link>
           </div>
         ) : (
@@ -136,7 +139,7 @@ export default function CartPage() {
             {/* Total & Checkout */}
             <div className="mt-8 border-t border-gold/10 pt-8">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-cream/60 text-lg">Total</span>
+                <span className="text-cream/60 text-lg">{t.cart.total}</span>
                 <span className="text-gold font-heading text-3xl">
                   &euro;{total.toFixed(2)}
                 </span>
@@ -146,40 +149,13 @@ export default function CartPage() {
                   href="/shop"
                   className="border border-gold/30 hover:border-gold text-gold px-6 py-3 rounded transition-colors text-sm uppercase tracking-wider"
                 >
-                  Continue Shopping
+                  {t.cart.continueShopping}
                 </Link>
                 <button
-                  disabled={checkingOut}
-                  onClick={async () => {
-                    setCheckingOut(true);
-                    try {
-                      const res = await fetch("/api/checkout", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                          items: cart.map((item) => ({
-                            name: item.name,
-                            price: item.price,
-                            currency: item.currency,
-                            quantity: item.quantity,
-                          })),
-                        }),
-                      });
-                      const data = await res.json();
-                      if (data.url) {
-                        window.location.href = data.url;
-                      } else {
-                        alert(data.error || "Checkout failed. Please try again.");
-                        setCheckingOut(false);
-                      }
-                    } catch {
-                      alert("Checkout failed. Please try again.");
-                      setCheckingOut(false);
-                    }
-                  }}
-                  className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider disabled:opacity-50"
+                  onClick={() => router.push("/checkout")}
+                  className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
                 >
-                  {checkingOut ? "Redirecting..." : "Proceed to Checkout"}
+                  {t.cart.proceedToCheckout}
                 </button>
               </div>
             </div>

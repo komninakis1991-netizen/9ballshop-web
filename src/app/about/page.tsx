@@ -1,16 +1,23 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function AboutPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-navy min-h-screen">
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(135,10,10,0.06)_0%,transparent_60%)]" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">The Story</p>
-          <h1 className="font-heading text-4xl md:text-5xl text-cream mb-6">About Marios</h1>
+          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">{t.about.heroSubtitle}</p>
+          <h1 className="font-heading text-4xl md:text-5xl text-cream mb-6">
+            {t.about.heroName}
+          </h1>
           <p className="text-cream/50 text-lg">
-            From the pool halls of Athens to building a global billiards brand.
+            {t.about.heroDescription}
           </p>
         </div>
       </section>
@@ -18,56 +25,143 @@ export default function AboutPage() {
       {/* Bio */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
         <div className="space-y-8 text-cream/70 leading-relaxed text-lg">
-          <p>
-            Marios Komninakis grew up in Greece with a cue in his hand and a dream that stretched
-            far beyond the Mediterranean. From a young age, billiards wasn&apos;t just a game &mdash;
-            it was a discipline, a language, and ultimately, a way of life.
-          </p>
-          <p>
-            With nothing but determination and a deep love for the sport, Marios made the
-            bold move from Greece to the United States, building connections and a reputation
-            in the competitive billiards world. That journey &mdash; navigating a new country
-            without money or connections &mdash; shaped his philosophy: that mastery comes through
-            discipline, resilience, and an unwavering commitment to excellence.
-          </p>
 
-          <div className="py-8 border-y border-gold/10">
-            <h2 className="font-heading text-2xl text-cream mb-6">The 9BallShop Vision</h2>
-            <p>
-              9BallShop was born from Marios&apos;s frustration with the lack of curated,
-              high-quality billiards equipment available online. Too many shops offer everything
-              without expertise. 9BallShop is different &mdash; every product is personally
-              selected and tested by someone who has spent thousands of hours at the table.
-            </p>
-          </div>
-
+          {/* Early years */}
           <div>
-            <h2 className="font-heading text-2xl text-cream mb-6">Beyond the Table</h2>
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.beginningsTitle}
+            </h2>
             <p>
-              Marios is also a passionate writer and thinker. His articles on Medium explore
-              topics ranging from mental preparation and discipline to personal stories of
-              transformation. He believes that the lessons learned at the billiards table &mdash;
-              patience, precision, strategic thinking &mdash; apply to every aspect of life.
+              {t.about.beginningsText}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8">
+          {/* Competitive rise */}
+          <div>
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.championTitle}
+            </h2>
+            <p>
+              {t.about.championText}
+            </p>
+          </div>
+
+          {/* European stage */}
+          <div>
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.europeanTitle}
+            </h2>
+            <p>
+              {t.about.europeanText1}
+            </p>
+            <p className="mt-4">
+              {t.about.europeanText2}
+            </p>
+          </div>
+
+          {/* Coaching */}
+          <div className="py-8 border-y border-gold/10">
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.coachTitle}
+            </h2>
+            <p>
+              {t.about.coachText1}
+            </p>
+            <p className="mt-4">
+              {t.about.coachText2}
+            </p>
+          </div>
+
+          {/* Traveling & competing */}
+          <div>
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.tournamentsTitle}
+            </h2>
+            <p>
+              {t.about.tournamentsText1}
+            </p>
+            <p className="mt-4">
+              {t.about.tournamentsText2}
+            </p>
+            <p className="mt-4">
+              {t.about.tournamentsText3}
+            </p>
+          </div>
+
+          {/* Today */}
+          <div>
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.backTitle}
+            </h2>
+            <p>
+              {t.about.backText}
+            </p>
+          </div>
+
+          {/* Teaching & Content */}
+          <div>
+            <h2 className="font-heading text-2xl text-cream mb-4">
+              {t.about.sharingTitle}
+            </h2>
+            <p>
+              {t.about.sharingText1}{" "}
+              <a href="https://youtube.com/@komninakis" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors underline underline-offset-2">
+                {t.about.sharingYouTube}
+              </a>{" "}
+              {t.about.sharingText2}{" "}
+              <a href="https://tiktok.com/@marioskomninakis" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors underline underline-offset-2">
+                {t.about.sharingTikTok}
+              </a>
+              {t.about.sharingText3}
+            </p>
+            <p className="mt-4">
+              {t.about.sharingText4}{" "}
+              <a href="https://instagram.com/komninakis.m" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors underline underline-offset-2">
+                {t.about.sharingInstagram}
+              </a>
+              ,{" "}
+              <a href="https://facebook.com/komni91" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors underline underline-offset-2">
+                {t.about.sharingFacebook}
+              </a>
+              , and{" "}
+              <a href="https://medium.com/@marioskomninakis" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors underline underline-offset-2">
+                {t.about.sharingMedium}
+              </a>{" "}
+              {t.about.sharingText5}
+            </p>
+          </div>
+
+          {/* 9BallShop */}
+          <div className="py-8 border-y border-gold/10">
+            <h2 className="font-heading text-2xl text-cream mb-4">{t.about.visionTitle}</h2>
+            <p>
+              {t.about.visionText}
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-8">
             <div className="bg-navy-light border border-gold/10 rounded-lg p-6 text-center">
-              <p className="text-gold font-heading text-3xl mb-2">15+</p>
-              <p className="text-cream/40 text-sm uppercase tracking-wider">Years Playing</p>
+              <p className="text-gold font-heading text-3xl mb-2">20+</p>
+              <p className="text-cream/40 text-sm uppercase tracking-wider">{t.about.statYears}</p>
             </div>
             <div className="bg-navy-light border border-gold/10 rounded-lg p-6 text-center">
-              <p className="text-gold font-heading text-3xl mb-2">60+</p>
-              <p className="text-cream/40 text-sm uppercase tracking-wider">Products Curated</p>
+              <p className="text-gold font-heading text-3xl mb-2">100+</p>
+              <p className="text-cream/40 text-sm uppercase tracking-wider">{t.about.statCoached}</p>
             </div>
             <div className="bg-navy-light border border-gold/10 rounded-lg p-6 text-center">
-              <p className="text-gold font-heading text-3xl mb-2">7</p>
-              <p className="text-cream/40 text-sm uppercase tracking-wider">Articles Published</p>
+              <p className="text-gold font-heading text-3xl mb-2">20+</p>
+              <p className="text-cream/40 text-sm uppercase tracking-wider">{t.about.statCountries}</p>
+            </div>
+            <div className="bg-navy-light border border-gold/10 rounded-lg p-6 text-center">
+              <p className="text-gold font-heading text-3xl mb-2">2x</p>
+              <p className="text-cream/40 text-sm uppercase tracking-wider">{t.about.statChampion}</p>
             </div>
           </div>
 
+          {/* Connect */}
           <div className="text-center pt-8">
-            <h2 className="font-heading text-2xl text-cream mb-6">Connect with Marios</h2>
+            <h2 className="font-heading text-2xl text-cream mb-6">{t.about.connectTitle}</h2>
             <div className="flex gap-4 justify-center flex-wrap">
               <a
                 href="https://facebook.com/komni91"
@@ -118,7 +212,7 @@ export default function AboutPage() {
                 href="/blog"
                 className="bg-gold hover:bg-gold-light text-navy font-semibold px-6 py-3 rounded transition-colors text-sm uppercase tracking-wider"
               >
-                Read Blog
+                {t.about.readBlog}
               </Link>
             </div>
           </div>

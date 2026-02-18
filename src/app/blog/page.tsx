@@ -1,5 +1,6 @@
 import { getPrisma } from "@/lib/prisma";
 import BlogCard from "@/components/BlogCard";
+import T from "@/components/T";
 
 export default async function BlogPage() {
   const prisma = await getPrisma();
@@ -11,10 +12,10 @@ export default async function BlogPage() {
     <div className="bg-navy min-h-screen">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">Insights & Stories</p>
-          <h1 className="font-heading text-4xl md:text-5xl text-cream">Blog</h1>
+          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3"><T k="blog.subtitle" /></p>
+          <h1 className="font-heading text-4xl md:text-5xl text-cream"><T k="blog.title" /></h1>
           <p className="text-cream/50 mt-4 max-w-2xl mx-auto">
-            Thoughts on billiards, performance, discipline, and the journey from Greece to America.
+            <T k="blog.description" />
           </p>
         </div>
 
@@ -25,6 +26,7 @@ export default async function BlogPage() {
               title={post.title}
               slug={post.slug}
               excerpt={post.excerpt}
+              coverImage={post.coverImage}
               publishedAt={post.publishedAt}
               tags={post.tags}
             />

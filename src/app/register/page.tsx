@@ -4,11 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const { register } = useAuth();
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,17 +23,17 @@ export default function RegisterPage() {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t.register.passwordsMismatch);
       return;
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError(t.register.passwordTooShort);
       return;
     }
 
     setSubmitting(true);
-    const err = await register(email, password, name);
+    const err = await register(email, password, name, phone);
     setSubmitting(false);
 
     if (err) {
@@ -44,7 +47,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-navy flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <h1 className="font-heading text-3xl text-gold text-center mb-8">
-          Create Account
+          {t.register.title}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -56,7 +59,7 @@ export default function RegisterPage() {
 
           <div>
             <label htmlFor="name" className="block text-cream/70 text-sm mb-1">
-              Name
+              {t.register.name}
             </label>
             <input
               id="name"
@@ -69,11 +72,25 @@ export default function RegisterPage() {
           </div>
 
           <div>
+            <label htmlFor="phone" className="block text-cream/70 text-sm mb-1">
+              {t.register.phone}
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full bg-navy-light border border-gold/10 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40"
+              placeholder="+30 694 123 4567"
+            />
+          </div>
+
+          <div>
             <label
               htmlFor="email"
               className="block text-cream/70 text-sm mb-1"
             >
-              Email *
+              {t.register.email}
             </label>
             <input
               id="email"
@@ -91,7 +108,7 @@ export default function RegisterPage() {
               htmlFor="password"
               className="block text-cream/70 text-sm mb-1"
             >
-              Password *
+              {t.register.password}
             </label>
             <input
               id="password"
@@ -109,7 +126,7 @@ export default function RegisterPage() {
               htmlFor="confirmPassword"
               className="block text-cream/70 text-sm mb-1"
             >
-              Confirm Password *
+              {t.register.confirmPassword}
             </label>
             <input
               id="confirmPassword"
@@ -127,14 +144,14 @@ export default function RegisterPage() {
             disabled={submitting}
             className="w-full bg-gold text-navy font-heading font-bold py-3 rounded-lg hover:bg-gold/90 transition-colors disabled:opacity-50"
           >
-            {submitting ? "Creating Account..." : "Create Account"}
+            {submitting ? t.register.submitting : t.register.submit}
           </button>
         </form>
 
         <p className="text-center text-cream/50 text-sm mt-6">
-          Already have an account?{" "}
+          {t.register.hasAccount}{" "}
           <Link href="/login" className="text-gold hover:underline">
-            Log in
+            {t.register.logIn}
           </Link>
         </p>
       </div>

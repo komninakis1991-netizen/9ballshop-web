@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/components/LanguageProvider";
 
 interface ProductCardProps {
   name: string;
@@ -11,6 +14,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ name, slug, price, currency, category, brand, images }: ProductCardProps) {
+  const { t } = useLanguage();
   const imageList: string[] = images ? JSON.parse(images) : [];
   const hasImage = imageList.length > 0 && imageList[0].startsWith("http");
 
@@ -29,7 +33,7 @@ export default function ProductCard({ name, slug, price, currency, category, bra
         ) : (
           <div className="text-center p-8">
             <p className="text-gold/60 text-xs uppercase tracking-widest mb-2">{brand}</p>
-            <p className="text-cream/40 font-heading text-lg">{category}</p>
+            <p className="text-cream/40 font-heading text-lg">{t.categories[category] || category}</p>
           </div>
         )}
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/components/LanguageProvider";
 
 interface CartProduct {
   id: number;
@@ -17,6 +18,7 @@ interface CartItem extends CartProduct {
 
 export default function AddToCartButton({ product }: { product: CartProduct }) {
   const [added, setAdded] = useState(false);
+  const { t } = useLanguage();
 
   const addToCart = () => {
     const raw = localStorage.getItem("9ballshop-cart");
@@ -43,7 +45,7 @@ export default function AddToCartButton({ product }: { product: CartProduct }) {
           : "bg-gold hover:bg-gold-light text-navy"
       }`}
     >
-      {added ? "Added to Cart!" : "Add to Cart"}
+      {added ? t.addToCart.added : t.addToCart.add}
     </button>
   );
 }

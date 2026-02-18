@@ -19,6 +19,7 @@ type User = {
   addressPostalCode: string;
   addressCountry: string;
   stripeCustomerId: string;
+  isAdmin: boolean;
 };
 
 type AuthContextType = {
@@ -29,6 +30,7 @@ type AuthContextType = {
     email: string,
     password: string,
     name: string,
+    phone: string,
   ) => Promise<string | null>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -77,11 +79,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     email: string,
     password: string,
     name: string,
+    phone: string,
   ): Promise<string | null> => {
     const res = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, name, phone }),
     });
     const data = await res.json();
     if (!res.ok) return data.error;

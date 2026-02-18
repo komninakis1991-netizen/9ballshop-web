@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductCard from "@/components/ProductCard";
+import ProductGallery from "@/components/ProductGallery";
+import { categoryLabel } from "@/lib/categories";
+import T from "@/components/T";
 
 export async function generateStaticParams() {
   const prisma = await getPrisma();
@@ -31,25 +34,25 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}
         <nav className="mb-8 text-sm">
-          <Link href="/shop" className="text-cream/40 hover:text-gold transition-colors">Shop</Link>
+          <Link href="/shop" className="text-cream/40 hover:text-gold transition-colors"><T k="nav.shop" /></Link>
           <span className="text-cream/20 mx-2">/</span>
-          <span className="text-cream/60">{product.category}</span>
+          <Link href={`/shop/category/${product.category}`} className="text-cream/60 hover:text-gold transition-colors">{categoryLabel(product.category)}</Link>
           <span className="text-cream/20 mx-2">/</span>
           <span className="text-cream/80">{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div className="aspect-square bg-navy-light border border-gold/10 rounded-lg flex items-center justify-center overflow-hidden">
-            {hasImage ? (
-              <img src={imageList[0]} alt={product.name} className="w-full h-full object-cover" />
-            ) : (
+          {/* Product Images */}
+          {hasImage ? (
+            <ProductGallery images={imageList} name={product.name} />
+          ) : (
+            <div className="aspect-square bg-navy-light border border-gold/10 rounded-lg flex items-center justify-center">
               <div className="text-center">
                 <p className="text-gold/40 font-heading text-6xl mb-4">9</p>
                 <p className="text-cream/30 text-sm uppercase tracking-widest">{product.brand}</p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Product Details */}
           <div>
@@ -62,15 +65,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <p className="text-cream/70 leading-relaxed">{product.description}</p>
             </div>
             <div className="flex gap-4 items-center mb-6">
-              <span className="text-cream/40 text-sm">Category:</span>
-              <Link href={`/shop?category=${product.category}`} className="text-gold/80 hover:text-gold text-sm transition-colors">
-                {product.category}
+              <span className="text-cream/40 text-sm"><T k="product.category" /></span>
+              <Link href={`/shop/category/${product.category}`} className="text-gold/80 hover:text-gold text-sm transition-colors">
+                {categoryLabel(product.category)}
               </Link>
             </div>
             <div className="flex gap-4 items-center mb-8">
-              <span className="text-cream/40 text-sm">Availability:</span>
+              <span className="text-cream/40 text-sm"><T k="product.availability" /></span>
               <span className={`text-sm ${product.inStock ? "text-emerald" : "text-red-400"}`}>
-                {product.inStock ? "In Stock" : "Out of Stock"}
+                {product.inStock ? <T k="product.inStock" /> : <T k="product.outOfStock" />}
               </span>
             </div>
 
@@ -90,7 +93,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         {/* Related Products */}
         {related.length > 0 && (
           <div className="mt-20">
-            <h2 className="font-heading text-2xl text-cream mb-8">Related Products</h2>
+            <h2 className="font-heading text-2xl text-cream mb-8"><T k="product.relatedProducts" /></h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {related.map((p) => (
                 <ProductCard

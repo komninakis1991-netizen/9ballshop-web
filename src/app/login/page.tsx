@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-navy flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <h1 className="font-heading text-3xl text-gold text-center mb-8">
-          Log In
+          {t.login.title}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -47,7 +49,7 @@ export default function LoginPage() {
               htmlFor="email"
               className="block text-cream/70 text-sm mb-1"
             >
-              Email
+              {t.login.email}
             </label>
             <input
               id="email"
@@ -65,7 +67,7 @@ export default function LoginPage() {
               htmlFor="password"
               className="block text-cream/70 text-sm mb-1"
             >
-              Password
+              {t.login.password}
             </label>
             <input
               id="password"
@@ -83,14 +85,14 @@ export default function LoginPage() {
             disabled={submitting}
             className="w-full bg-gold text-navy font-heading font-bold py-3 rounded-lg hover:bg-gold/90 transition-colors disabled:opacity-50"
           >
-            {submitting ? "Logging in..." : "Log In"}
+            {submitting ? t.login.submitting : t.login.submit}
           </button>
         </form>
 
         <p className="text-center text-cream/50 text-sm mt-6">
-          Don&apos;t have an account?{" "}
+          {t.login.noAccount}{" "}
           <Link href="/register" className="text-gold hover:underline">
-            Create one
+            {t.login.createOne}
           </Link>
         </p>
       </div>

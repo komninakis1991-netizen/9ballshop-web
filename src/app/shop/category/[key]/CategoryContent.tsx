@@ -1,8 +1,9 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useMemo, Suspense } from "react";
+import { useState, useMemo } from "react";
+import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import { useLanguage } from "@/components/LanguageProvider";
 
 interface Product {
   id: number;
@@ -16,31 +17,24 @@ interface Product {
   inStock: boolean;
 }
 
-const CATEGORIES = [
-  "Cues",
-  "Shafts",
-  "Balls",
-  "Gloves",
-  "Cases",
-  "Tables",
-  "Accessories",
-  "Apparel",
-];
+export default function CategoryContent({
+  categoryKey,
+  categoryLabel,
+  products,
+}: {
+  categoryKey: string;
+  categoryLabel: string;
+  products: Product[];
+}) {
+  const { t } = useLanguage();
 
-const SORT_OPTIONS = [
-  { label: "Newest", value: "newest" },
-  { label: "Price: Low to High", value: "price-asc" },
-  { label: "Price: High to Low", value: "price-desc" },
-  { label: "Name: A-Z", value: "name-asc" },
-];
+  const sortOptions = [
+    { label: t.category.sortNewest, value: "newest" },
+    { label: t.category.sortPriceAsc, value: "price-asc" },
+    { label: t.category.sortPriceDesc, value: "price-desc" },
+    { label: t.category.sortNameAsc, value: "name-asc" },
+  ];
 
-function ShopFilters({ products }: { products: Product[] }) {
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get("category");
-
-  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
-    () => (categoryParam ? new Set([categoryParam]) : new Set()),
-  );
   const [selectedBrands, setSelectedBrands] = useState<Set<string>>(new Set());
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
@@ -48,73 +42,35 @@ function ShopFilters({ products }: { products: Product[] }) {
   const [sortBy, setSortBy] = useState("newest");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  // Sync URL param on change
-  useEffect(() => {
-    if (categoryParam) {
-      setSelectedCategories(new Set([categoryParam]));
-    }
-  }, [categoryParam]);
-
-  // Derive available brands from products (sorted alphabetically)
   const allBrands = useMemo(() => {
     const brands = new Set(products.map((p) => p.brand));
     return Array.from(brands).sort((a, b) => a.localeCompare(b));
   }, [products]);
 
-  // Price bounds for display
   const priceBounds = useMemo(() => {
+    if (products.length === 0) return { min: 0, max: 0 };
     const prices = products.map((p) => p.price);
     return { min: Math.min(...prices), max: Math.max(...prices) };
   }, [products]);
 
-  // Derive counts per category (from full product list)
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    for (const cat of CATEGORIES) {
-      counts[cat] = products.filter((p) => p.category === cat).length;
-    }
-    return counts;
-  }, [products]);
-
-  // Derive counts per brand (filtered by selected categories)
   const brandCounts = useMemo(() => {
-    const categoryFiltered =
-      selectedCategories.size === 0
-        ? products
-        : products.filter((p) => selectedCategories.has(p.category));
     const counts: Record<string, number> = {};
     for (const brand of allBrands) {
-      counts[brand] = categoryFiltered.filter((p) => p.brand === brand).length;
+      counts[brand] = products.filter((p) => p.brand === brand).length;
     }
     return counts;
-  }, [products, allBrands, selectedCategories]);
-
-  const toggleCategory = (cat: string) => {
-    setSelectedCategories((prev) => {
-      const next = new Set(prev);
-      if (next.has(cat)) {
-        next.delete(cat);
-      } else {
-        next.add(cat);
-      }
-      return next;
-    });
-  };
+  }, [products, allBrands]);
 
   const toggleBrand = (brand: string) => {
     setSelectedBrands((prev) => {
       const next = new Set(prev);
-      if (next.has(brand)) {
-        next.delete(brand);
-      } else {
-        next.add(brand);
-      }
+      if (next.has(brand)) next.delete(brand);
+      else next.add(brand);
       return next;
     });
   };
 
   const clearAll = () => {
-    setSelectedCategories(new Set());
     setSelectedBrands(new Set());
     setPriceMin("");
     setPriceMax("");
@@ -122,19 +78,14 @@ function ShopFilters({ products }: { products: Product[] }) {
   };
 
   const hasActiveFilters =
-    selectedCategories.size > 0 ||
     selectedBrands.size > 0 ||
     priceMin !== "" ||
     priceMax !== "" ||
     inStockOnly;
 
-  // Filter + sort
   const results = useMemo(() => {
     let filtered = products;
 
-    if (selectedCategories.size > 0) {
-      filtered = filtered.filter((p) => selectedCategories.has(p.category));
-    }
     if (selectedBrands.size > 0) {
       filtered = filtered.filter((p) => selectedBrands.has(p.brand));
     }
@@ -162,48 +113,14 @@ function ShopFilters({ products }: { products: Product[] }) {
           return 0;
       }
     });
-  }, [
-    products,
-    selectedCategories,
-    selectedBrands,
-    priceMin,
-    priceMax,
-    inStockOnly,
-    sortBy,
-  ]);
+  }, [products, selectedBrands, priceMin, priceMax, inStockOnly, sortBy]);
 
   const filterPanel = (
     <div className="space-y-6">
-      {/* Categories */}
-      <div>
-        <h3 className="text-cream font-heading text-sm uppercase tracking-widest mb-3">
-          Category
-        </h3>
-        <div className="space-y-1.5">
-          {CATEGORIES.map((cat) => (
-            <label
-              key={cat}
-              className="flex items-center gap-2.5 cursor-pointer group"
-            >
-              <input
-                type="checkbox"
-                checked={selectedCategories.has(cat)}
-                onChange={() => toggleCategory(cat)}
-                className="w-4 h-4 rounded border-gold/30 bg-navy text-gold accent-gold focus:ring-gold/30"
-              />
-              <span className="text-cream/70 text-sm group-hover:text-cream transition-colors flex-1">
-                {cat}
-              </span>
-              <span className="text-cream/30 text-xs">{categoryCounts[cat]}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
       {/* Brands */}
       <div>
         <h3 className="text-cream font-heading text-sm uppercase tracking-widest mb-3">
-          Brand
+          {t.category.brand}
         </h3>
         <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
           {allBrands.map((brand) => (
@@ -229,7 +146,7 @@ function ShopFilters({ products }: { products: Product[] }) {
       {/* Price Range */}
       <div>
         <h3 className="text-cream font-heading text-sm uppercase tracking-widest mb-3">
-          Price Range
+          {t.category.priceRange}
         </h3>
         <p className="text-cream/30 text-xs mb-2">
           &euro;{priceBounds.min.toFixed(0)} &ndash; &euro;{priceBounds.max.toFixed(0)}
@@ -265,7 +182,7 @@ function ShopFilters({ products }: { products: Product[] }) {
             className="w-4 h-4 rounded border-gold/30 bg-navy text-gold accent-gold focus:ring-gold/30"
           />
           <span className="text-cream/70 text-sm group-hover:text-cream transition-colors">
-            In Stock Only
+            {t.category.inStockOnly}
           </span>
         </label>
       </div>
@@ -276,7 +193,7 @@ function ShopFilters({ products }: { products: Product[] }) {
           onClick={clearAll}
           className="text-gold/70 hover:text-gold text-xs uppercase tracking-wider transition-colors"
         >
-          Clear All Filters
+          {t.category.clearAll}
         </button>
       )}
     </div>
@@ -285,12 +202,21 @@ function ShopFilters({ products }: { products: Product[] }) {
   return (
     <div className="bg-navy min-h-screen">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Breadcrumb */}
+        <nav className="mb-6 text-sm">
+          <Link href="/shop" className="text-cream/40 hover:text-gold transition-colors">
+            {t.nav.shop}
+          </Link>
+          <span className="text-cream/20 mx-2">/</span>
+          <span className="text-cream/80">{t.categories[categoryKey] || categoryLabel}</span>
+        </nav>
+
         <div className="text-center mb-12">
           <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">
-            Browse Collection
+            {t.category.subtitle}
           </p>
           <h1 className="font-heading text-4xl md:text-5xl text-cream">
-            Shop
+            {t.categories[categoryKey] || categoryLabel}
           </h1>
         </div>
 
@@ -321,11 +247,10 @@ function ShopFilters({ products }: { products: Product[] }) {
                   d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
                 />
               </svg>
-              Filters
+              {t.category.filters}
               {hasActiveFilters && (
                 <span className="bg-gold text-navy text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {selectedCategories.size +
-                    selectedBrands.size +
+                  {selectedBrands.size +
                     (priceMin !== "" || priceMax !== "" ? 1 : 0) +
                     (inStockOnly ? 1 : 0)}
                 </span>
@@ -343,14 +268,14 @@ function ShopFilters({ products }: { products: Product[] }) {
             {/* Sort bar */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-cream/40 text-sm">
-                {results.length} product{results.length !== 1 ? "s" : ""}
+                {results.length} {results.length !== 1 ? t.shop.productCountPlural : t.shop.productCount}
               </p>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="bg-navy-light border border-gold/20 text-cream/80 text-sm rounded px-3 py-2 focus:outline-none focus:border-gold/50"
               >
-                {SORT_OPTIONS.map((opt) => (
+                {sortOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
                   </option>
@@ -362,14 +287,14 @@ function ShopFilters({ products }: { products: Product[] }) {
             {results.length === 0 ? (
               <div className="text-center py-20">
                 <p className="text-cream/40 mb-3">
-                  No products match your filters.
+                  {t.category.noResults}
                 </p>
                 {hasActiveFilters && (
                   <button
                     onClick={clearAll}
                     className="text-gold text-sm hover:underline"
                   >
-                    Clear all filters
+                    {t.category.clearAllLower}
                   </button>
                 )}
               </div>
@@ -393,19 +318,5 @@ function ShopFilters({ products }: { products: Product[] }) {
         </div>
       </section>
     </div>
-  );
-}
-
-export default function ShopContent({ products }: { products: Product[] }) {
-  return (
-    <Suspense
-      fallback={
-        <div className="bg-navy min-h-screen flex items-center justify-center">
-          <p className="text-cream/40">Loading...</p>
-        </div>
-      }
-    >
-      <ShopFilters products={products} />
-    </Suspense>
   );
 }

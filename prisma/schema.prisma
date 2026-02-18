@@ -47,5 +47,28 @@ model User {
   addressPostalCode String   @default("")
   addressCountry    String   @default("")
   stripeCustomerId  String   @default("")
+  isAdmin           Boolean  @default(false)
   createdAt         DateTime @default(now())
+  orders            Order[]
+}
+
+model Order {
+  id                     Int      @id @default(autoincrement())
+  userId                 Int?
+  user                   User?    @relation(fields: [userId], references: [id])
+  stripeSessionId        String   @unique
+  stripePaymentIntentId  String   @default("")
+  status                 String   @default("paid")
+  items                  String   @default("[]")
+  subtotal               Float    @default(0)
+  shippingCost           Float    @default(0)
+  total                  Float    @default(0)
+  customerEmail          String   @default("")
+  shippingName           String   @default("")
+  shippingPhone          String   @default("")
+  shippingStreet         String   @default("")
+  shippingCity           String   @default("")
+  shippingPostalCode     String   @default("")
+  shippingCountry        String   @default("")
+  createdAt              DateTime @default(now())
 }
