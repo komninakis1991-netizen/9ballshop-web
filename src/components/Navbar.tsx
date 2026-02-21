@@ -76,6 +76,9 @@ export default function Navbar() {
             <Link href="/custom-jerseys" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.customJerseys}
             </Link>
+            <Link href="/members" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              {t.nav.members}
+            </Link>
             <Link
               href="/cart"
               className="relative text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
@@ -128,6 +131,9 @@ export default function Navbar() {
             </Link>
             <Link href="/custom-jerseys" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.customJerseys}
+            </Link>
+            <Link href="/members" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              {t.nav.members}
             </Link>
             <Link href="/cart" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.cart}

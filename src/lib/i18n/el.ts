@@ -11,6 +11,7 @@ const el = {
     login: "Σύνδεση",
     collaborate: "Συνεργασία",
     customJerseys: "Custom Φανέλες",
+    members: "Μέλη",
   },
 
   // Footer
@@ -459,6 +460,87 @@ const el = {
       "Δεν ξέρετε από πού να ξεκινήσετε; Επικοινωνήστε μαζί μας και θα σας βοηθήσουμε να δημιουργήσετε την τέλεια φανέλα.",
     contactInstagram: "Μήνυμα στο Instagram",
     contactEmail: "Στείλτε Email",
+  },
+
+  // Members / Forum
+  members: {
+    // Preview page
+    heroTitle: "Γίνε Μέλος του Inner Circle",
+    heroSubtitle: "Μια αποκλειστική κοινότητα για σοβαρούς παίκτες μπιλιάρδου. Συζητήσεις στρατηγικής, κριτικές εξοπλισμού, άμεση πρόσβαση στον Μάριο, και πολλά ακόμα.",
+    // Category names
+    categoryStrategy: "Στρατηγική & Pattern Play",
+    categoryTechnique: "Τεχνική & Βασικές Αρχές",
+    categoryGearReviews: "Κριτικές & Προτάσεις Εξοπλισμού",
+    categoryTrainingDrills: "Ασκήσεις & Προπόνηση",
+    categoryMentalGame: "Mental Game & Ψυχολογία",
+    categoryCoaching: "Γωνιά Προπόνησης",
+    categoryMatchAnalysis: "Ανάλυση Αγώνων",
+    categoryTournamentTalk: "Συζητήσεις Τουρνουά",
+    categoryTableMaintenance: "Συντήρηση Τραπεζιού & Εξοπλισμού",
+    categoryOffTopic: "Εκτός Θέματος & Lounge",
+    // What You Get
+    whatYouGetTitle: "Τι Αποκτάς",
+    benefitDiscussionsTitle: "Αποκλειστικές Συζητήσεις",
+    benefitDiscussionsText: "Πρόσβαση σε 10 κατηγορίες forum που καλύπτουν κάθε πτυχή του αγωνιστικού μπιλιάρδου — από αναλύσεις στρατηγικής μέχρι κριτικές εξοπλισμού.",
+    benefitAccessTitle: "Άμεση Πρόσβαση στον Μάριο",
+    benefitAccessText: "Κάνε ερωτήσεις, λάβε feedback για το παιχνίδι σου και αλληλεπίδρασε απευθείας με τον Μάριο Κομνηνάκη σε μια ιδιωτική κοινότητα.",
+    benefitCommunityTitle: "Ιδιωτική Κοινότητα",
+    benefitCommunityText: "Σύνδεσμος με ομοϊδεάτες παίκτες που ενδιαφέρονται σοβαρά για τη βελτίωση. Μοιραστείτε εμπειρίες, γιορτάστε νίκες και εξελιχθείτε μαζί.",
+    // Pricing
+    pricingTitle: "Συνδρομή",
+    pricingPrice: "€20",
+    pricingPeriod: "/μήνα",
+    pricingFeature1: "Πρόσβαση σε όλες τις 10 κατηγορίες forum",
+    pricingFeature2: "Άμεση αλληλεπίδραση με τον Μάριο",
+    pricingFeature3: "Δημοσίευση συζητήσεων & ερωτήσεων",
+    pricingFeature4: "Κοινότητα σοβαρών παικτών",
+    pricingFeature5: "Νέο περιεχόμενο & συζητήσεις καθημερινά",
+    ctaJoin: "Εγγραφή Τώρα",
+    ctaLogin: "Σύνδεση για Εγγραφή",
+    ctaEnterForum: "Είσοδος στο Forum",
+    // Contact
+    contactTitle: "Ερωτήσεις;",
+    contactText: "Δεν είστε σίγουροι αν η συνδρομή είναι κατάλληλη για εσάς; Επικοινωνήστε μαζί μας.",
+    contactInstagram: "Μήνυμα στο Instagram",
+    contactEmail: "Στείλτε Email",
+    // Forum UI
+    forumTitle: "Forum Μελών",
+    forumSubtitle: "Καλώς ήρθατε στην κοινότητα",
+    postsCount: "δημοσιεύσεις",
+    latestPost: "Τελευταία:",
+    noPosts: "Δεν υπάρχουν δημοσιεύσεις ακόμα. Γίνε ο πρώτος!",
+    newPost: "Νέα Δημοσίευση",
+    backToForum: "Πίσω στο Forum",
+    backToCategory: "Πίσω στην Κατηγορία",
+    postTitle: "Τίτλος",
+    postContent: "Περιεχόμενο",
+    postTitlePlaceholder: "Τι σκέφτεσαι;",
+    postContentPlaceholder: "Μοιράσου τις σκέψεις, ερωτήσεις ή insights σου...",
+    submitPost: "Δημοσίευση",
+    submittingPost: "Δημοσίευση...",
+    comments: "Σχόλια",
+    noComments: "Δεν υπάρχουν σχόλια ακόμα. Ξεκίνα τη συζήτηση!",
+    addComment: "Προσθήκη Σχολίου",
+    commentPlaceholder: "Γράψε το σχόλιό σου...",
+    submitComment: "Σχόλιο",
+    submittingComment: "Δημοσίευση...",
+    postedBy: "από",
+    memberSince: "Μέλος από",
+    // Video
+    videoUrl: "URL Βίντεο",
+    videoUrlPlaceholder: "Επικόλλησε link YouTube ή Vimeo (προαιρετικό)",
+    // Navigation
+    recentActivity: "Πρόσφατη Δραστηριότητα",
+    allCategories: "Όλες οι Κατηγορίες",
+    // Relative time
+    justNow: "μόλις τώρα",
+    minutesAgo: "{n} λεπτά πριν",
+    hoursAgo: "{n} ώρες πριν",
+    daysAgo: "{n} μέρες πριν",
+    // Status messages
+    subscriptionSuccess: "Καλώς ήρθες! Η συνδρομή σου είναι πλέον ενεργή.",
+    membershipRequired: "Χρειάζεσαι ενεργή συνδρομή για πρόσβαση στο forum.",
+    loadingForum: "Φόρτωση forum...",
   },
 
   // Category labels

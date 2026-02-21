@@ -35,7 +35,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const stripe = new Stripe(secretKey);
+  const stripe = new Stripe(secretKey, {
+    httpClient: Stripe.createFetchHttpClient(),
+  });
 
   try {
     const { items, shippingAddress, shippingCost } = (await request.json()) as {

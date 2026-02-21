@@ -42,7 +42,9 @@ export async function POST(request: NextRequest) {
     let stripeCustomerId = "";
     const secretKey = process.env.STRIPE_SECRET_KEY;
     if (secretKey) {
-      const stripe = new Stripe(secretKey);
+      const stripe = new Stripe(secretKey, {
+        httpClient: Stripe.createFetchHttpClient(),
+      });
       const customer = await stripe.customers.create({
         email,
         name: name || undefined,

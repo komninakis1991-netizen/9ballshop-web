@@ -13,6 +13,9 @@ export type SafeUser = {
   addressCountry: string;
   stripeCustomerId: string;
   isAdmin: boolean;
+  membershipStatus: string;
+  membershipExpiresAt: Date | null;
+  stripeSubscriptionId: string;
   createdAt: Date;
 };
 
@@ -37,6 +40,9 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
       addressCountry: true,
       stripeCustomerId: true,
       isAdmin: true,
+      membershipStatus: true,
+      membershipExpiresAt: true,
+      stripeSubscriptionId: true,
       createdAt: true,
     },
   });

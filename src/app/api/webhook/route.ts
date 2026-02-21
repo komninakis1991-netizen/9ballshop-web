@@ -14,7 +14,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const stripe = new Stripe(secretKey);
+  const stripe = new Stripe(secretKey, {
+    httpClient: Stripe.createFetchHttpClient(),
+  });
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
 
@@ -34,9 +36,36 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
-    await handleCheckoutCompleted(stripe, session);
+  switch (event.type) {
+    case "checkout.session.completed": {
+      const session = event.data.object as Stripe.Checkout.Session;
+      if (session.metadata?.type === "membership") {
+        await handleMembershipCheckout(session);
+      } else {
+        await handleCheckoutCompleted(stripe, session);
+      }
+      break;
+    }
+    case "customer.subscription.updated": {
+      const subscription = event.data.object as Stripe.Subscription;
+      await handleSubscriptionUpdated(subscription);
+      break;
+    }
+    case "customer.subscription.deleted": {
+      const subscription = event.data.object as Stripe.Subscription;
+      await handleSubscriptionDeleted(subscription);
+      break;
+    }
+    case "invoice.payment_succeeded": {
+      const invoice = event.data.object as Stripe.Invoice;
+      await handleInvoicePaymentSucceeded(invoice);
+      break;
+    }
+    case "invoice.payment_failed": {
+      const invoice = event.data.object as Stripe.Invoice;
+      await handleInvoicePaymentFailed(invoice);
+      break;
+    }
   }
 
   return NextResponse.json({ received: true });
@@ -126,4 +155,120 @@ async function handleCheckoutCompleted(
       },
     });
   }
+}
+
+async function handleMembershipCheckout(session: Stripe.Checkout.Session) {
+  const prisma = await getPrisma();
+  const userId = session.metadata?.user_id
+    ? parseInt(session.metadata.user_id, 10)
+    : null;
+  if (!userId) return;
+
+  const subscriptionId =
+    typeof session.subscription === "string" ? session.subscription : "";
+
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 31);
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      membershipStatus: "active",
+      membershipExpiresAt: expiresAt,
+      stripeSubscriptionId: subscriptionId,
+      stripeCustomerId:
+        typeof session.customer === "string" ? session.customer : undefined,
+    },
+  });
+}
+
+async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
+  const prisma = await getPrisma();
+
+  const user = await prisma.user.findFirst({
+    where: { stripeSubscriptionId: subscription.id },
+  });
+  if (!user) return;
+
+  const statusMap: Record<string, string> = {
+    active: "active",
+    past_due: "past_due",
+    canceled: "cancelled",
+    unpaid: "past_due",
+    trialing: "active",
+    incomplete: "none",
+    incomplete_expired: "none",
+    paused: "cancelled",
+  };
+
+  const membershipStatus = statusMap[subscription.status] || "none";
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { membershipStatus },
+  });
+}
+
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  const prisma = await getPrisma();
+
+  const user = await prisma.user.findFirst({
+    where: { stripeSubscriptionId: subscription.id },
+  });
+  if (!user) return;
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      membershipStatus: "cancelled",
+    },
+  });
+}
+
+function getSubscriptionIdFromInvoice(invoice: Stripe.Invoice): string | null {
+  const sub = invoice.parent?.subscription_details?.subscription;
+  if (!sub) return null;
+  return typeof sub === "string" ? sub : sub.id;
+}
+
+async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
+  const subscriptionId = getSubscriptionIdFromInvoice(invoice);
+  if (!subscriptionId) return;
+
+  const prisma = await getPrisma();
+
+  const user = await prisma.user.findFirst({
+    where: { stripeSubscriptionId: subscriptionId },
+  });
+  if (!user) return;
+
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 31);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      membershipStatus: "active",
+      membershipExpiresAt: expiresAt,
+    },
+  });
+}
+
+async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
+  const subscriptionId = getSubscriptionIdFromInvoice(invoice);
+  if (!subscriptionId) return;
+
+  const prisma = await getPrisma();
+
+  const user = await prisma.user.findFirst({
+    where: { stripeSubscriptionId: subscriptionId },
+  });
+  if (!user) return;
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      membershipStatus: "past_due",
+    },
+  });
 }

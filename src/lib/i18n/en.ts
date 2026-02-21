@@ -11,6 +11,7 @@ const en = {
     login: "Login",
     collaborate: "Collaborate",
     customJerseys: "Custom Jerseys",
+    members: "Members",
   },
 
   // Footer
@@ -458,6 +459,87 @@ const en = {
       "Not sure where to start? Reach out and we will help you create the perfect jersey.",
     contactInstagram: "Message on Instagram",
     contactEmail: "Send an Email",
+  },
+
+  // Members / Forum
+  members: {
+    // Preview page
+    heroTitle: "Join the Inner Circle",
+    heroSubtitle: "An exclusive community for serious billiards players. Strategy discussions, gear reviews, direct access to Marios, and more.",
+    // Category names
+    categoryStrategy: "Strategy & Pattern Play",
+    categoryTechnique: "Technique & Fundamentals",
+    categoryGearReviews: "Gear Reviews & Recommendations",
+    categoryTrainingDrills: "Training Drills & Exercises",
+    categoryMentalGame: "Mental Game & Psychology",
+    categoryCoaching: "Coaching Corner",
+    categoryMatchAnalysis: "Match Analysis",
+    categoryTournamentTalk: "Tournament Talk",
+    categoryTableMaintenance: "Table & Equipment Maintenance",
+    categoryOffTopic: "Off Topic & Lounge",
+    // What You Get
+    whatYouGetTitle: "What You Get",
+    benefitDiscussionsTitle: "Exclusive Discussions",
+    benefitDiscussionsText: "Access 10 dedicated forum categories covering every aspect of competitive billiards — from strategy breakdowns to gear reviews.",
+    benefitAccessTitle: "Direct Access to Marios",
+    benefitAccessText: "Ask questions, get feedback on your game, and interact directly with Marios Komninakis in a private community setting.",
+    benefitCommunityTitle: "Private Community",
+    benefitCommunityText: "Connect with like-minded players who are serious about improving. Share experiences, celebrate wins, and grow together.",
+    // Pricing
+    pricingTitle: "Membership",
+    pricingPrice: "€20",
+    pricingPeriod: "/month",
+    pricingFeature1: "Access to all 10 forum categories",
+    pricingFeature2: "Direct interaction with Marios",
+    pricingFeature3: "Post discussions & ask questions",
+    pricingFeature4: "Community of serious players",
+    pricingFeature5: "New content & discussions daily",
+    ctaJoin: "Join Now",
+    ctaLogin: "Log In to Subscribe",
+    ctaEnterForum: "Enter Forum",
+    // Contact
+    contactTitle: "Questions?",
+    contactText: "Not sure if the membership is right for you? Reach out and let's talk.",
+    contactInstagram: "Message on Instagram",
+    contactEmail: "Send an Email",
+    // Forum UI
+    forumTitle: "Members Forum",
+    forumSubtitle: "Welcome to the community",
+    postsCount: "posts",
+    latestPost: "Latest:",
+    noPosts: "No posts yet. Be the first!",
+    newPost: "New Post",
+    backToForum: "Back to Forum",
+    backToCategory: "Back to Category",
+    postTitle: "Title",
+    postContent: "Content",
+    postTitlePlaceholder: "What's on your mind?",
+    postContentPlaceholder: "Share your thoughts, questions, or insights...",
+    submitPost: "Post",
+    submittingPost: "Posting...",
+    comments: "Comments",
+    noComments: "No comments yet. Start the conversation!",
+    addComment: "Add a Comment",
+    commentPlaceholder: "Write your comment...",
+    submitComment: "Comment",
+    submittingComment: "Posting...",
+    postedBy: "by",
+    memberSince: "Member since",
+    // Video
+    videoUrl: "Video URL",
+    videoUrlPlaceholder: "Paste a YouTube or Vimeo link (optional)",
+    // Navigation
+    recentActivity: "Recent Activity",
+    allCategories: "All Categories",
+    // Relative time
+    justNow: "just now",
+    minutesAgo: "{n} min ago",
+    hoursAgo: "{n} hours ago",
+    daysAgo: "{n} days ago",
+    // Status messages
+    subscriptionSuccess: "Welcome! Your membership is now active.",
+    membershipRequired: "You need an active membership to access the forum.",
+    loadingForum: "Loading forum...",
   },
 
   // Category labels

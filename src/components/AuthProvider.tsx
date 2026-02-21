@@ -20,6 +20,9 @@ type User = {
   addressCountry: string;
   stripeCustomerId: string;
   isAdmin: boolean;
+  membershipStatus: string;
+  membershipExpiresAt: string | null;
+  stripeSubscriptionId: string;
 };
 
 type AuthContextType = {

@@ -37,19 +37,24 @@ model BlogPost {
 }
 
 model User {
-  id                Int      @id @default(autoincrement())
-  email             String   @unique
-  passwordHash      String
-  name              String   @default("")
-  phone             String   @default("")
-  addressStreet     String   @default("")
-  addressCity       String   @default("")
-  addressPostalCode String   @default("")
-  addressCountry    String   @default("")
-  stripeCustomerId  String   @default("")
-  isAdmin           Boolean  @default(false)
-  createdAt         DateTime @default(now())
-  orders            Order[]
+  id                     Int            @id @default(autoincrement())
+  email                  String         @unique
+  passwordHash           String
+  name                   String         @default("")
+  phone                  String         @default("")
+  addressStreet          String         @default("")
+  addressCity            String         @default("")
+  addressPostalCode      String         @default("")
+  addressCountry         String         @default("")
+  stripeCustomerId       String         @default("")
+  isAdmin                Boolean        @default(false)
+  membershipStatus       String         @default("none")
+  membershipExpiresAt    DateTime?
+  stripeSubscriptionId   String         @default("")
+  createdAt              DateTime       @default(now())
+  orders                 Order[]
+  forumPosts             ForumPost[]
+  forumComments          ForumComment[]
 }
 
 model Order {
@@ -71,4 +76,33 @@ model Order {
   shippingPostalCode     String   @default("")
   shippingCountry        String   @default("")
   createdAt              DateTime @default(now())
+}
+
+model ForumPost {
+  id           Int            @id @default(autoincrement())
+  userId       Int
+  user         User           @relation(fields: [userId], references: [id])
+  categorySlug String
+  title        String
+  content      String
+  videoUrl     String         @default("")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  comments     ForumComment[]
+
+  @@index([categorySlug])
+  @@index([userId])
+}
+
+model ForumComment {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  post      ForumPost @relation(fields: [postId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([postId])
+  @@index([userId])
 }

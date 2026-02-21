@@ -50,7 +50,9 @@ export async function PUT(request: NextRequest) {
     // Sync changes to Stripe Customer
     const secretKey = process.env.STRIPE_SECRET_KEY;
     if (secretKey && updated.stripeCustomerId) {
-      const stripe = new Stripe(secretKey);
+      const stripe = new Stripe(secretKey, {
+        httpClient: Stripe.createFetchHttpClient(),
+      });
       await stripe.customers.update(updated.stripeCustomerId, {
         name: updated.name || undefined,
         phone: updated.phone || undefined,
