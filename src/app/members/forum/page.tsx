@@ -8,6 +8,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 import { FORUM_CATEGORIES } from "@/lib/forumCategories";
 import { timeAgo } from "@/lib/relativeTime";
 import UserAvatar from "@/components/forum/UserAvatar";
+import ForumChat from "@/components/forum/ForumChat";
 
 const categoryNameKeys: Record<string, string> = {
   strategy: "categoryStrategy",
@@ -120,6 +121,8 @@ function ForumHomeContent() {
           </div>
         </div>
       </section>
+
+      <ForumChat />
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

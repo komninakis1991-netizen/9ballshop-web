@@ -55,6 +55,7 @@ model User {
   orders                 Order[]
   forumPosts             ForumPost[]
   forumComments          ForumComment[]
+  chatMessages           ChatMessage[]
 }
 
 model Order {
@@ -105,4 +106,24 @@ model ForumComment {
 
   @@index([postId])
   @@index([userId])
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([userId])
+}
+
+model DiscoveryBooking {
+  id        Int      @id @default(autoincrement())
+  name      String   @default("")
+  date      String
+  time      String
+  locale    String   @default("en")
+  createdAt DateTime @default(now())
 }

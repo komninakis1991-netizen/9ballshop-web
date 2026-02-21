@@ -355,6 +355,8 @@ const en = {
       "July", "August", "September", "October", "November", "December",
     ] as string[],
     ctaDiscovery: "Ready to Improve Your Game?",
+    calendarName: "Your Name (optional)",
+    calendarNamePlaceholder: "Enter your name",
     messageCopied: "Message copied!",
   },
 
@@ -524,6 +526,17 @@ const en = {
     categoryTournamentTalk: "Tournament Talk",
     categoryTableMaintenance: "Table & Equipment Maintenance",
     categoryOffTopic: "Off Topic & Lounge",
+    // Category descriptions
+    categoryStrategyDesc: "Discuss shot selection, cue ball positioning, pattern recognition, and how to think your way through every rack.",
+    categoryTechniqueDesc: "Break down stroke mechanics, stance, grip, aiming systems, and the core skills every player needs to master.",
+    categoryGearReviewsDesc: "Share honest reviews, compare equipment, and get advice on cues, shafts, tips, cases, and accessories.",
+    categoryTrainingDrillsDesc: "Exchange practice routines, drills, and exercises designed to sharpen specific skills and track your improvement.",
+    categoryMentalGameDesc: "Explore focus, composure under pressure, pre-shot routines, and the mindset that separates good players from great ones.",
+    categoryCoachingDesc: "Ask coaching questions, share teaching methods, and discuss how to accelerate your development with structured guidance.",
+    categoryMatchAnalysisDesc: "Break down matches — your own or professional — to learn from real game situations and improve decision-making.",
+    categoryTournamentTalkDesc: "Discuss upcoming tournaments, share results, swap travel tips, and connect with players heading to the same events.",
+    categoryTableMaintenanceDesc: "Tips on cloth care, rail maintenance, ball cleaning, cue upkeep, and keeping your gear in top condition.",
+    categoryOffTopicDesc: "Relax and chat about anything — life, other sports, music, movies, or whatever's on your mind outside of pool.",
     // What You Get
     whatYouGetTitle: "What You Get",
     benefitDiscussionsTitle: "Exclusive Discussions",
@@ -587,6 +600,14 @@ const en = {
     subscriptionSuccess: "Welcome! Your membership is now active.",
     membershipRequired: "You need an active membership to access the forum.",
     loadingForum: "Loading forum...",
+    // Chat
+    chatTitle: "Members Chat",
+    chatPlaceholder: "Type a message...",
+    chatSend: "Send",
+    chatSending: "Sending...",
+    chatNoMessages: "No messages yet. Say hello!",
+    chatToggleOpen: "Open",
+    chatToggleClose: "Close",
   },
 
   // Category labels

@@ -23,6 +23,19 @@ const categoryNameKeys: Record<string, string> = {
   "off-topic": "categoryOffTopic",
 };
 
+const categoryDescKeys: Record<string, string> = {
+  strategy: "categoryStrategyDesc",
+  technique: "categoryTechniqueDesc",
+  "gear-reviews": "categoryGearReviewsDesc",
+  "training-drills": "categoryTrainingDrillsDesc",
+  "mental-game": "categoryMentalGameDesc",
+  coaching: "categoryCoachingDesc",
+  "match-analysis": "categoryMatchAnalysisDesc",
+  "tournament-talk": "categoryTournamentTalkDesc",
+  "table-maintenance": "categoryTableMaintenanceDesc",
+  "off-topic": "categoryOffTopicDesc",
+};
+
 type Post = {
   id: number;
   title: string;
@@ -83,6 +96,8 @@ export default function CategoryPage() {
   const catInfo = FORUM_CATEGORIES.find((c) => c.slug === category);
   const nameKey = categoryNameKeys[category] as keyof typeof t.members;
   const categoryName = (t.members[nameKey] as string) || category;
+  const descKey = categoryDescKeys[category] as keyof typeof t.members;
+  const categoryDesc = (t.members[descKey] as string) || "";
   const membersT = t.members as Record<string, string>;
 
   return (
@@ -97,6 +112,9 @@ export default function CategoryPage() {
             {catInfo && <span>{catInfo.icon}</span>}
             {categoryName}
           </h1>
+          {categoryDesc && (
+            <p className="text-cream/50 text-sm mt-3 max-w-xl mx-auto">{categoryDesc}</p>
+          )}
         </div>
       </section>
 
