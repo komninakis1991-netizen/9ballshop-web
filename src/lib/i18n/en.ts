@@ -335,6 +335,53 @@ const en = {
       "At the end of the lessons, the goal is for the student to have corrected all their technical errors and to have learned new shots that they will cultivate through proper training, with a new range of choices and tools that will help them develop their game much faster.",
     cta: "If you want to take your game to the next level, send me a message.",
     ctaButton: "Get in Touch",
+    bookDiscoveryCall: "Book a Free Discovery Call",
+    bookDiscoveryCallDesc:
+      "A free 15-minute video call to discuss your goals, assess your level, and see if we're a good fit.",
+    calendarTitle: "Pick a Date & Time",
+    calendarClose: "Close",
+    calendarTimeSlots: "Available Times",
+    calendarConfirm: "Confirm & Open Instagram",
+    calendarConfirmDesc:
+      "Your message will be copied to clipboard. Paste it in the Instagram chat.",
+    calendarSelectedSlot: "Selected:",
+    calendarPrefillMessage:
+      "Hi Marios! I'd like to book a free 15-min discovery call on {date} at {time}. Looking forward to it!",
+    calendarToday: "Today",
+    calendarTomorrow: "Tomorrow",
+    calendarDayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as string[],
+    calendarMonthNames: [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December",
+    ] as string[],
+    ctaDiscovery: "Ready to Improve Your Game?",
+    messageCopied: "Message copied!",
+  },
+
+  // Lessons FAQ
+  lessonsFaq: {
+    widgetTitle: "Quick Answers",
+    widgetPlaceholder: "Ask a question...",
+    askMarios: "Ask Marios on Instagram",
+    noMatch:
+      "I don't have an answer for that yet. Send me a message on Instagram and I'll get back to you!",
+    suggestedQuestions: "Suggested Questions",
+    q1: "How much do lessons cost?",
+    a1: "Pricing depends on the format (online or in-person) and number of sessions. Send me a message to discuss a plan that fits your budget.",
+    q2: "How long is a lesson?",
+    a2: "Each lesson is approximately 60 minutes. The first session may run a bit longer as I assess your current level.",
+    q3: "Where do lessons take place?",
+    a3: "Lessons are available both online (via video call) and in-person in Athens, Greece. Online lessons work great for strategy and mental game topics.",
+    q4: "Do I need my own cue?",
+    a4: "Having your own cue is recommended but not required. For in-person lessons, I can provide equipment. For online lessons, you'll need access to a table and cue.",
+    q5: "What level do I need to be?",
+    a5: "All levels are welcome — from complete beginners to competitive players. I tailor each lesson to your current skill level and goals.",
+    q6: "Can I book a trial lesson?",
+    a6: "Yes! Book a free 15-minute discovery call first. We'll discuss your goals and see if we're a good fit before committing to lessons.",
+    q7: "What will I learn?",
+    a7: "Depending on your level: technique fundamentals, shot execution, cue ball control, safety play, pattern play, break technique, and mental game strategies.",
+    q8: "How do I book?",
+    a8: "Click the 'Book a Discovery Call' button on this page to pick a date and time, or message me directly on Instagram.",
   },
 
   // Admin

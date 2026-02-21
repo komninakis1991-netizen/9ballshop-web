@@ -1,10 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
+import DiscoveryCalendar from "@/components/lessons/DiscoveryCalendar";
+import FAQChatWidget from "@/components/lessons/FAQChatWidget";
 
 export default function LessonsPage() {
   const { t } = useLanguage();
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const sections = [
     { icon: "🎯", title: t.lessons.techniqueTitle, summary: t.lessons.techniqueSummary, details: t.lessons.techniqueDetails, points: t.lessons.techniquePoints },
@@ -15,13 +19,13 @@ export default function LessonsPage() {
   return (
     <div className="bg-navy min-h-screen">
       {/* Hero */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(135,10,10,0.06)_0%,transparent_60%)]" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">
             {t.lessons.subtitle}
           </p>
-          <h1 className="font-heading text-4xl md:text-5xl text-cream mb-6">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-cream mb-6">
             {t.lessons.title}
           </h1>
           <p className="text-cream/50 text-lg mb-8">{t.lessons.intro}</p>
@@ -29,12 +33,12 @@ export default function LessonsPage() {
       </section>
 
       {/* Three Pillars */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12 sm:pb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {sections.map((section, i) => (
             <div
               key={i}
-              className="bg-navy-light border border-gold/10 rounded-lg p-8 hover:border-gold/30 transition-colors"
+              className="bg-navy-light border border-gold/10 rounded-lg p-6 sm:p-8 hover:border-gold/30 transition-colors"
             >
               <div className="text-4xl mb-4">{section.icon}</div>
               <h2 className="font-heading text-2xl text-cream mb-4">
@@ -63,7 +67,7 @@ export default function LessonsPage() {
       </section>
 
       {/* How Lessons Work */}
-      <section className="bg-navy-light py-20">
+      <section className="bg-navy-light py-12 sm:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <h2 className="font-heading text-3xl text-cream mb-10 text-center">
             {t.lessons.howTitle}
@@ -87,19 +91,38 @@ export default function LessonsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20">
+      <section className="py-12 sm:py-20">
         <div className="max-w-xl mx-auto px-4 text-center">
-          <p className="text-cream/60 text-lg mb-8">{t.lessons.cta}</p>
-          <Link
-            href="https://instagram.com/komninakis.m"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
-          >
-            {t.lessons.ctaButton}
-          </Link>
+          <h2 className="font-heading text-2xl sm:text-3xl text-cream mb-4">
+            {t.lessons.ctaDiscovery}
+          </h2>
+          <p className="text-cream/50 text-sm mb-8">
+            {t.lessons.bookDiscoveryCallDesc}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => setCalendarOpen(true)}
+              className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
+            >
+              {t.lessons.bookDiscoveryCall}
+            </button>
+            <Link
+              href="https://instagram.com/komninakis.m"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-gold/30 hover:border-gold text-cream/80 hover:text-cream font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
+            >
+              {t.lessons.ctaButton}
+            </Link>
+          </div>
         </div>
       </section>
+
+      <DiscoveryCalendar
+        open={calendarOpen}
+        onClose={() => setCalendarOpen(false)}
+      />
+      <FAQChatWidget />
     </div>
   );
 }

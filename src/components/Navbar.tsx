@@ -31,7 +31,7 @@ export default function Navbar() {
     <Link
       href="/account"
       onClick={() => setMobileOpen(false)}
-      className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
+      className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
     >
       {t.nav.account}
     </Link>
@@ -39,7 +39,7 @@ export default function Navbar() {
     <Link
       href="/login"
       onClick={() => setMobileOpen(false)}
-      className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
+      className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
     >
       {t.nav.login}
     </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
             <LanguageToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden text-cream p-2"
+              className="lg:hidden text-cream p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,32 +110,32 @@ export default function Navbar() {
 
       {mobileOpen && (
         <div className="lg:hidden bg-navy-light border-t border-gold/10">
-          <div className="px-4 py-4 space-y-3">
-            <Link href="/shop" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+          <div className="px-4 py-4 space-y-1">
+            <Link href="/shop" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.shop}
             </Link>
-            <Link href="/lessons" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/lessons" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.lessons}
             </Link>
-            <Link href="/videos" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/videos" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.videos}
             </Link>
-            <Link href="/blog" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/blog" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.blog}
             </Link>
-            <Link href="/about" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.about}
             </Link>
-            <Link href="/collaborate" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/collaborate" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.collaborate}
             </Link>
-            <Link href="/custom-jerseys" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/custom-jerseys" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.customJerseys}
             </Link>
-            <Link href="/members" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/members" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.members}
             </Link>
-            <Link href="/cart" onClick={() => setMobileOpen(false)} className="block text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+            <Link href="/cart" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.cart}
             </Link>
             {mobileAuthLink}
