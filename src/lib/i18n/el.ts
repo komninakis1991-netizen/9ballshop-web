@@ -12,6 +12,7 @@ const el = {
     collaborate: "Συνεργασία",
     customJerseys: "Custom Φανέλες",
     members: "Μέλη",
+    admin: "Admin",
   },
 
   // Footer
@@ -359,6 +360,12 @@ const el = {
     calendarName: "Το Όνομά σου (προαιρετικό)",
     calendarNamePlaceholder: "Γράψε το όνομά σου",
     messageCopied: "Το μήνυμα αντιγράφηκε!",
+    calendarEmail: "Το Email σου (προαιρετικό)",
+    calendarEmailPlaceholder: "email@example.com",
+    calendarBooked: "Κλεισμένο",
+    calendarSlotTaken: "Αυτή η ώρα μόλις κλείστηκε. Παρακαλώ διάλεξε άλλη.",
+    calendarBookingFailed: "Η κράτηση απέτυχε. Δοκίμασε ξανά.",
+    calendarSubmitting: "Κράτηση...",
   },
 
   // Lessons FAQ
@@ -400,6 +407,41 @@ const el = {
     updateStatus: "Ενημέρωση Κατάστασης",
     current: "(τρέχουσα)",
     goHome: "Αρχική",
+  },
+
+  // Admin Panel
+  adminPanel: {
+    panel: "Πίνακας Διαχείρισης",
+    dashboard: "Επισκόπηση",
+    orders: "Παραγγελίες",
+    bookings: "Κρατήσεις",
+    backToSite: "Πίσω στο Site",
+    totalOrders: "Σύνολο Παραγγελιών",
+    pendingOrders: "Εκκρεμείς Παραγγελίες",
+    totalBookings: "Σύνολο Κρατήσεων",
+    upcomingBookings: "Επερχόμενες Κρατήσεις",
+    recentActivity: "Πρόσφατη Δραστηριότητα",
+    noActivity: "Δεν υπάρχει πρόσφατη δραστηριότητα.",
+    order: "Παραγγελία",
+    booking: "Κράτηση",
+  },
+
+  // Admin Bookings
+  adminBookings: {
+    title: "Discovery Κρατήσεις",
+    totalBookings: "σύνολο κρατήσεων",
+    noBookings: "Δεν υπάρχουν κρατήσεις.",
+    upcoming: "Ενεργές",
+    past: "Παρελθόν",
+    details: "Λεπτομέρειες",
+    name: "Όνομα",
+    email: "Email",
+    date: "Ημερομηνία",
+    time: "Ώρα",
+    language: "Γλώσσα",
+    bookedOn: "Κρατήθηκε",
+    contact: "Επικοινωνία",
+    anonymous: "Ανώνυμος",
   },
 
   // Collaborate page

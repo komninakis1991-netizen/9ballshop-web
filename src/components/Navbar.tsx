@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { useLanguage } from "@/components/LanguageProvider";
 import LanguageToggle from "@/components/LanguageToggle";
@@ -10,6 +11,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, loading } = useAuth();
   const { t } = useLanguage();
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) return null;
 
   const authLink = loading ? null : user ? (
     <Link
@@ -86,6 +90,14 @@ export default function Navbar() {
               {t.nav.cart}
             </Link>
             {authLink}
+            {!loading && user?.isAdmin && (
+              <Link
+                href="/admin"
+                className="text-gold hover:text-gold-light transition-colors text-sm uppercase tracking-widest font-semibold"
+              >
+                {t.nav.admin}
+              </Link>
+            )}
           </div>
 
           {/* Language toggle + mobile hamburger — always visible */}
@@ -139,6 +151,15 @@ export default function Navbar() {
               {t.nav.cart}
             </Link>
             {mobileAuthLink}
+            {!loading && user?.isAdmin && (
+              <Link
+                href="/admin"
+                onClick={() => setMobileOpen(false)}
+                className="block py-3 text-gold hover:text-gold-light transition-colors text-sm uppercase tracking-widest font-semibold"
+              >
+                {t.nav.admin}
+              </Link>
+            )}
           </div>
         </div>
       )}

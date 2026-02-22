@@ -12,6 +12,7 @@ const en = {
     collaborate: "Collaborate",
     customJerseys: "Custom Jerseys",
     members: "Members",
+    admin: "Admin",
   },
 
   // Footer
@@ -358,6 +359,12 @@ const en = {
     calendarName: "Your Name (optional)",
     calendarNamePlaceholder: "Enter your name",
     messageCopied: "Message copied!",
+    calendarEmail: "Your Email (optional)",
+    calendarEmailPlaceholder: "your@email.com",
+    calendarBooked: "Booked",
+    calendarSlotTaken: "This time slot was just booked. Please pick another.",
+    calendarBookingFailed: "Booking failed. Please try again.",
+    calendarSubmitting: "Booking...",
   },
 
   // Lessons FAQ
@@ -399,6 +406,41 @@ const en = {
     updateStatus: "Update Status",
     current: "(current)",
     goHome: "Go Home",
+  },
+
+  // Admin Panel
+  adminPanel: {
+    panel: "Admin Panel",
+    dashboard: "Dashboard",
+    orders: "Orders",
+    bookings: "Bookings",
+    backToSite: "Back to Site",
+    totalOrders: "Total Orders",
+    pendingOrders: "Pending Orders",
+    totalBookings: "Total Bookings",
+    upcomingBookings: "Upcoming Bookings",
+    recentActivity: "Recent Activity",
+    noActivity: "No recent activity.",
+    order: "Order",
+    booking: "Booking",
+  },
+
+  // Admin Bookings
+  adminBookings: {
+    title: "Discovery Bookings",
+    totalBookings: "total bookings",
+    noBookings: "No bookings yet.",
+    upcoming: "Active",
+    past: "Past",
+    details: "Details",
+    name: "Name",
+    email: "Email",
+    date: "Date",
+    time: "Time",
+    language: "Language",
+    bookedOn: "Booked On",
+    contact: "Contact",
+    anonymous: "Anonymous",
   },
 
   // Collaborate page
