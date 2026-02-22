@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  Promise.allSettled(notifications);
+  await Promise.allSettled(notifications);
 
   return NextResponse.json({ success: true });
 }
