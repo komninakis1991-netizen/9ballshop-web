@@ -122,8 +122,12 @@ model ChatMessage {
 model DiscoveryBooking {
   id        Int      @id @default(autoincrement())
   name      String   @default("")
+  email     String   @default("")
   date      String
   time      String
   locale    String   @default("en")
+  status    String   @default("pending")
   createdAt DateTime @default(now())
+
+  @@index([date, time])
 }
