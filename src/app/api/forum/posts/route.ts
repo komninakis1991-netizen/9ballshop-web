@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
         user: { select: { id: true, name: true, email: true } },
         _count: { select: { comments: true } },
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ pinned: "desc" }, { createdAt: "desc" }],
       skip,
       take: limit,
     }),
