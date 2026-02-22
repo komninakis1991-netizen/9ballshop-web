@@ -7,6 +7,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { useLanguage } from "@/components/LanguageProvider";
 import { FORUM_CATEGORIES, isValidCategory } from "@/lib/forumCategories";
 import { timeAgo } from "@/lib/relativeTime";
+import { localized } from "@/lib/localized";
 import UserAvatar from "@/components/forum/UserAvatar";
 import CategoryBar from "@/components/forum/CategoryBar";
 
@@ -35,7 +36,9 @@ const categoryDescKeys: Record<string, string> = {
 type Post = {
   id: number;
   title: string;
+  titleEl: string;
   content: string;
+  contentEl: string;
   videoUrl?: string;
   pinned?: boolean;
   tags?: string;
@@ -52,7 +55,7 @@ function formatTime(dateString: string, t: Record<string, string>) {
 
 export default function CategoryPage() {
   const { user, loading: authLoading } = useAuth();
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
   const router = useRouter();
   const params = useParams();
   const category = params.category as string;
@@ -137,9 +140,10 @@ export default function CategoryPage() {
         ) : (
           <div className="space-y-3">
             {posts.map((post) => {
-              const snippet = post.content.length > 120
-                ? post.content.slice(0, 120) + "..."
-                : post.content;
+              const displayContent = localized(locale, post.content, post.contentEl);
+              const snippet = displayContent.length > 120
+                ? displayContent.slice(0, 120) + "..."
+                : displayContent;
               return (
                 <Link
                   key={post.id}
@@ -155,7 +159,7 @@ export default function CategoryPage() {
                             <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                           </svg>
                         )}
-                        <h3 className="text-cream font-medium truncate">{post.title}</h3>
+                        <h3 className="text-cream font-medium truncate">{localized(locale, post.title, post.titleEl)}</h3>
                         {post.videoUrl && (
                           <svg className="w-4 h-4 text-gold/50 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />

@@ -95,6 +95,8 @@ model ForumPost {
   tags         String         @default("")
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @default(now())
+  titleEl      String         @default("")
+  contentEl    String         @default("")
   comments     ForumComment[]
 
   @@index([categorySlug])

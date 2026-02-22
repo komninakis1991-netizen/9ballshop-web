@@ -22,26 +22,32 @@ export async function GET(request: NextRequest) {
 
   const where = category ? { categorySlug: category } : {};
 
-  const [posts, total] = await Promise.all([
-    prisma.forumPost.findMany({
-      where,
-      include: {
-        user: { select: { id: true, name: true, email: true } },
-        _count: { select: { comments: true } },
-      },
-      orderBy: [{ pinned: "desc" }, { createdAt: "desc" }],
-      skip,
-      take: limit,
-    }),
-    prisma.forumPost.count({ where }),
-  ]);
+  try {
+    const [posts, total] = await Promise.all([
+      prisma.forumPost.findMany({
+        where,
+        include: {
+          user: { select: { id: true, name: true, email: true } },
+          _count: { select: { comments: true } },
+        },
+        orderBy: [{ pinned: "desc" }, { createdAt: "desc" }],
+        skip,
+        take: limit,
+      }),
+      prisma.forumPost.count({ where }),
+    ]);
 
-  return NextResponse.json({
-    posts,
-    total,
-    page,
-    totalPages: Math.ceil(total / limit),
-  });
+    return NextResponse.json({
+      posts,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("Forum posts GET error:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -53,7 +59,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { categorySlug, title, content, videoUrl } = await request.json();
+  const { categorySlug, title, content, videoUrl, titleEl, contentEl } = await request.json();
 
   if (!categorySlug || !isValidCategory(categorySlug)) {
     return NextResponse.json(
@@ -85,6 +91,8 @@ export async function POST(request: NextRequest) {
       title: title.trim(),
       content: content.trim(),
       videoUrl: typeof videoUrl === "string" ? videoUrl.trim() : "",
+      titleEl: typeof titleEl === "string" ? titleEl.trim() : "",
+      contentEl: typeof contentEl === "string" ? contentEl.trim() : "",
     },
     include: {
       user: { select: { id: true, name: true, email: true } },

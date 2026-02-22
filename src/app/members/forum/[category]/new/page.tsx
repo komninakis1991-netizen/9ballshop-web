@@ -35,6 +35,8 @@ export default function NewPostPage() {
   const [selectedCategory, setSelectedCategory] = useState(paramCategory);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [titleEl, setTitleEl] = useState("");
+  const [contentEl, setContentEl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -60,6 +62,8 @@ export default function NewPostPage() {
           title,
           content,
           videoUrl: videoUrl.trim(),
+          titleEl: titleEl.trim(),
+          contentEl: contentEl.trim(),
         }),
       });
 
@@ -155,6 +159,30 @@ export default function NewPostPage() {
               onChange={(e) => setContent(e.target.value)}
               placeholder={t.members.postContentPlaceholder}
               required
+              rows={10}
+              className="w-full bg-navy-light border border-gold/10 rounded px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40 transition-colors resize-y"
+            />
+          </div>
+
+          {/* Greek Title (optional) */}
+          <div>
+            <label className="block text-cream/70 text-sm mb-2">{t.members.postTitleEl}</label>
+            <input
+              type="text"
+              value={titleEl}
+              onChange={(e) => setTitleEl(e.target.value)}
+              placeholder={t.members.postTitleElPlaceholder}
+              className="w-full bg-navy-light border border-gold/10 rounded px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40 transition-colors"
+            />
+          </div>
+
+          {/* Greek Content (optional) */}
+          <div>
+            <label className="block text-cream/70 text-sm mb-2">{t.members.postContentEl}</label>
+            <textarea
+              value={contentEl}
+              onChange={(e) => setContentEl(e.target.value)}
+              placeholder={t.members.postContentElPlaceholder}
               rows={10}
               className="w-full bg-navy-light border border-gold/10 rounded px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40 transition-colors resize-y"
             />

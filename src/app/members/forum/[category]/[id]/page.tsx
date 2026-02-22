@@ -7,6 +7,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { useLanguage } from "@/components/LanguageProvider";
 import { FORUM_CATEGORIES } from "@/lib/forumCategories";
 import { timeAgo } from "@/lib/relativeTime";
+import { localized } from "@/lib/localized";
 import UserAvatar from "@/components/forum/UserAvatar";
 
 const categoryNameKeys: Record<string, string> = {
@@ -30,7 +31,9 @@ type Comment = {
 type Post = {
   id: number;
   title: string;
+  titleEl: string;
   content: string;
+  contentEl: string;
   videoUrl?: string;
   createdAt: string;
   categorySlug: string;
@@ -62,7 +65,7 @@ function getVideoEmbed(url: string): { src: string } | null {
 
 export default function PostDetailPage() {
   const { user, loading: authLoading } = useAuth();
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
   const router = useRouter();
   const params = useParams();
   const category = params.category as string;
@@ -149,7 +152,7 @@ export default function PostDetailPage() {
               {catInfo?.icon} {categoryName}
             </Link>
             <span>&rsaquo;</span>
-            <span className="text-cream/60 truncate max-w-[200px]">{post.title}</span>
+            <span className="text-cream/60 truncate max-w-[200px]">{localized(locale, post.title, post.titleEl)}</span>
           </nav>
         </div>
       </section>
@@ -157,7 +160,7 @@ export default function PostDetailPage() {
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
         {/* Post */}
         <div className="bg-navy-light border border-gold/10 rounded-lg p-8 mb-8">
-          <h1 className="font-heading text-2xl md:text-3xl text-cream mb-4">{post.title}</h1>
+          <h1 className="font-heading text-2xl md:text-3xl text-cream mb-4">{localized(locale, post.title, post.titleEl)}</h1>
 
           <div className="flex items-center gap-3 mb-6">
             <UserAvatar name={post.user.name || post.user.email} size={36} />
@@ -181,7 +184,7 @@ export default function PostDetailPage() {
             </div>
           )}
 
-          <div className="text-cream/70 leading-relaxed whitespace-pre-wrap">{post.content}</div>
+          <div className="text-cream/70 leading-relaxed whitespace-pre-wrap">{localized(locale, post.content, post.contentEl)}</div>
         </div>
 
         {/* Comments */}

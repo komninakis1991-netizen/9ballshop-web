@@ -7,6 +7,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { useLanguage } from "@/components/LanguageProvider";
 import { FORUM_CATEGORIES } from "@/lib/forumCategories";
 import { timeAgo } from "@/lib/relativeTime";
+import { localized } from "@/lib/localized";
 import UserAvatar from "@/components/forum/UserAvatar";
 import ForumChat from "@/components/forum/ForumChat";
 
@@ -24,6 +25,7 @@ const categoryNameKeys: Record<string, string> = {
 type RecentPost = {
   id: number;
   title: string;
+  titleEl: string;
   categorySlug: string;
   createdAt: string;
   user: { id: number; name: string; email: string };
@@ -38,7 +40,7 @@ function formatTime(dateString: string, t: Record<string, string>) {
 
 function ForumHomeContent() {
   const { user, loading: authLoading, refreshUser } = useAuth();
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [recentPosts, setRecentPosts] = useState<RecentPost[]>([]);
@@ -58,26 +60,19 @@ function ForumHomeContent() {
     if (user.membershipStatus !== "active") { router.push("/members"); return; }
 
     async function fetchData() {
-      // Fetch all categories stats + recent posts in parallel
-      const fetches = FORUM_CATEGORIES.map((cat) =>
-        fetch(`/api/forum/posts?category=${cat.slug}&page=1`)
-          .then((r) => (r.ok ? r.json() : { posts: [], total: 0 }))
-          .catch(() => ({ posts: [], total: 0 }))
-      );
+      const [statsRes, postsRes] = await Promise.all([
+        fetch("/api/forum/stats")
+          .then((r) => (r.ok ? r.json() : { stats: {} }))
+          .catch(() => ({ stats: {} })),
+        fetch("/api/forum/posts?page=1")
+          .then((r) => (r.ok ? r.json() : { posts: [] }))
+          .catch(() => ({ posts: [] })),
+      ]);
 
-      const results = await Promise.all(fetches);
-      const statsMap: Record<string, number> = {};
-      const allPosts: RecentPost[] = [];
+      setStats(statsRes.stats || {});
 
-      results.forEach((data, i) => {
-        statsMap[FORUM_CATEGORIES[i].slug] = data.total;
-        allPosts.push(...data.posts);
-      });
-
-      // Sort all posts by date, take latest 10
+      const allPosts: RecentPost[] = postsRes.posts || [];
       allPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-      setStats(statsMap);
       setRecentPosts(allPosts.slice(0, 10));
       setLoadingData(false);
     }
@@ -171,7 +166,7 @@ function ForumHomeContent() {
                       <div className="flex items-start gap-3">
                         <UserAvatar name={post.user.name || post.user.email} size={36} />
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-cream font-medium text-sm truncate">{post.title}</h3>
+                          <h3 className="text-cream font-medium text-sm truncate">{localized(locale, post.title, post.titleEl)}</h3>
                           <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-cream/40">
                             <span>{post.user.name || post.user.email}</span>
                             <span className="inline-flex items-center gap-1 bg-gold/10 text-gold/70 px-2 py-0.5 rounded-full">
