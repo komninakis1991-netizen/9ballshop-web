@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cp -r public/downloads .open-next/assets/downloads",
+    "build": "next build",
+    "build:cf": "npx @opennextjs/cloudflare build && cp -r public/downloads .open-next/assets/downloads",
     "start": "next start",
     "lint": "eslint"
   },
