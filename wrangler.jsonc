@@ -7,6 +7,11 @@
   },
   "compatibility_date": "2024-09-23",
   "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "9ballshop.com/*", "zone_name": "9ballshop.com" },
+    { "pattern": "www.9ballshop.com/*", "zone_name": "9ballshop.com" }
+  ],
   "kv_namespaces": [
     {
       "binding": "NEXT_INC_CACHE_KV",
