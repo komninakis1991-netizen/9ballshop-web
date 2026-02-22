@@ -38,12 +38,13 @@ export async function sendDiscoveryBookingEmail(
   `;
 
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: fromEmail,
       to: "komninakis1991@gmail.com",
       subject: `New Discovery Call: ${name || "Anonymous"} — ${date} at ${time}`,
       html,
     });
+    console.log("Resend booking email result:", JSON.stringify(result));
   } catch (err) {
     console.error("Failed to send discovery booking email:", err);
   }
