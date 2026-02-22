@@ -51,10 +51,10 @@ const el = {
     blogSubtitle: "Σκέψεις & Ιστορίες",
     blogTitle: "Από το Blog",
     readAll: "Διαβάστε Όλα τα Άρθρα",
-    newsletterSubtitle: "Μείνετε Ενημερωμένοι",
-    newsletterTitle: "Γίνετε Μέλος",
+    newsletterSubtitle: "Δωρεάν Λήψη — 25 Σελίδες",
+    newsletterTitle: "Απόκτησε 24 Επαγγελματικές Ασκήσεις Προπόνησης",
     newsletterDescription:
-      "Ενημερωθείτε για νέα προϊόντα, αποκλειστικές προσφορές και insights μπιλιάρδου.",
+      "Οι ακριβείς ασκήσεις που χρησιμοποιεί ένας εθνικός πρωταθλητής για ακρίβεια, έλεγχο άσπρης και position play. Βάλε το email σου και κατέβασε αμέσως.",
     newsletterPlaceholder: "email@example.com",
     subscribe: "Εγγραφή",
   },
@@ -672,13 +672,13 @@ const el = {
 
   // Newsletter
   newsletter: {
-    successMessage: "Είσαι μέσα! Κατέβασε τον δωρεάν οδηγό σου παρακάτω.",
-    downloadButton: "Κατέβασε τον Δωρεάν Οδηγό",
+    successMessage: "Είσαι μέσα! Ο οδηγός σου είναι έτοιμος.",
+    downloadButton: "Κατέβασε τον Οδηγό Ασκήσεων (PDF)",
     errorMessage: "Κάτι πήγε στραβά. Δοκίμασε ξανά.",
     invalidEmail: "Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email.",
     emailSubject: "Ο Δωρεάν Οδηγός Μπιλιάρδου σου - 9BallShop",
-    footerTitle: "Απόκτησε τον Δωρεάν Οδηγό",
-    footerDescription: "Εγγράψου και κατέβασε τον οδηγό μπιλιάρδου αμέσως.",
+    footerTitle: "Δωρεάν: 24 Ασκήσεις Προπόνησης (PDF)",
+    footerDescription: "Από εθνικό πρωταθλητή. Βάλε το email σου και κατέβασε αμέσως.",
     submitting: "Εγγραφή...",
   },
 

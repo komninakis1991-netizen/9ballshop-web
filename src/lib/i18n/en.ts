@@ -51,10 +51,10 @@ const en = {
     blogSubtitle: "Insights & Stories",
     blogTitle: "From the Blog",
     readAll: "Read All Articles",
-    newsletterSubtitle: "Stay Updated",
-    newsletterTitle: "Join the Club",
+    newsletterSubtitle: "Free Download — 25 Pages",
+    newsletterTitle: "Get 24 Pro-Level Practice Drills",
     newsletterDescription:
-      "Get notified about new products, exclusive deals, and billiards insights.",
+      "The exact drills used by a national champion to sharpen shot-making, cue ball control, and position play. Enter your email and download instantly.",
     newsletterPlaceholder: "your@email.com",
     subscribe: "Subscribe",
   },
@@ -671,13 +671,13 @@ const en = {
 
   // Newsletter
   newsletter: {
-    successMessage: "You're in! Download your free guide below.",
-    downloadButton: "Download Free Guide",
+    successMessage: "You're in! Your guide is ready.",
+    downloadButton: "Download Your Drills Guide (PDF)",
     errorMessage: "Something went wrong. Please try again.",
     invalidEmail: "Please enter a valid email address.",
     emailSubject: "Your Free Billiards Guide - 9BallShop",
-    footerTitle: "Get Our Free Guide",
-    footerDescription: "Subscribe and get our billiards guide instantly.",
+    footerTitle: "Free: 24 Practice Drills (PDF)",
+    footerDescription: "Used by a national champion. Enter your email and download instantly.",
     submitting: "Subscribing...",
   },
 

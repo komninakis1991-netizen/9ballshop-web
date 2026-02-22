@@ -36,8 +36,10 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Send lead magnet email (fire and forget)
-    sendLeadMagnetEmail(email.toLowerCase(), locale);
+    // Send lead magnet email
+    console.log("Sending lead magnet email to:", email.toLowerCase());
+    await sendLeadMagnetEmail(email.toLowerCase(), locale);
+    console.log("Lead magnet email sent successfully");
 
     return NextResponse.json({ success: true });
   } catch (err) {
