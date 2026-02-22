@@ -24,11 +24,14 @@ export default async function BlogPage() {
             <BlogCard
               key={post.id}
               title={post.title}
+              titleEl={post.titleEl}
               slug={post.slug}
               excerpt={post.excerpt}
+              excerptEl={post.excerptEl}
               coverImage={post.coverImage}
               publishedAt={post.publishedAt}
               tags={post.tags}
+              tagsEl={post.tagsEl}
             />
           ))}
         </div>

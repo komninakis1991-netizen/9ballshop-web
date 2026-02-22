@@ -3,18 +3,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import LocaleDate from "@/components/LocaleDate";
+import { useLanguage } from "@/components/LanguageProvider";
+import { localized } from "@/lib/localized";
 
 interface BlogCardProps {
   title: string;
+  titleEl: string;
   slug: string;
   excerpt: string;
+  excerptEl: string;
   coverImage: string;
   publishedAt: Date;
   tags: string;
+  tagsEl: string;
 }
 
-export default function BlogCard({ title, slug, excerpt, coverImage, publishedAt, tags }: BlogCardProps) {
-  const parsedTags: string[] = JSON.parse(tags);
+export default function BlogCard({ title, titleEl, slug, excerpt, excerptEl, coverImage, publishedAt, tags, tagsEl }: BlogCardProps) {
+  const { locale } = useLanguage();
+  const displayTitle = localized(locale, title, titleEl);
+  const displayExcerpt = localized(locale, excerpt, excerptEl);
+  const parsedTags: string[] = JSON.parse(localized(locale, tags, tagsEl));
 
   return (
     <Link
@@ -25,7 +33,7 @@ export default function BlogCard({ title, slug, excerpt, coverImage, publishedAt
         {coverImage ? (
           <Image
             src={coverImage}
-            alt={title}
+            alt={displayTitle}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -45,9 +53,9 @@ export default function BlogCard({ title, slug, excerpt, coverImage, publishedAt
           ))}
         </div>
         <h3 className="text-cream font-heading text-lg group-hover:text-gold transition-colors mb-2 line-clamp-2">
-          {title}
+          {displayTitle}
         </h3>
-        <p className="text-cream/50 text-sm line-clamp-2 mb-3">{excerpt}</p>
+        <p className="text-cream/50 text-sm line-clamp-2 mb-3">{displayExcerpt}</p>
         <p className="text-cream/30 text-xs">
           <LocaleDate date={publishedAt} />
         </p>

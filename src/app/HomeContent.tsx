@@ -19,11 +19,14 @@ interface HomeContentProps {
   latestPosts: Array<{
     id: number;
     title: string;
+    titleEl: string;
     slug: string;
     excerpt: string;
+    excerptEl: string;
     coverImage: string;
     publishedAt: Date;
     tags: string;
+    tagsEl: string;
   }>;
 }
 
@@ -124,11 +127,14 @@ export default function HomeContent({ featuredProducts, latestPosts }: HomeConte
             <BlogCard
               key={post.id}
               title={post.title}
+              titleEl={post.titleEl}
               slug={post.slug}
               excerpt={post.excerpt}
+              excerptEl={post.excerptEl}
               coverImage={post.coverImage}
               publishedAt={post.publishedAt}
               tags={post.tags}
+              tagsEl={post.tagsEl}
             />
           ))}
         </div>

@@ -34,6 +34,10 @@ model BlogPost {
   publishedAt DateTime @default(now())
   tags        String   @default("[]")
   mediumUrl   String   @default("")
+  titleEl     String   @default("")
+  excerptEl   String   @default("")
+  contentEl   String   @default("")
+  tagsEl      String   @default("[]")
 }
 
 model User {
