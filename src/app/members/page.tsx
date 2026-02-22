@@ -8,16 +8,14 @@ import { useLanguage } from "@/components/LanguageProvider";
 import { FORUM_CATEGORIES } from "@/lib/forumCategories";
 
 const categoryNameKeys: Record<string, string> = {
-  strategy: "categoryStrategy",
-  technique: "categoryTechnique",
-  "gear-reviews": "categoryGearReviews",
-  "training-drills": "categoryTrainingDrills",
-  "mental-game": "categoryMentalGame",
-  coaching: "categoryCoaching",
+  announcements: "categoryAnnouncements",
+  "training-lab": "categoryTrainingLab",
   "match-analysis": "categoryMatchAnalysis",
-  "tournament-talk": "categoryTournamentTalk",
-  "table-maintenance": "categoryTableMaintenance",
-  "off-topic": "categoryOffTopic",
+  "mental-game": "categoryMentalGame",
+  "equipment-gear": "categoryEquipmentGear",
+  tournaments: "categoryTournaments",
+  introductions: "categoryIntroductions",
+  "wins-progress": "categoryWinsProgress",
 };
 
 export default function MembersPage() {
@@ -61,7 +59,7 @@ export default function MembersPage() {
 
       {/* Categories Grid */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {FORUM_CATEGORIES.map((cat) => {
             const nameKey = categoryNameKeys[cat.slug] as keyof typeof t.members;
             return (

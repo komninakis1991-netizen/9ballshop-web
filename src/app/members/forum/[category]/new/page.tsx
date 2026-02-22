@@ -9,16 +9,14 @@ import { FORUM_CATEGORIES, isValidCategory } from "@/lib/forumCategories";
 import CategoryBar from "@/components/forum/CategoryBar";
 
 const categoryNameKeys: Record<string, string> = {
-  strategy: "categoryStrategy",
-  technique: "categoryTechnique",
-  "gear-reviews": "categoryGearReviews",
-  "training-drills": "categoryTrainingDrills",
-  "mental-game": "categoryMentalGame",
-  coaching: "categoryCoaching",
+  announcements: "categoryAnnouncements",
+  "training-lab": "categoryTrainingLab",
   "match-analysis": "categoryMatchAnalysis",
-  "tournament-talk": "categoryTournamentTalk",
-  "table-maintenance": "categoryTableMaintenance",
-  "off-topic": "categoryOffTopic",
+  "mental-game": "categoryMentalGame",
+  "equipment-gear": "categoryEquipmentGear",
+  tournaments: "categoryTournaments",
+  introductions: "categoryIntroductions",
+  "wins-progress": "categoryWinsProgress",
 };
 
 function getYouTubeId(url: string): string | null {

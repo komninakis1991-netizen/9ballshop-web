@@ -1,14 +1,12 @@
 export const FORUM_CATEGORIES = [
-  { slug: "strategy", icon: "🎯" },
-  { slug: "technique", icon: "🎱" },
-  { slug: "gear-reviews", icon: "🏆" },
-  { slug: "training-drills", icon: "📋" },
-  { slug: "mental-game", icon: "🧠" },
-  { slug: "coaching", icon: "🎓" },
+  { slug: "announcements", icon: "📢" },
+  { slug: "training-lab", icon: "🎯" },
   { slug: "match-analysis", icon: "📊" },
-  { slug: "tournament-talk", icon: "🏅" },
-  { slug: "table-maintenance", icon: "🔧" },
-  { slug: "off-topic", icon: "💬" },
+  { slug: "mental-game", icon: "🧠" },
+  { slug: "equipment-gear", icon: "🎱" },
+  { slug: "tournaments", icon: "🏆" },
+  { slug: "introductions", icon: "👋" },
+  { slug: "wins-progress", icon: "🏅" },
 ] as const;
 
 export type ForumCategorySlug = (typeof FORUM_CATEGORIES)[number]["slug"];

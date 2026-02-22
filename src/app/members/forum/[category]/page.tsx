@@ -11,29 +11,25 @@ import UserAvatar from "@/components/forum/UserAvatar";
 import CategoryBar from "@/components/forum/CategoryBar";
 
 const categoryNameKeys: Record<string, string> = {
-  strategy: "categoryStrategy",
-  technique: "categoryTechnique",
-  "gear-reviews": "categoryGearReviews",
-  "training-drills": "categoryTrainingDrills",
-  "mental-game": "categoryMentalGame",
-  coaching: "categoryCoaching",
+  announcements: "categoryAnnouncements",
+  "training-lab": "categoryTrainingLab",
   "match-analysis": "categoryMatchAnalysis",
-  "tournament-talk": "categoryTournamentTalk",
-  "table-maintenance": "categoryTableMaintenance",
-  "off-topic": "categoryOffTopic",
+  "mental-game": "categoryMentalGame",
+  "equipment-gear": "categoryEquipmentGear",
+  tournaments: "categoryTournaments",
+  introductions: "categoryIntroductions",
+  "wins-progress": "categoryWinsProgress",
 };
 
 const categoryDescKeys: Record<string, string> = {
-  strategy: "categoryStrategyDesc",
-  technique: "categoryTechniqueDesc",
-  "gear-reviews": "categoryGearReviewsDesc",
-  "training-drills": "categoryTrainingDrillsDesc",
-  "mental-game": "categoryMentalGameDesc",
-  coaching: "categoryCoachingDesc",
+  announcements: "categoryAnnouncementsDesc",
+  "training-lab": "categoryTrainingLabDesc",
   "match-analysis": "categoryMatchAnalysisDesc",
-  "tournament-talk": "categoryTournamentTalkDesc",
-  "table-maintenance": "categoryTableMaintenanceDesc",
-  "off-topic": "categoryOffTopicDesc",
+  "mental-game": "categoryMentalGameDesc",
+  "equipment-gear": "categoryEquipmentGearDesc",
+  tournaments: "categoryTournamentsDesc",
+  introductions: "categoryIntroductionsDesc",
+  "wins-progress": "categoryWinsProgressDesc",
 };
 
 type Post = {
