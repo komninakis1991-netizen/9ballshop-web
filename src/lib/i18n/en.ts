@@ -669,6 +669,18 @@ const en = {
     "pool-tables": "Pool Tables",
   } as Record<string, string>,
 
+  // Newsletter
+  newsletter: {
+    successMessage: "You're in! Download your free guide below.",
+    downloadButton: "Download Free Guide",
+    errorMessage: "Something went wrong. Please try again.",
+    invalidEmail: "Please enter a valid email address.",
+    emailSubject: "Your Free Billiards Guide - 9BallShop",
+    footerTitle: "Get Our Free Guide",
+    footerDescription: "Subscribe and get our billiards guide instantly.",
+    submitting: "Subscribing...",
+  },
+
   // AddToCart button
   addToCart: {
     add: "Add to Cart",

@@ -670,6 +670,18 @@ const el = {
     "pool-tables": "Τραπέζια Μπιλιάρδου",
   } as Record<string, string>,
 
+  // Newsletter
+  newsletter: {
+    successMessage: "Είσαι μέσα! Κατέβασε τον δωρεάν οδηγό σου παρακάτω.",
+    downloadButton: "Κατέβασε τον Δωρεάν Οδηγό",
+    errorMessage: "Κάτι πήγε στραβά. Δοκίμασε ξανά.",
+    invalidEmail: "Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email.",
+    emailSubject: "Ο Δωρεάν Οδηγός Μπιλιάρδου σου - 9BallShop",
+    footerTitle: "Απόκτησε τον Δωρεάν Οδηγό",
+    footerDescription: "Εγγράψου και κατέβασε τον οδηγό μπιλιάρδου αμέσως.",
+    submitting: "Εγγραφή...",
+  },
+
   // AddToCart button
   addToCart: {
     add: "Προσθήκη στο Καλάθι",

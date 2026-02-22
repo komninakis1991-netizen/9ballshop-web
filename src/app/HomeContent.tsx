@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
 import ProductCard from "@/components/ProductCard";
 import BlogCard from "@/components/BlogCard";
+import NewsletterForm from "@/components/NewsletterForm";
 
 interface HomeContentProps {
   featuredProducts: Array<{
@@ -149,26 +150,7 @@ export default function HomeContent({ featuredProducts, latestPosts }: HomeConte
       </section>
 
       {/* Newsletter */}
-      <section className="bg-navy-light py-20">
-        <div className="max-w-xl mx-auto px-4 text-center">
-          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">{t.home.newsletterSubtitle}</p>
-          <h2 className="font-heading text-3xl text-cream mb-4">{t.home.newsletterTitle}</h2>
-          <p className="text-cream/50 mb-8">{t.home.newsletterDescription}</p>
-          <form className="flex gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder={t.home.newsletterPlaceholder}
-              className="flex-1 bg-navy border border-gold/20 rounded px-4 py-3 text-cream placeholder:text-cream/30 focus:outline-none focus:border-gold/60 text-sm"
-            />
-            <button
-              type="submit"
-              className="bg-gold hover:bg-gold-light text-navy font-semibold px-6 py-3 rounded transition-colors text-sm uppercase tracking-wider whitespace-nowrap"
-            >
-              {t.home.subscribe}
-            </button>
-          </form>
-        </div>
-      </section>
+      <NewsletterForm variant="full" />
     </div>
   );
 }

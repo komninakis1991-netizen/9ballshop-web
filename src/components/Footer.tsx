@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/components/LanguageProvider";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -76,8 +77,11 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gold/10 mt-8 pt-8 text-center">
-          <p className="text-cream/40 text-sm">&copy; {new Date().getFullYear()} {t.footer.copyright}</p>
+        <div className="border-t border-gold/10 mt-8 pt-8">
+          <div className="max-w-md mx-auto mb-8">
+            <NewsletterForm variant="compact" />
+          </div>
+          <p className="text-cream/40 text-sm text-center">&copy; {new Date().getFullYear()} {t.footer.copyright}</p>
         </div>
       </div>
     </footer>
