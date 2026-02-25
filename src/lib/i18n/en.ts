@@ -13,12 +13,13 @@ const en = {
     customJerseys: "Custom Jerseys",
     members: "Members",
     admin: "Admin",
+    tournaments: "Tournaments",
   },
 
   // Footer
   footer: {
     tagline:
-      "Premium billiards equipment for serious players. Curated by Marios Komninakis.",
+      "Billiards community, coaching, and content by Marios Komninakis.",
     shopHeading: "Shop",
     cues: "Cues",
     shafts: "Shafts",
@@ -29,6 +30,11 @@ const en = {
     companyHeading: "Company",
     connectHeading: "Connect",
     copyright: "9BallShop. All rights reserved.",
+    tournamentsHeading: "Tournaments",
+    tournamentsLive: "Live Scores & Brackets",
+    tournamentsEPBF: "European Calendar",
+    tournamentsAZ: "AZBilliards Calendar",
+    tournamentsMatchroom: "Matchroom Events",
   },
 
   // Home page
@@ -37,8 +43,9 @@ const en = {
     heroTitle1: "Premium Billiards",
     heroTitle2: "Equipment",
     heroDescription:
-      "Discover the finest cues, shafts, and accessories from the world\u2019s most respected brands.",
+      "Coaching, strategy, community, and everything competitive billiards \u2014 by Marios Komninakis.",
     shopNow: "Shop Now",
+    exploreTournaments: "Explore Tournaments",
     ourStory: "Our Story",
     featuredSubtitle: "Handpicked Selection",
     featuredTitle: "Featured Products",
@@ -698,6 +705,58 @@ const en = {
   addToCart: {
     add: "Add to Cart",
     added: "Added to Cart!",
+  },
+
+  // Tournaments
+  tournaments: {
+    subtitle: "Pro Billiards",
+    title: "Tournaments",
+    description:
+      "Follow professional pool tournaments around the world. Live scores, brackets, schedules, and results from every major organization.",
+    // CueScore
+    cuescoreTitle: "CueScore",
+    cuescoreDescription:
+      "Live brackets, scores, and results from pool tournaments worldwide. The go-to platform for real-time tournament tracking.",
+    cuescoreLive: "Live Tournaments",
+    cuescoreSearch: "Search Events",
+    // EPBF
+    epbfTitle: "European Pocket Billiard Federation",
+    epbfDescription:
+      "The official calendar for European pool championships, Euro Tours, and youth events organized by the EPBF.",
+    epbfCalendar: "Tournament Calendar",
+    epbfRankings: "Player Rankings",
+    // AZBilliards
+    azTitle: "AZBilliards",
+    azDescription:
+      "Comprehensive tournament coverage, news, and calendar for North American and international pool events.",
+    azCalendar: "Event Calendar",
+    azNews: "Latest News",
+    // Matchroom
+    matchroomTitle: "Matchroom Pool",
+    matchroomDescription:
+      "Home of the Mosconi Cup, World Pool Championship, US Open, and the biggest televised events in professional pool.",
+    matchroomEvents: "Upcoming Events",
+    matchroomResults: "Results & Standings",
+    // WPA
+    wpaTitle: "World Pool-Billiard Association",
+    wpaDescription:
+      "The global governing body for pool. Official world rankings, championship schedules, and rules for all cue sports disciplines.",
+    wpaRankings: "World Rankings",
+    wpaCalendar: "Championship Calendar",
+    // Predator
+    predatorTitle: "Predator Championship Tour",
+    predatorDescription:
+      "Premier North American professional pool tour featuring top players competing for major titles and prize money.",
+    predatorSchedule: "Tour Schedule",
+    predatorResults: "Tour Results",
+    // Section headings
+    sectionLive: "Live Scores & Results",
+    sectionCalendars: "Tournament Calendars",
+    sectionOrganizations: "Major Organizations",
+    // CTA
+    ctaTitle: "Compete & Connect",
+    ctaDescription: "Join our members forum to discuss tournaments, share your results, and connect with players heading to the same events.",
+    ctaButton: "Join the Community",
   },
 };
 

@@ -22,22 +22,12 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">{t.footer.shopHeading}</h4>
+            <h4 className="text-cream font-semibold mb-4 text-sm uppercase tracking-wider">{t.footer.tournamentsHeading}</h4>
             <ul className="space-y-2">
-              {[
-                { key: "playing-cues", label: t.footer.cues },
-                { key: "shafts", label: t.footer.shafts },
-                { key: "balls", label: t.footer.balls },
-                { key: "gloves", label: t.footer.gloves },
-                { key: "cue-cases", label: t.footer.cases },
-                { key: "chalks", label: t.footer.chalks },
-              ].map((cat) => (
-                <li key={cat.key}>
-                  <Link href={`/shop/category/${cat.key}`} className="text-cream/50 hover:text-gold text-sm transition-colors">
-                    {cat.label}
-                  </Link>
-                </li>
-              ))}
+              <li><a href="https://cuescore.com" target="_blank" rel="noopener noreferrer" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.footer.tournamentsLive}</a></li>
+              <li><a href="https://www.epbf.com/tournaments/" target="_blank" rel="noopener noreferrer" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.footer.tournamentsEPBF}</a></li>
+              <li><a href="https://www.azbilliards.com/tournaments/" target="_blank" rel="noopener noreferrer" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.footer.tournamentsAZ}</a></li>
+              <li><a href="https://matchroompool.com" target="_blank" rel="noopener noreferrer" className="text-cream/50 hover:text-gold text-sm transition-colors">{t.footer.tournamentsMatchroom}</a></li>
             </ul>
           </div>
           <div>

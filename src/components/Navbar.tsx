@@ -59,8 +59,8 @@ export default function Navbar() {
 
           {/* Desktop nav links */}
           <div className="hidden lg:flex items-center gap-6">
-            <Link href="/shop" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
-              {t.nav.shop}
+            <Link href="/tournaments" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              {t.nav.tournaments}
             </Link>
             <Link href="/lessons" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.lessons}
@@ -82,12 +82,6 @@ export default function Navbar() {
             </Link>
             <Link href="/members" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.members}
-            </Link>
-            <Link
-              href="/cart"
-              className="relative text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest"
-            >
-              {t.nav.cart}
             </Link>
             {authLink}
             {!loading && user?.isAdmin && (
@@ -123,8 +117,8 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden bg-navy-light border-t border-gold/10">
           <div className="px-4 py-4 space-y-1">
-            <Link href="/shop" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
-              {t.nav.shop}
+            <Link href="/tournaments" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              {t.nav.tournaments}
             </Link>
             <Link href="/lessons" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.lessons}
@@ -146,9 +140,6 @@ export default function Navbar() {
             </Link>
             <Link href="/members" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.members}
-            </Link>
-            <Link href="/cart" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
-              {t.nav.cart}
             </Link>
             {mobileAuthLink}
             {!loading && user?.isAdmin && (

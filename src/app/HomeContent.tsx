@@ -2,21 +2,10 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
-import ProductCard from "@/components/ProductCard";
 import BlogCard from "@/components/BlogCard";
 import NewsletterForm from "@/components/NewsletterForm";
 
 interface HomeContentProps {
-  featuredProducts: Array<{
-    id: number;
-    name: string;
-    slug: string;
-    price: number;
-    currency: string;
-    category: string;
-    brand: string;
-    images: string;
-  }>;
   latestPosts: Array<{
     id: number;
     title: string;
@@ -31,7 +20,7 @@ interface HomeContentProps {
   }>;
 }
 
-export default function HomeContent({ featuredProducts, latestPosts }: HomeContentProps) {
+export default function HomeContent({ latestPosts }: HomeContentProps) {
   const { t } = useLanguage();
 
   return (
@@ -53,10 +42,10 @@ export default function HomeContent({ featuredProducts, latestPosts }: HomeConte
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
-              href="/shop"
+              href="/tournaments"
               className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
             >
-              {t.home.shopNow}
+              {t.home.exploreTournaments}
             </Link>
             <Link
               href="/about"
@@ -65,36 +54,6 @@ export default function HomeContent({ featuredProducts, latestPosts }: HomeConte
               {t.home.ourStory}
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">{t.home.featuredSubtitle}</p>
-          <h2 className="font-heading text-3xl md:text-4xl text-cream">{t.home.featuredTitle}</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              slug={product.slug}
-              price={product.price}
-              currency={product.currency}
-              category={product.category}
-              brand={product.brand}
-              images={product.images}
-            />
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Link
-            href="/shop"
-            className="text-gold hover:text-gold-light text-sm uppercase tracking-wider transition-colors border-b border-gold/30 hover:border-gold pb-1"
-          >
-            {t.home.viewAll}
-          </Link>
         </div>
       </section>
 

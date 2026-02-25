@@ -13,12 +13,13 @@ const el = {
     customJerseys: "Custom Φανέλες",
     members: "Μέλη",
     admin: "Admin",
+    tournaments: "Τουρνουά",
   },
 
   // Footer
   footer: {
     tagline:
-      "Κορυφαίος εξοπλισμός μπιλιάρδου για σοβαρούς παίκτες. Επιμέλεια Μάριος Κομνηνάκης.",
+      "Κοινότητα μπιλιάρδου, προπονητική και περιεχόμενο από τον Μάριο Κομνηνάκη.",
     shopHeading: "Κατάστημα",
     cues: "Στέκες",
     shafts: "Shafts",
@@ -29,6 +30,11 @@ const el = {
     companyHeading: "Εταιρεία",
     connectHeading: "Σύνδεση",
     copyright: "9BallShop. Με επιφύλαξη παντός δικαιώματος.",
+    tournamentsHeading: "Τουρνουά",
+    tournamentsLive: "Live Σκορ & Brackets",
+    tournamentsEPBF: "Ευρωπαϊκό Ημερολόγιο",
+    tournamentsAZ: "Ημερολόγιο AZBilliards",
+    tournamentsMatchroom: "Εκδηλώσεις Matchroom",
   },
 
   // Home page
@@ -37,8 +43,9 @@ const el = {
     heroTitle1: "Κορυφαίος Εξοπλισμός",
     heroTitle2: "Μπιλιάρδου",
     heroDescription:
-      "Ανακαλύψτε τις καλύτερες στέκες, shafts και αξεσουάρ από τις πιο αξιόπιστες μάρκες στον κόσμο.",
+      "Προπόνηση, στρατηγική, κοινότητα και ό,τι αφορά το αγωνιστικό μπιλιάρδο \u2014 από τον Μάριο Κομνηνάκη.",
     shopNow: "Αγορά Τώρα",
+    exploreTournaments: "Εξερεύνηση Τουρνουά",
     ourStory: "Η Ιστορία Μας",
     featuredSubtitle: "Επιλεγμένα Προϊόντα",
     featuredTitle: "Προτεινόμενα Προϊόντα",
@@ -699,6 +706,58 @@ const el = {
   addToCart: {
     add: "Προσθήκη στο Καλάθι",
     added: "Προστέθηκε στο Καλάθι!",
+  },
+
+  // Tournaments
+  tournaments: {
+    subtitle: "Επαγγελματικό Μπιλιάρδο",
+    title: "Τουρνουά",
+    description:
+      "Ακολουθήστε τα επαγγελματικά τουρνουά μπιλιάρδου σε όλο τον κόσμο. Live σκορ, brackets, προγράμματα και αποτελέσματα από κάθε μεγάλο οργανισμό.",
+    // CueScore
+    cuescoreTitle: "CueScore",
+    cuescoreDescription:
+      "Live brackets, σκορ και αποτελέσματα από τουρνουά μπιλιάρδου παγκοσμίως. Η κορυφαία πλατφόρμα για παρακολούθηση τουρνουά σε πραγματικό χρόνο.",
+    cuescoreLive: "Live Τουρνουά",
+    cuescoreSearch: "Αναζήτηση Εκδηλώσεων",
+    // EPBF
+    epbfTitle: "Ευρωπαϊκή Ομοσπονδία Μπιλιάρδου",
+    epbfDescription:
+      "Το επίσημο ημερολόγιο για ευρωπαϊκά πρωταθλήματα μπιλιάρδου, Euro Tours και διοργανώσεις νέων από την EPBF.",
+    epbfCalendar: "Ημερολόγιο Τουρνουά",
+    epbfRankings: "Κατάταξη Παικτών",
+    // AZBilliards
+    azTitle: "AZBilliards",
+    azDescription:
+      "Πλήρης κάλυψη τουρνουά, ειδήσεις και ημερολόγιο για βορειοαμερικανικές και διεθνείς διοργανώσεις μπιλιάρδου.",
+    azCalendar: "Ημερολόγιο Εκδηλώσεων",
+    azNews: "Τελευταία Νέα",
+    // Matchroom
+    matchroomTitle: "Matchroom Pool",
+    matchroomDescription:
+      "Η έδρα του Mosconi Cup, World Pool Championship, US Open και των μεγαλύτερων τηλεοπτικών εκδηλώσεων στο επαγγελματικό μπιλιάρδο.",
+    matchroomEvents: "Επερχόμενες Εκδηλώσεις",
+    matchroomResults: "Αποτελέσματα & Βαθμολογίες",
+    // WPA
+    wpaTitle: "Παγκόσμια Ομοσπονδία Μπιλιάρδου",
+    wpaDescription:
+      "Ο παγκόσμιος φορέας διοίκησης του μπιλιάρδου. Επίσημη παγκόσμια κατάταξη, πρόγραμμα πρωταθλημάτων και κανονισμοί για όλα τα cue sports.",
+    wpaRankings: "Παγκόσμια Κατάταξη",
+    wpaCalendar: "Ημερολόγιο Πρωταθλημάτων",
+    // Predator
+    predatorTitle: "Predator Championship Tour",
+    predatorDescription:
+      "Το κορυφαίο επαγγελματικό tour μπιλιάρδου στη Βόρεια Αμερική με τους καλύτερους παίκτες να αγωνίζονται για μεγάλους τίτλους.",
+    predatorSchedule: "Πρόγραμμα Tour",
+    predatorResults: "Αποτελέσματα Tour",
+    // Section headings
+    sectionLive: "Live Σκορ & Αποτελέσματα",
+    sectionCalendars: "Ημερολόγια Τουρνουά",
+    sectionOrganizations: "Μεγάλοι Οργανισμοί",
+    // CTA
+    ctaTitle: "Αγωνίσου & Συνδέσου",
+    ctaDescription: "Γίνε μέλος του forum μας για να συζητήσεις τουρνουά, να μοιραστείς τα αποτελέσματά σου και να συνδεθείς με παίκτες που πάνε στις ίδιες διοργανώσεις.",
+    ctaButton: "Γίνε Μέλος",
   },
 };
 
