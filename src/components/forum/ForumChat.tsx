@@ -93,6 +93,29 @@ export default function ForumChat() {
     return () => clearInterval(interval);
   }, [open, loaded, scrollToBottom]);
 
+  // Full refresh every hour — clear and reload all messages
+  useEffect(() => {
+    if (!open || !loaded) return;
+
+    const hourly = setInterval(() => {
+      fetch("/api/forum/chat")
+        .then((r) => (r.ok ? r.json() : { messages: [] }))
+        .then((data) => {
+          const msgs: ChatMsg[] = data.messages || [];
+          setMessages(msgs);
+          if (msgs.length > 0) {
+            lastIdRef.current = msgs[msgs.length - 1].id;
+          } else {
+            lastIdRef.current = 0;
+          }
+          setTimeout(scrollToBottom, 50);
+        })
+        .catch(() => {});
+    }, 60 * 60 * 1000);
+
+    return () => clearInterval(hourly);
+  }, [open, loaded, scrollToBottom]);
+
   const handleSend = async () => {
     const content = input.trim();
     if (!content || sending || !user) return;

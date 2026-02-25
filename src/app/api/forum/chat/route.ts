@@ -15,13 +15,16 @@ export async function GET(request: NextRequest) {
   const after = searchParams.get("after");
   const prisma = await getPrisma();
 
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+  const timeFilter = user.isAdmin ? {} : { createdAt: { gte: oneHourAgo } };
+
   if (after) {
     const afterId = parseInt(after, 10);
     if (isNaN(afterId)) {
       return NextResponse.json({ error: "Invalid after param" }, { status: 400 });
     }
     const messages = await prisma.chatMessage.findMany({
-      where: { id: { gt: afterId } },
+      where: { id: { gt: afterId }, ...timeFilter },
       include: {
         user: { select: { id: true, name: true, email: true } },
       },
@@ -31,6 +34,7 @@ export async function GET(request: NextRequest) {
   }
 
   const messages = await prisma.chatMessage.findMany({
+    where: timeFilter,
     include: {
       user: { select: { id: true, name: true, email: true } },
     },
