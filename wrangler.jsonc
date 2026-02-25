@@ -12,12 +12,9 @@
     { "pattern": "9ballshop.com/*", "zone_name": "9ballshop.com" },
     { "pattern": "www.9ballshop.com/*", "zone_name": "9ballshop.com" }
   ],
-  "kv_namespaces": [
-    {
-      "binding": "NEXT_INC_CACHE_KV",
-      "id": "07a35d94c0d34ce089e845f7442c8447"
-    }
-  ],
+  "vars": {
+    "SUPABASE_URL": "https://gsxjuehgweuingstekwa.supabase.co"
+  },
   "d1_databases": [
     {
       "binding": "DB",
