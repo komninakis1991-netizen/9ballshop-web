@@ -57,6 +57,10 @@ export async function POST(request: NextRequest) {
 
     const passwordHash = await hashPassword(password);
 
+    // Check for forever-free promo code
+    const foreverCode = (process.env.PROMO_CODE_FOREVER || "").toUpperCase();
+    const isForeverFree = foreverCode && promoCode && promoCode.trim().toUpperCase() === foreverCode;
+
     const user = await prisma.user.create({
       data: {
         email,
@@ -65,6 +69,7 @@ export async function POST(request: NextRequest) {
         phone: phone || "",
         stripeCustomerId,
         promoCode: promoCode || "",
+        ...(isForeverFree ? { membershipStatus: "active" } : {}),
       },
     });
 

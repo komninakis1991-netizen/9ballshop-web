@@ -54,6 +54,19 @@ export async function POST(request: NextRequest) {
     promoCode = user.promoCode;
   }
 
+  // Check for forever-free promo code — activate directly, no Stripe
+  const foreverCode = (process.env.PROMO_CODE_FOREVER || "").toUpperCase();
+  if (foreverCode && promoCode.trim().toUpperCase() === foreverCode) {
+    const { getPrisma } = await import("@/lib/prisma");
+    const prisma = await getPrisma();
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { membershipStatus: "active", promoCode: promoCode.trim() },
+    });
+    const origin = request.headers.get("origin") || "http://localhost:3000";
+    return NextResponse.json({ url: `${origin}/members/forum?subscribed=true` });
+  }
+
   const couponId = promoCode ? resolvePromoCoupon(promoCode) : null;
 
   const stripe = new Stripe(secretKey, {
