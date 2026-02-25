@@ -7,11 +7,12 @@ import { setSessionCookie } from "@/lib/auth/cookies";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, name, phone } = (await request.json()) as {
+    const { email, password, name, phone, promoCode } = (await request.json()) as {
       email?: string;
       password?: string;
       name?: string;
       phone?: string;
+      promoCode?: string;
     };
 
     if (!email || !password) {
@@ -63,6 +64,7 @@ export async function POST(request: NextRequest) {
         name: name || "",
         phone: phone || "",
         stripeCustomerId,
+        promoCode: promoCode || "",
       },
     });
 

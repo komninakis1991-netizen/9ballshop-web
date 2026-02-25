@@ -241,6 +241,8 @@ const el = {
     logIn: "Σύνδεση",
     passwordsMismatch: "Οι κωδικοί δεν ταιριάζουν",
     passwordTooShort: "Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες",
+    promoCode: "Κωδικός Προσφοράς",
+    promoCodePlaceholder: "Εισάγετε κωδικό προσφοράς (προαιρετικό)",
   },
 
   // Account
@@ -260,6 +262,15 @@ const el = {
     updateSuccess: "Το προφίλ ενημερώθηκε επιτυχώς",
     updateFailed: "Αποτυχία ενημέρωσης προφίλ",
     loading: "Φόρτωση...",
+    membership: "Συνδρομή",
+    membershipActive: "Η συνδρομή σου είναι ενεργή.",
+    membershipNone: "Δεν έχεις ενεργή συνδρομή.",
+    cancelSubscription: "Ακύρωση Συνδρομής",
+    cancelConfirm: "Είσαι σίγουρος ότι θέλεις να ακυρώσεις; Η πρόσβασή σου θα συνεχιστεί μέχρι το τέλος της τρέχουσας περιόδου χρέωσης.",
+    cancelling: "Ακύρωση...",
+    cancelSuccess: "Η συνδρομή σου ακυρώθηκε. Η πρόσβαση συνεχίζεται μέχρι το τέλος της περιόδου χρέωσης.",
+    cancelFailed: "Αποτυχία ακύρωσης συνδρομής. Δοκίμασε ξανά.",
+    cancelBack: "Διατήρηση Συνδρομής",
   },
 
   // Blog
@@ -586,7 +597,7 @@ const el = {
     benefitCommunityText: "Σύνδεσμος με ομοϊδεάτες παίκτες που ενδιαφέρονται σοβαρά για τη βελτίωση. Μοιραστείτε εμπειρίες, γιορτάστε νίκες και εξελιχθείτε μαζί.",
     // Pricing
     pricingTitle: "Συνδρομή",
-    pricingPrice: "€20",
+    pricingPrice: "€11,97",
     pricingPeriod: "/μήνα",
     pricingFeature1: "Πρόσβαση σε όλες τις κατηγορίες forum",
     pricingFeature2: "Άμεση αλληλεπίδραση με τον Μάριο",
@@ -651,6 +662,8 @@ const el = {
     chatNoMessages: "Δεν υπάρχουν μηνύματα ακόμα. Πες ένα γεια!",
     chatToggleOpen: "Άνοιγμα",
     chatToggleClose: "Κλείσιμο",
+    // Promo code
+    promoCodePlaceholder: "Κωδικός προσφοράς (προαιρετικό)",
   },
 
   // Category labels

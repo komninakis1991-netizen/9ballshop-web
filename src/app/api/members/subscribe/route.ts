@@ -2,6 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getCurrentUser } from "@/lib/auth/getCurrentUser";
 
+function resolvePromoCoupon(code: string): string | null {
+  const normalized = code.trim().toUpperCase();
+  if (!normalized) return null;
+
+  const promoFree = (process.env.PROMO_CODE_FREE || "").toUpperCase();
+  const promo50 = (process.env.PROMO_CODE_50 || "").toUpperCase();
+  const promo25 = (process.env.PROMO_CODE_25 || "").toUpperCase();
+
+  if (promoFree && normalized === promoFree) return process.env.PROMO_COUPON_FREE || null;
+  if (promo50 && normalized === promo50) return process.env.PROMO_COUPON_50 || null;
+  if (promo25 && normalized === promo25) return process.env.PROMO_COUPON_25 || null;
+
+  return null;
+}
+
 export async function POST(request: NextRequest) {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) {
@@ -26,6 +41,21 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  let promoCode = "";
+  try {
+    const body = await request.json();
+    promoCode = body.promoCode || "";
+  } catch {
+    // no body — that's fine
+  }
+
+  // Fall back to user's stored promo code
+  if (!promoCode && user.promoCode) {
+    promoCode = user.promoCode;
+  }
+
+  const couponId = promoCode ? resolvePromoCoupon(promoCode) : null;
+
   const stripe = new Stripe(secretKey, {
     httpClient: Stripe.createFetchHttpClient(),
   });
@@ -44,12 +74,13 @@ export async function POST(request: NextRequest) {
             product_data: {
               name: "9BallShop Members Forum — Monthly",
             },
-            unit_amount: 2000,
+            unit_amount: 1197,
             recurring: { interval: "month" },
           },
           quantity: 1,
         },
       ],
+      ...(couponId ? { discounts: [{ coupon: couponId }] } : {}),
       metadata: {
         user_id: user.id.toString(),
         type: "membership",

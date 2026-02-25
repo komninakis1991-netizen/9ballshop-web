@@ -15,6 +15,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [promoCode, setPromoCode] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -33,7 +34,7 @@ export default function RegisterPage() {
     }
 
     setSubmitting(true);
-    const err = await register(email, password, name, phone);
+    const err = await register(email, password, name, phone, promoCode || undefined);
     setSubmitting(false);
 
     if (err) {
@@ -136,6 +137,20 @@ export default function RegisterPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-navy-light border border-gold/10 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40"
               placeholder="Repeat your password"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="promoCode" className="block text-cream/70 text-sm mb-1">
+              {t.register.promoCode}
+            </label>
+            <input
+              id="promoCode"
+              type="text"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              className="w-full bg-navy-light border border-gold/10 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40"
+              placeholder={t.register.promoCodePlaceholder}
             />
           </div>
 

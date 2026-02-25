@@ -23,11 +23,16 @@ export default function MembersPage() {
   const { t } = useLanguage();
   const router = useRouter();
   const [subscribing, setSubscribing] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
 
   const handleSubscribe = async () => {
     setSubscribing(true);
     try {
-      const res = await fetch("/api/members/subscribe", { method: "POST" });
+      const res = await fetch("/api/members/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ promoCode }),
+      });
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
@@ -153,6 +158,18 @@ export default function MembersPage() {
               </li>
             ))}
           </ul>
+
+          {!loading && user && !isActiveMember && (
+            <div className="mb-6">
+              <input
+                type="text"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value)}
+                className="w-full bg-navy border border-gold/10 rounded-lg px-4 py-3 text-cream placeholder-cream/30 focus:outline-none focus:border-gold/40 text-sm"
+                placeholder={t.members.promoCodePlaceholder}
+              />
+            </div>
+          )}
 
           {loading ? (
             <div className="h-12" />

@@ -18,6 +18,9 @@ export default function AccountPage() {
   const [addressCountry, setAddressCountry] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [cancelling, setCancelling] = useState(false);
+  const [cancelMessage, setCancelMessage] = useState("");
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -65,6 +68,25 @@ export default function AccountPage() {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    setCancelling(true);
+    setCancelMessage("");
+    try {
+      const res = await fetch("/api/members/cancel", { method: "POST" });
+      if (res.ok) {
+        setCancelMessage(t.account.cancelSuccess);
+        setShowCancelConfirm(false);
+        await refreshUser();
+      } else {
+        const data = await res.json();
+        setCancelMessage(data.error || t.account.cancelFailed);
+      }
+    } catch {
+      setCancelMessage(t.account.cancelFailed);
+    }
+    setCancelling(false);
+  };
+
   const handleLogout = async () => {
     await logout();
     router.push("/");
@@ -94,6 +116,61 @@ export default function AccountPage() {
         <div className="bg-navy-light border border-gold/10 rounded-xl p-6 mb-6">
           <p className="text-cream/50 text-sm">{t.account.email}</p>
           <p className="text-cream">{user.email}</p>
+        </div>
+
+        <div className="bg-navy-light border border-gold/10 rounded-xl p-6 mb-6">
+          <h2 className="font-heading text-xl text-gold mb-3">
+            {t.account.membership}
+          </h2>
+          <p className="text-cream/70 text-sm mb-4">
+            {user.membershipStatus === "active"
+              ? t.account.membershipActive
+              : t.account.membershipNone}
+          </p>
+
+          {cancelMessage && (
+            <div
+              className={`px-4 py-3 rounded-lg text-sm mb-4 ${
+                cancelMessage === t.account.cancelSuccess
+                  ? "bg-green-900/30 border border-green-500/50 text-green-300"
+                  : "bg-red-900/30 border border-red-500/50 text-red-300"
+              }`}
+            >
+              {cancelMessage}
+            </div>
+          )}
+
+          {user.membershipStatus === "active" && user.stripeSubscriptionId && (
+            <>
+              {showCancelConfirm ? (
+                <div className="space-y-3">
+                  <p className="text-cream/60 text-sm">{t.account.cancelConfirm}</p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={handleCancelSubscription}
+                      disabled={cancelling}
+                      className="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
+                    >
+                      {cancelling ? t.account.cancelling : t.account.cancelSubscription}
+                    </button>
+                    <button
+                      onClick={() => setShowCancelConfirm(false)}
+                      className="border border-cream/20 text-cream/50 hover:text-cream text-sm px-4 py-2 rounded-lg transition-colors"
+                    >
+                      {t.account.cancelBack}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowCancelConfirm(true)}
+                  className="text-red-400 hover:text-red-300 text-sm border border-red-500/30 rounded-lg px-4 py-2 transition-colors"
+                >
+                  {t.account.cancelSubscription}
+                </button>
+              )}
+            </>
+          )}
         </div>
 
         <form

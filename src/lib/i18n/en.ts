@@ -240,6 +240,8 @@ const en = {
     logIn: "Log in",
     passwordsMismatch: "Passwords do not match",
     passwordTooShort: "Password must be at least 8 characters",
+    promoCode: "Promo Code",
+    promoCodePlaceholder: "Enter promo code (optional)",
   },
 
   // Account
@@ -259,6 +261,15 @@ const en = {
     updateSuccess: "Profile updated successfully",
     updateFailed: "Failed to update profile",
     loading: "Loading...",
+    membership: "Membership",
+    membershipActive: "Your membership is active.",
+    membershipNone: "You don't have an active membership.",
+    cancelSubscription: "Cancel Subscription",
+    cancelConfirm: "Are you sure you want to cancel? Your access will continue until the end of the current billing period.",
+    cancelling: "Cancelling...",
+    cancelSuccess: "Your subscription has been cancelled. Access continues until the end of the billing period.",
+    cancelFailed: "Failed to cancel subscription. Please try again.",
+    cancelBack: "Keep Subscription",
   },
 
   // Blog
@@ -585,7 +596,7 @@ const en = {
     benefitCommunityText: "Connect with like-minded players who are serious about improving. Share experiences, celebrate wins, and grow together.",
     // Pricing
     pricingTitle: "Membership",
-    pricingPrice: "€20",
+    pricingPrice: "€11.97",
     pricingPeriod: "/month",
     pricingFeature1: "Access to all forum categories",
     pricingFeature2: "Direct interaction with Marios",
@@ -650,6 +661,8 @@ const en = {
     chatNoMessages: "No messages yet. Say hello!",
     chatToggleOpen: "Open",
     chatToggleClose: "Close",
+    // Promo code
+    promoCodePlaceholder: "Promo code (optional)",
   },
 
   // Category labels

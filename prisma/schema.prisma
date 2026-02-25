@@ -55,6 +55,7 @@ model User {
   membershipStatus       String         @default("none")
   membershipExpiresAt    DateTime?
   stripeSubscriptionId   String         @default("")
+  promoCode              String         @default("")
   createdAt              DateTime       @default(now())
   orders                 Order[]
   forumPosts             ForumPost[]
