@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — 9BallShop Community</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <main class="auth-page">
+    <div class="auth-container">
+
+      <!-- Header -->
+      <div class="auth-header">
+        <a href="/" class="auth-logo">
+          <span class="logo-icon">🎱</span> 9BALLSHOP
+        </a>
+        <h1>Welcome Back</h1>
+        <p>Log in to the community and pick up where you left off.</p>
+      </div>
+
+      <!-- Card -->
+      <div class="auth-card">
+
+        <!-- Alert -->
+        <div id="alert" class="alert" role="alert"></div>
+
+        <!-- ── Login Form ── -->
+        <form id="loginForm" novalidate>
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+            <div class="field-error" id="emailError"></div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" type="password" id="password" placeholder="Your password" autocomplete="current-password" required>
+            <div class="field-error" id="passwordError"></div>
+          </div>
+
+          <!-- Forgot Password -->
+          <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+
+          <!-- Submit -->
+          <button class="btn-submit" type="submit" id="submitBtn">
+            <span class="btn-text">Log In</span>
+            <span class="spinner"></span>
+          </button>
+        </form>
+
+        <!-- ── Forgot Password Form (hidden by default) ── -->
+        <form id="forgotForm" style="display:none" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="forgotEmail">Email Address</label>
+            <input class="form-input" type="email" id="forgotEmail" placeholder="you@example.com" autocomplete="email" required>
+            <div class="field-error" id="forgotEmailError"></div>
+          </div>
+
+          <button class="btn-submit" type="submit" id="forgotBtn">
+            <span class="btn-text">Send Reset Link</span>
+            <span class="spinner"></span>
+          </button>
+
+          <div style="text-align:center; margin-top:1rem">
+            <a href="#" id="backToLogin" style="font-size:0.875rem; color:var(--text-muted)">
+              &larr; Back to login
+            </a>
+          </div>
+        </form>
+
+        <!-- Success Screen (hidden) -->
+        <div class="success-screen" id="resetSuccess">
+          <div class="success-icon">✉️</div>
+          <h2>Reset Link Sent</h2>
+          <p>
+            Check your inbox at <span class="email-highlight" id="resetEmail"></span>
+            for a password reset link.
+          </p>
+          <a href="#" id="backToLoginFromReset" style="color:var(--gold); font-weight:600; font-size:0.95rem">
+            &larr; Back to login
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer link -->
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html">Join now &rarr;</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Login Logic
+       ────────────────────────────────────────────── */
+
+    // If already logged in, go to forum
+    redirectIfLoggedIn();
+
+    // Show confirmation-success alert if redirected from email confirm
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('confirmed') === '1') {
+      showAlert('alert', 'success', 'Email confirmed! You can now log in.');
+    }
+
+    // Elements
+    const loginForm    = document.getElementById('loginForm');
+    const forgotForm   = document.getElementById('forgotForm');
+    const submitBtn    = document.getElementById('submitBtn');
+    const forgotBtn    = document.getElementById('forgotBtn');
+    const forgotLink   = document.getElementById('forgotLink');
+    const backBtn      = document.getElementById('backToLogin');
+    const backBtn2     = document.getElementById('backToLoginFromReset');
+    const resetSuccess = document.getElementById('resetSuccess');
+
+    const emailIn      = document.getElementById('email');
+    const passwordIn   = document.getElementById('password');
+    const emailErr     = document.getElementById('emailError');
+    const passwordErr  = document.getElementById('passwordError');
+    const forgotEmailIn  = document.getElementById('forgotEmail');
+    const forgotEmailErr = document.getElementById('forgotEmailError');
+
+    // Clear errors on input
+    emailIn.addEventListener('input',       () => clearFieldError(emailIn, emailErr));
+    passwordIn.addEventListener('input',    () => clearFieldError(passwordIn, passwordErr));
+    forgotEmailIn.addEventListener('input', () => clearFieldError(forgotEmailIn, forgotEmailErr));
+
+    // ── Toggle forgot / login views ──
+
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      hideAlert('alert');
+      loginForm.style.display = 'none';
+      forgotForm.style.display = 'block';
+      forgotEmailIn.value = emailIn.value;
+      forgotEmailIn.focus();
+    });
+
+    function showLoginForm() {
+      forgotForm.style.display = 'none';
+      resetSuccess.classList.remove('visible');
+      loginForm.style.display = 'block';
+    }
+
+    backBtn.addEventListener('click',  (e) => { e.preventDefault(); showLoginForm(); });
+    backBtn2.addEventListener('click', (e) => { e.preventDefault(); showLoginForm(); });
+
+    // ── Login submit ──
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert('alert');
+
+      let valid = true;
+
+      const email    = emailIn.value.trim();
+      const password = passwordIn.value;
+
+      if (!email) {
+        showFieldError(emailIn, emailErr, 'Email is required');
+        valid = false;
+      }
+      if (!password) {
+        showFieldError(passwordIn, passwordErr, 'Password is required');
+        valid = false;
+      }
+      if (!valid) return;
+
+      setLoading(submitBtn, true);
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          if (error.message.includes('Invalid login')) {
+            showAlert('alert', 'error', 'Invalid email or password. Please try again.');
+          } else if (error.message.includes('Email not confirmed')) {
+            showAlert('alert', 'error', 'Please confirm your email address first. Check your inbox.');
+          } else {
+            showAlert('alert', 'error', error.message);
+          }
+          setLoading(submitBtn, false);
+          return;
+        }
+
+        // Success — redirect to forum
+        window.location.href = '/community/forum.html';
+
+      } catch (err) {
+        showAlert('alert', 'error', 'Something went wrong. Please try again.');
+        console.error(err);
+        setLoading(submitBtn, false);
+      }
+    });
+
+    // ── Forgot password submit ──
+
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert('alert');
+
+      const email = forgotEmailIn.value.trim();
+      if (!email) {
+        showFieldError(forgotEmailIn, forgotEmailErr, 'Email is required');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError(forgotEmailIn, forgotEmailErr, 'Enter a valid email address');
+        return;
+      }
+
+      setLoading(forgotBtn, true);
+
+      try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + '/community/login.html',
+        });
+
+        if (error) {
+          showAlert('alert', 'error', error.message);
+          setLoading(forgotBtn, false);
+          return;
+        }
+
+        // Show success
+        forgotForm.style.display = 'none';
+        document.getElementById('resetEmail').textContent = email;
+        resetSuccess.classList.add('visible');
+
+      } catch (err) {
+        showAlert('alert', 'error', 'Something went wrong. Please try again.');
+        console.error(err);
+      } finally {
+        setLoading(forgotBtn, false);
+      }
+    });
+  </script>
+</body>
+</html>

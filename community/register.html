@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Community — 9BallShop</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <main class="auth-page">
+    <div class="auth-container">
+
+      <!-- Header -->
+      <div class="auth-header">
+        <a href="/" class="auth-logo">
+          <span class="logo-icon">🎱</span> 9BALLSHOP
+        </a>
+        <h1>Join the Community</h1>
+        <p>Connect with 9-ball players worldwide. Discuss strategy, share videos, and level up your game.</p>
+      </div>
+
+      <!-- Card -->
+      <div class="auth-card">
+
+        <!-- Alert -->
+        <div id="alert" class="alert" role="alert"></div>
+
+        <!-- Registration Form -->
+        <form id="registerForm" novalidate>
+
+          <!-- Username -->
+          <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-input" type="text" id="username" placeholder="Choose a username" autocomplete="username" required>
+            <div class="field-error" id="usernameError"></div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+            <div class="field-error" id="emailError"></div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" type="password" id="password" placeholder="Min. 8 characters" autocomplete="new-password" required>
+            <div class="password-strength">
+              <div class="strength-bar" id="str1"></div>
+              <div class="strength-bar" id="str2"></div>
+              <div class="strength-bar" id="str3"></div>
+              <div class="strength-bar" id="str4"></div>
+            </div>
+            <div class="field-error" id="passwordError"></div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input class="form-input" type="password" id="confirmPassword" placeholder="Repeat your password" autocomplete="new-password" required>
+            <div class="field-error" id="confirmPasswordError"></div>
+          </div>
+
+          <!-- ── Pool Profile Section ── -->
+          <div class="form-section">
+            <div class="form-section-title">
+              <span class="section-icon">🎯</span> Your Pool Profile
+            </div>
+
+            <div class="form-row">
+              <!-- Playing Level -->
+              <div class="form-group">
+                <label class="form-label" for="playingLevel">Playing Level</label>
+                <div class="select-wrapper">
+                  <select class="form-select" id="playingLevel">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate" selected>Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                    <option value="semi_pro">Semi-Pro</option>
+                    <option value="professional">Professional</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Country -->
+              <div class="form-group">
+                <label class="form-label" for="country">Country</label>
+                <input class="form-input" type="text" id="country" placeholder="e.g. Greece">
+                <div class="field-error" id="countryError"></div>
+              </div>
+            </div>
+
+            <!-- Cue Setup -->
+            <div class="form-group">
+              <label class="form-label" for="cueSetup">What cue do you play with? <span class="optional">optional</span></label>
+              <input class="form-input" type="text" id="cueSetup" placeholder="e.g. Predator Revo 12.4 + Mezz EC7">
+            </div>
+
+            <!-- How did you find us -->
+            <div class="form-group">
+              <label class="form-label" for="source">How did you find us?</label>
+              <div class="select-wrapper">
+                <select class="form-select" id="source">
+                  <option value="social_media">Social Media</option>
+                  <option value="friend">Friend / Recommendation</option>
+                  <option value="search_engine">Search Engine</option>
+                  <option value="tournament">Tournament</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button class="btn-submit" type="submit" id="submitBtn">
+            <span class="btn-text">Join the Community</span>
+            <span class="spinner"></span>
+          </button>
+        </form>
+
+        <!-- Success Screen (hidden by default) -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">✉️</div>
+          <h2>Check Your Email</h2>
+          <p>
+            We sent a confirmation link to<br>
+            <span class="email-highlight" id="successEmail"></span>.<br><br>
+            Click the link in your email to activate your account and start posting.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer link -->
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Log in</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Registration Logic
+       ────────────────────────────────────────────── */
+
+    // If already logged in, go to forum
+    redirectIfLoggedIn();
+
+    const form         = document.getElementById('registerForm');
+    const submitBtn    = document.getElementById('submitBtn');
+    const alertBox     = document.getElementById('alert');
+    const successScr   = document.getElementById('successScreen');
+
+    // Inputs
+    const usernameIn   = document.getElementById('username');
+    const emailIn      = document.getElementById('email');
+    const passwordIn   = document.getElementById('password');
+    const confirmIn    = document.getElementById('confirmPassword');
+    const levelIn      = document.getElementById('playingLevel');
+    const countryIn    = document.getElementById('country');
+    const cueIn        = document.getElementById('cueSetup');
+    const sourceIn     = document.getElementById('source');
+
+    // Error elements
+    const usernameErr  = document.getElementById('usernameError');
+    const emailErr     = document.getElementById('emailError');
+    const passwordErr  = document.getElementById('passwordError');
+    const confirmErr   = document.getElementById('confirmPasswordError');
+    const countryErr   = document.getElementById('countryError');
+
+    // ── Password strength meter ──
+
+    passwordIn.addEventListener('input', () => {
+      const val = passwordIn.value;
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score++;
+      if (/\d/.test(val)) score++;
+      if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+      const level = score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong';
+      for (let i = 1; i <= 4; i++) {
+        const bar = document.getElementById('str' + i);
+        bar.className = 'strength-bar' + (i <= score ? ` active ${level}` : '');
+      }
+    });
+
+    // ── Clear errors on input ──
+
+    usernameIn.addEventListener('input', () => clearFieldError(usernameIn, usernameErr));
+    emailIn.addEventListener('input',    () => clearFieldError(emailIn, emailErr));
+    passwordIn.addEventListener('input', () => clearFieldError(passwordIn, passwordErr));
+    confirmIn.addEventListener('input',  () => clearFieldError(confirmIn, confirmErr));
+    countryIn.addEventListener('input',  () => clearFieldError(countryIn, countryErr));
+
+    // ── Validate ──
+
+    function validate() {
+      let valid = true;
+      hideAlert('alert');
+
+      // Username
+      const username = usernameIn.value.trim();
+      if (!username) {
+        showFieldError(usernameIn, usernameErr, 'Username is required');
+        valid = false;
+      } else if (username.length < 3) {
+        showFieldError(usernameIn, usernameErr, 'Must be at least 3 characters');
+        valid = false;
+      } else if (!/^[a-zA-Z0-9_.-]+$/.test(username)) {
+        showFieldError(usernameIn, usernameErr, 'Only letters, numbers, dots, dashes, underscores');
+        valid = false;
+      }
+
+      // Email
+      const email = emailIn.value.trim();
+      if (!email) {
+        showFieldError(emailIn, emailErr, 'Email is required');
+        valid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError(emailIn, emailErr, 'Enter a valid email address');
+        valid = false;
+      }
+
+      // Password
+      const password = passwordIn.value;
+      if (!password) {
+        showFieldError(passwordIn, passwordErr, 'Password is required');
+        valid = false;
+      } else if (password.length < 8) {
+        showFieldError(passwordIn, passwordErr, 'Must be at least 8 characters');
+        valid = false;
+      }
+
+      // Confirm password
+      if (confirmIn.value !== password) {
+        showFieldError(confirmIn, confirmErr, 'Passwords do not match');
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    // ── Submit ──
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      setLoading(submitBtn, true);
+      hideAlert('alert');
+
+      const username     = usernameIn.value.trim();
+      const email        = emailIn.value.trim();
+      const password     = passwordIn.value;
+      const playingLevel = levelIn.value;
+      const country      = countryIn.value.trim();
+      const cueSetup     = cueIn.value.trim();
+      const source       = sourceIn.value;
+
+      try {
+        // 1. Check username availability
+        const { data: existing } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('username', username)
+          .maybeSingle();
+
+        if (existing) {
+          showFieldError(usernameIn, usernameErr, 'Username is already taken');
+          setLoading(submitBtn, false);
+          return;
+        }
+
+        // 2. Sign up with Supabase Auth
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              username,
+              source,
+            },
+            emailRedirectTo: window.location.origin + '/community/login.html?confirmed=1',
+          },
+        });
+
+        if (error) {
+          // Handle common Supabase auth errors
+          if (error.message.includes('already registered')) {
+            showFieldError(emailIn, emailErr, 'This email is already registered');
+          } else {
+            showAlert('alert', 'error', error.message);
+          }
+          setLoading(submitBtn, false);
+          return;
+        }
+
+        // 3. Update the auto-created profile with pool-specific fields
+        if (data.user) {
+          await supabase
+            .from('profiles')
+            .update({
+              playing_level: playingLevel,
+              country: country,
+              cue_setup: cueSetup || null,
+            })
+            .eq('id', data.user.id);
+        }
+
+        // 4. Show success / check-email screen
+        if (data.session) {
+          // Email confirmation disabled — go straight to forum
+          window.location.href = '/community/forum.html';
+        } else {
+          // Email confirmation required — show check-email screen
+          form.style.display = 'none';
+          document.getElementById('successEmail').textContent = email;
+          successScr.classList.add('visible');
+        }
+
+      } catch (err) {
+        showAlert('alert', 'error', 'Something went wrong. Please try again.');
+        console.error(err);
+      } finally {
+        setLoading(submitBtn, false);
+      }
+    });
+  </script>
+</body>
+</html>

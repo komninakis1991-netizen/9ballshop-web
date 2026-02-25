@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn 9-Ball — 9BallShop Community</title>
+  <meta name="description" content="Learn 9-ball pool from beginner basics to advanced tournament strategy. Free guides from the community.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       9BALLSHOP COMMUNITY — Learn Page
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0F1923;
+      --bg-dark:     #0A1628;
+      --card:        #1A2735;
+      --card-hover:  #1E2F3F;
+      --gold:        #F5C518;
+      --gold-light:  #FFD84D;
+      --gold-dark:   #C9A000;
+      --white:       #FFFFFF;
+      --text:        #E2E8F0;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --border:      #243040;
+      --success:     #22C55E;
+      --radius:      10px;
+      --radius-lg:   14px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.25);
+      --transition:  0.2s ease;
+
+      --beginner:       #22C55E;
+      --beginner-bg:    rgba(34,197,94,0.1);
+      --intermediate:   #3B82F6;
+      --intermediate-bg:rgba(59,130,246,0.1);
+      --advanced:       #F5C518;
+      --advanced-bg:    rgba(245,197,24,0.1);
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+
+    /* ── Navbar ─────────────────────────────────── */
+
+    .navbar {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto;
+      padding: 0 1.25rem; height: 56px;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 1.15rem; color: var(--gold); letter-spacing: 0.03em;
+      display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 0.25rem; margin-left: 0.5rem; }
+    .nav-link {
+      padding: 0.4rem 0.75rem; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 500; color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-link:hover, .nav-link.active { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
+    .btn-join {
+      background: var(--gold); color: var(--bg-dark); font-weight: 700;
+      font-size: 0.8rem; padding: 0.4rem 1rem; border-radius: 6px;
+      transition: background var(--transition);
+    }
+    .btn-join:hover { background: var(--gold-light); }
+    .nav-user { display: flex; align-items: center; gap: 0.6rem; }
+    .nav-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--gold); color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-username { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .nav-logout { font-size: 0.8rem; color: var(--text-dim) !important; }
+
+
+    /* ── Hero ───────────────────────────────────── */
+
+    .hero {
+      background: linear-gradient(160deg, var(--bg-dark) 0%, #0F2340 50%, var(--bg-dark) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 1.25rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 25% 60%, rgba(34,197,94,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 75% 40%, rgba(59,130,246,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 700px; margin: 0 auto;
+    }
+
+    .hero-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+    .hero h1 {
+      font-size: 2.2rem; font-weight: 900; color: var(--white);
+      margin-bottom: 0.5rem; letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem; color: var(--text-muted); line-height: 1.5;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Progress bar decoration */
+    .hero-progress {
+      display: flex; gap: 0.5rem; justify-content: center; align-items: center;
+    }
+
+    .progress-step {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+
+    .progress-line {
+      width: 40px; height: 2px; background: var(--border); border-radius: 2px;
+    }
+
+
+    /* ── Filter Bar ────────────────────────────── */
+
+    .filter-bar {
+      max-width: 1120px; margin: 0 auto;
+      padding: 1.25rem 1.25rem 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; flex-wrap: wrap;
+    }
+
+    .filter-pills {
+      display: flex; gap: 0.35rem;
+    }
+
+    .filter-pill {
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--text-dim);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem; font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 20px;
+      transition: all var(--transition);
+    }
+
+    .filter-pill:hover {
+      border-color: var(--text-dim); color: var(--text-muted);
+    }
+
+    .filter-pill.active-all {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--text-muted);
+      color: var(--white);
+    }
+
+    .filter-pill.active-beginner {
+      background: var(--beginner-bg);
+      border-color: rgba(34,197,94,0.4);
+      color: var(--beginner);
+    }
+
+    .filter-pill.active-intermediate {
+      background: var(--intermediate-bg);
+      border-color: rgba(59,130,246,0.4);
+      color: var(--intermediate);
+    }
+
+    .filter-pill.active-advanced {
+      background: var(--advanced-bg);
+      border-color: rgba(245,197,24,0.4);
+      color: var(--advanced);
+    }
+
+    .article-count {
+      font-size: 0.78rem; color: var(--text-dim);
+    }
+    .article-count strong { color: var(--text-muted); }
+
+
+    /* ── Section Groups ────────────────────────── */
+
+    .content-area {
+      max-width: 1120px; margin: 0 auto;
+      padding: 1.25rem 1.25rem 3rem;
+    }
+
+    .level-section { margin-bottom: 1.5rem; }
+
+    .level-header {
+      display: flex; align-items: center; gap: 0.65rem;
+      margin-bottom: 0.85rem; padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .level-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+
+    .level-title {
+      font-size: 1rem; font-weight: 700; color: var(--white);
+    }
+
+    .level-count {
+      font-size: 0.72rem; color: var(--text-dim);
+      margin-left: auto;
+    }
+
+
+    /* ── Article Cards Grid ────────────────────── */
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .article-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      transition: background var(--transition), border-color var(--transition),
+                  transform var(--transition), box-shadow var(--transition);
+    }
+
+    .article-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.12);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Top row: badge + read time */
+    .article-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.65rem; gap: 0.5rem;
+    }
+
+    .skill-badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.6rem; border-radius: 5px;
+      font-size: 0.62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    .badge-beginner     { background: var(--beginner-bg);     color: var(--beginner); }
+    .badge-intermediate { background: var(--intermediate-bg); color: var(--intermediate); }
+    .badge-advanced     { background: var(--advanced-bg);     color: var(--advanced); }
+
+    .read-time {
+      font-size: 0.68rem; color: var(--text-dim);
+      display: flex; align-items: center; gap: 0.25rem;
+    }
+
+    /* Number badge */
+    .article-number {
+      width: 28px; height: 28px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem;
+      margin-bottom: 0.5rem; flex-shrink: 0;
+    }
+
+    .num-beginner     { background: var(--beginner-bg); color: var(--beginner); }
+    .num-intermediate { background: var(--intermediate-bg); color: var(--intermediate); }
+    .num-advanced     { background: var(--advanced-bg); color: var(--advanced); }
+
+    .article-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.92rem; font-weight: 700;
+      color: var(--white); line-height: 1.3;
+      margin-bottom: 0.45rem;
+      transition: color var(--transition);
+    }
+
+    .article-card:hover .article-title { color: var(--gold); }
+
+    .article-desc {
+      font-size: 0.8rem; color: var(--text-dim);
+      line-height: 1.5; flex: 1;
+      margin-bottom: 0.75rem;
+      display: -webkit-box; -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* Footer of card */
+    .article-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 0.65rem; border-top: 1px solid rgba(255,255,255,0.04);
+      gap: 0.5rem;
+    }
+
+    .article-author {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-size: 0.72rem; color: var(--text-dim);
+    }
+
+    .author-avatar {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--gold-dark); color: var(--bg-dark);
+      font-size: 0.5rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .article-read-link {
+      display: inline-flex; align-items: center; gap: 0.2rem;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--gold); transition: color var(--transition);
+    }
+
+    .article-read-link:hover { color: var(--gold-light); }
+
+    /* Coming soon variant */
+    .article-card.coming-soon { opacity: 0.7; }
+    .article-card.coming-soon:hover { opacity: 1; }
+
+    .coming-soon-tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.65rem; font-weight: 600; color: var(--text-dim);
+      background: rgba(255,255,255,0.04);
+      padding: 0.2rem 0.5rem; border-radius: 4px;
+    }
+
+    .contribute-text {
+      font-size: 0.72rem; color: var(--text-dim);
+      font-style: italic; line-height: 1.4;
+    }
+
+
+    /* ── CTA Banner ────────────────────────────── */
+
+    .cta-banner {
+      max-width: 1120px; margin: 0 auto 2rem;
+      padding: 0 1.25rem;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(245,197,24,0.06) 0%, rgba(34,197,94,0.04) 100%);
+      border: 1px solid rgba(245,197,24,0.12);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .cta-card h3 {
+      font-size: 1.15rem; font-weight: 700; color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .cta-card p {
+      font-size: 0.88rem; color: var(--text-muted);
+      margin-bottom: 1.25rem; line-height: 1.5;
+    }
+
+    .cta-buttons {
+      display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+    }
+
+    .btn-cta-primary {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--gold); color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.82rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px; border: none;
+      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .btn-cta-primary:hover {
+      background: var(--gold-light); transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    }
+
+    .btn-cta-outline {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: none; color: var(--text-muted);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.82rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      border: 1.5px solid var(--border);
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .btn-cta-outline:hover {
+      background: rgba(255,255,255,0.04); border-color: var(--text-dim); color: var(--white);
+    }
+
+
+    /* ── Skeleton ───────────────────────────────── */
+
+    .skeleton-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); height: 200px;
+      background-image: linear-gradient(90deg, var(--border) 25%, rgba(255,255,255,0.04) 50%, var(--border) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+
+    /* ── Footer ─────────────────────────────────── */
+
+    .footer {
+      border-top: 1px solid var(--border); padding: 1.25rem; margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto; text-align: center;
+      font-size: 0.8rem; color: var(--text-dim);
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.6rem; flex-wrap: wrap;
+    }
+    .footer-inner a { color: var(--text-muted); transition: color var(--transition); }
+    .footer-inner a:hover { color: var(--gold); }
+    .footer-sep { opacity: 0.3; }
+
+
+    /* ── Responsive ─────────────────────────────── */
+
+    @media (max-width: 860px) {
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero-subtitle { font-size: 0.92rem; }
+      .hero-progress { flex-wrap: wrap; justify-content: center; }
+      .progress-line { width: 24px; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-pills { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="learn.html" class="nav-link active">Learn</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
+      </div>
+      <div class="nav-right" id="navRight"></div>
+    </div>
+  </nav>
+
+  <main style="flex:1;">
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-icon">📚</div>
+        <h1>Learn 9-Ball</h1>
+        <p class="hero-subtitle">From your first break to tournament-level play. Free guides written by the community.</p>
+        <div class="hero-progress">
+          <div class="progress-step">
+            <span class="progress-dot" style="background:var(--beginner)"></span>
+            <span style="color:var(--beginner)">Beginner</span>
+          </div>
+          <span class="progress-line"></span>
+          <div class="progress-step">
+            <span class="progress-dot" style="background:var(--intermediate)"></span>
+            <span style="color:var(--intermediate)">Intermediate</span>
+          </div>
+          <span class="progress-line"></span>
+          <div class="progress-step">
+            <span class="progress-dot" style="background:var(--advanced)"></span>
+            <span style="color:var(--advanced)">Advanced</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Filter Bar ── -->
+    <div class="filter-bar">
+      <div class="filter-pills" id="filterPills">
+        <button class="filter-pill active-all" data-level="all" type="button">All Levels</button>
+        <button class="filter-pill" data-level="beginner" type="button">🟢 Beginner</button>
+        <button class="filter-pill" data-level="intermediate" type="button">🔵 Intermediate</button>
+        <button class="filter-pill" data-level="advanced" type="button">🟡 Advanced</button>
+      </div>
+      <span class="article-count" id="articleCount"></span>
+    </div>
+
+    <!-- ── Content ── -->
+    <div class="content-area" id="contentArea">
+      <!-- Skeleton while loading -->
+      <div class="articles-grid" id="skeletonGrid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+
+    <!-- ── CTA Banner ── -->
+    <div class="cta-banner">
+      <div class="cta-card">
+        <h3>📝 Want to Contribute?</h3>
+        <p>Share your knowledge with the community. Write a guide in the Tips &amp; Technique or Beginners Welcome category, and we'll pin the best ones here.</p>
+        <div class="cta-buttons">
+          <a href="category.html?slug=tips-technique" class="btn-cta-primary">Write a Guide →</a>
+          <a href="forum.html" class="btn-cta-outline">Browse the Forum</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>🎱 9BallShop Community</span>
+      <span class="footer-sep">·</span>
+      <a href="index.html">Home</a>
+      <span class="footer-sep">·</span>
+      <a href="forum.html">Forum</a>
+      <span class="footer-sep">·</span>
+      <a href="register.html">Join</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Learn Page
+       ────────────────────────────────────────────── */
+
+    const $ = id => document.getElementById(id);
+
+    // ── State ──
+    let allArticles  = [];
+    let activeFilter = 'all';
+    let currentUser  = null;
+
+
+    // ═══════════════════════════════════════════════
+    // PLACEHOLDER CURRICULUM
+    // ═══════════════════════════════════════════════
+
+    const curriculum = [
+      // ── Beginner ──
+      { level: 'beginner', num: 1, title: '9-Ball Rules Explained',
+        desc: 'Everything you need to know to play your first legal game of 9-ball. Object balls, push-out rules, and win conditions explained simply.' },
+      { level: 'beginner', num: 2, title: 'How to Hold a Cue Properly',
+        desc: 'Grip, stance, bridge hand, and stroke fundamentals. The building blocks that every great player masters first.' },
+      { level: 'beginner', num: 3, title: 'Ghost Ball Aiming System',
+        desc: 'The most intuitive aiming method for beginners. Visualize where the cue ball needs to be at contact to pocket the object ball.' },
+      { level: 'beginner', num: 4, title: 'Your First Break Shot',
+        desc: 'How to set up, aim, and deliver a solid 9-ball break. Cue ball placement, speed, and what to do after the break.' },
+      { level: 'beginner', num: 5, title: 'Fouls & Ball-in-Hand',
+        desc: 'Common fouls, illegal shots, and how ball-in-hand works in 9-ball. Know the rules so you never give away free shots.' },
+
+      // ── Intermediate ──
+      { level: 'intermediate', num: 1, title: 'Pattern Play Fundamentals',
+        desc: 'Stop thinking shot-by-shot. Learn to see 2-3 balls ahead and plan cue ball routes that keep you at the table.' },
+      { level: 'intermediate', num: 2, title: 'Safety Fundamentals',
+        desc: 'When you can\'t run out, play smart. Hook your opponent, control the cue ball, and win the tactical battle.' },
+      { level: 'intermediate', num: 3, title: 'Breaking Technique Deep Dive',
+        desc: 'Speed vs. control, wing ball vs. cut break, second-row breaks. Analyze what works and build a consistent break.' },
+      { level: 'intermediate', num: 4, title: 'English & Spin Basics',
+        desc: 'Left spin, right spin, top, draw, and follow. How spin affects cue ball path off the object ball and off rails.' },
+      { level: 'intermediate', num: 5, title: 'Shot Selection Strategy',
+        desc: 'When to go for the tough shot vs. play safe. Risk-reward thinking that separates good players from great ones.' },
+
+      // ── Advanced ──
+      { level: 'advanced', num: 1, title: 'Route Planning & Run-Outs',
+        desc: 'Full-rack route planning from the break. Identify key balls, insurance balls, and trouble spots before you shoot.' },
+      { level: 'advanced', num: 2, title: 'Kick & Bank Shot Mastery',
+        desc: 'Diamond systems, mirror systems, and when to use kick shots vs. banks. Essential skills for escaping tough situations.' },
+      { level: 'advanced', num: 3, title: 'Tournament Mental Game',
+        desc: 'Pre-shot routines, managing pressure, dealing with bad rolls, and maintaining focus across long tournament sessions.' },
+      { level: 'advanced', num: 4, title: 'Analyzing Pro Matches',
+        desc: 'How to watch professional 9-ball and learn from it. Pattern recognition, decision points, and what to look for.' },
+      { level: 'advanced', num: 5, title: 'Speed Control Mastery',
+        desc: 'The difference between a good and great player is speed control. Precise cue ball travel for perfect position every time.' },
+    ];
+
+
+    // ═══════════════════════════════════════════════
+    // AUTH
+    // ═══════════════════════════════════════════════
+
+    async function initAuth() {
+      const session = await getSession();
+      const navRight = $('navRight');
+
+      if (session) {
+        currentUser = session.user;
+        const profile = await getProfile(currentUser.id);
+        const name = profile?.username || currentUser.email.split('@')[0];
+        navRight.innerHTML = `
+          <div class="nav-user">
+            <div class="nav-avatar">${name.charAt(0).toUpperCase()}</div>
+            <span class="nav-username">${esc(name)}</span>
+            <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>
+          </div>`;
+      } else {
+        navRight.innerHTML = `
+          <a href="login.html" class="nav-link">Log In</a>
+          <a href="register.html" class="btn-join">Join Free</a>`;
+      }
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // LOAD ARTICLES — fetch pinned threads from learn categories
+    // ═══════════════════════════════════════════════
+
+    async function loadArticles() {
+      // First, get the category IDs by slug
+      const { data: cats } = await supabase
+        .from('categories')
+        .select('id, slug')
+        .in('slug', ['tips-technique', 'beginners']);
+
+      if (!cats || cats.length === 0) {
+        // No categories found — show all placeholders
+        buildArticleList([]);
+        return;
+      }
+
+      const catIds = cats.map(c => c.id);
+      const beginnerCatId = cats.find(c => c.slug === 'beginners')?.id;
+      const tipsCatId     = cats.find(c => c.slug === 'tips-technique')?.id;
+
+      // Fetch pinned threads from these categories
+      const { data: threads, error } = await supabase
+        .from('threads')
+        .select('id, title, body, created_at, reply_count, category_id, profiles(username, avatar_url), categories(name, color)')
+        .in('category_id', catIds)
+        .eq('is_pinned', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load articles:', error);
+      }
+
+      // Map threads to articles with skill level
+      const liveArticles = (threads || []).map(t => {
+        // Determine level: beginners category → beginner, tips → intermediate/advanced (default intermediate)
+        let level = 'intermediate';
+        if (t.category_id === beginnerCatId) level = 'beginner';
+
+        // Check for level hints in title
+        const titleLower = t.title.toLowerCase();
+        if (titleLower.includes('advanced') || titleLower.includes('pro ') || titleLower.includes('tournament')) level = 'advanced';
+        if (titleLower.includes('beginner') || titleLower.includes('basics') || titleLower.includes('rules') || titleLower.includes('first')) level = 'beginner';
+
+        return {
+          level,
+          title: t.title,
+          desc: truncate(stripMarkdown(t.body), 150),
+          author: t.profiles?.username || 'Community',
+          authorInitial: (t.profiles?.username || 'C').charAt(0).toUpperCase(),
+          readTime: estimateReadTime(t.body),
+          href: 'thread.html?id=' + t.id,
+          isLive: true,
+        };
+      });
+
+      buildArticleList(liveArticles);
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // BUILD ARTICLE LIST — merge live + placeholders
+    // ═══════════════════════════════════════════════
+
+    function buildArticleList(liveArticles) {
+      // Track which curriculum slots are covered by live articles (by loose title match)
+      const coveredTitles = new Set(liveArticles.map(a => a.title.toLowerCase().trim()));
+
+      allArticles = [];
+
+      // For each curriculum item, use live article if title matches, else placeholder
+      curriculum.forEach((cur, i) => {
+        const match = liveArticles.find(a =>
+          a.level === cur.level &&
+          (a.title.toLowerCase().includes(cur.title.toLowerCase().split(' ')[0]) ||
+           coveredTitles.has(cur.title.toLowerCase()))
+        );
+
+        if (match) {
+          // Remove from live pool to prevent double-use
+          const idx = liveArticles.indexOf(match);
+          if (idx > -1) liveArticles.splice(idx, 1);
+          allArticles.push({ ...match, num: cur.num });
+        } else {
+          allArticles.push({
+            level: cur.level,
+            num: cur.num,
+            title: cur.title,
+            desc: cur.desc,
+            author: null,
+            readTime: null,
+            href: 'forum.html',
+            isLive: false,
+          });
+        }
+      });
+
+      // Append any remaining live articles that didn't match curriculum
+      liveArticles.forEach(a => {
+        allArticles.push({
+          ...a,
+          num: null,
+        });
+      });
+
+      applyFilter();
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // FILTER
+    // ═══════════════════════════════════════════════
+
+    $('filterPills').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-pill');
+      if (!btn) return;
+
+      // Reset all pills
+      $('filterPills').querySelectorAll('.filter-pill').forEach(b => {
+        b.className = 'filter-pill';
+      });
+
+      const level = btn.dataset.level;
+      activeFilter = level;
+
+      // Set active class
+      if (level === 'all') btn.classList.add('active-all');
+      else btn.classList.add('active-' + level);
+
+      applyFilter();
+    });
+
+    function applyFilter() {
+      const filtered = activeFilter === 'all'
+        ? allArticles
+        : allArticles.filter(a => a.level === activeFilter);
+
+      const n = filtered.length;
+      $('articleCount').innerHTML = `<strong>${n}</strong> article${n !== 1 ? 's' : ''}`;
+
+      renderArticles(filtered);
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // RENDER
+    // ═══════════════════════════════════════════════
+
+    function renderArticles(articles) {
+      const content = $('contentArea');
+
+      if (articles.length === 0) {
+        content.innerHTML = `
+          <div style="text-align:center;padding:3rem 1rem;color:var(--text-dim);">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;opacity:0.4;">📭</div>
+            <h3 style="color:var(--text-muted);margin-bottom:0.3rem;">No articles yet</h3>
+            <p>Check back soon or contribute your own guide!</p>
+          </div>`;
+        return;
+      }
+
+      // Group by level
+      const levels = ['beginner', 'intermediate', 'advanced'];
+      const grouped = {};
+      levels.forEach(l => grouped[l] = []);
+      const extra = [];
+
+      articles.forEach(a => {
+        if (grouped[a.level]) grouped[a.level].push(a);
+        else extra.push(a);
+      });
+
+      // If filtering a single level, don't show section headers
+      const showSections = activeFilter === 'all';
+
+      let html = '';
+
+      levels.forEach(level => {
+        const items = grouped[level];
+        if (items.length === 0) return;
+
+        const cfg = levelConfig[level];
+
+        if (showSections) {
+          html += `
+            <div class="level-section">
+              <div class="level-header">
+                <div class="level-icon" style="background:${cfg.bg};">${cfg.icon}</div>
+                <span class="level-title" style="color:${cfg.color};">${cfg.label}</span>
+                <span class="level-count">${items.length} article${items.length !== 1 ? 's' : ''}</span>
+              </div>
+              <div class="articles-grid">
+                ${items.map(a => renderCard(a)).join('')}
+              </div>
+            </div>`;
+        } else {
+          html += `<div class="articles-grid">${items.map(a => renderCard(a)).join('')}</div>`;
+        }
+      });
+
+      // Extra (unmatched live articles)
+      if (extra.length > 0) {
+        html += `<div class="articles-grid" style="margin-top:1rem;">${extra.map(a => renderCard(a)).join('')}</div>`;
+      }
+
+      content.innerHTML = html;
+    }
+
+    const levelConfig = {
+      beginner:     { icon: '🟢', label: 'Beginner', color: 'var(--beginner)',     bg: 'var(--beginner-bg)',     badge: 'badge-beginner',     num: 'num-beginner' },
+      intermediate: { icon: '🔵', label: 'Intermediate', color: 'var(--intermediate)', bg: 'var(--intermediate-bg)', badge: 'badge-intermediate', num: 'num-intermediate' },
+      advanced:     { icon: '🟡', label: 'Advanced',     color: 'var(--advanced)',     bg: 'var(--advanced-bg)',     badge: 'badge-advanced',     num: 'num-advanced' },
+    };
+
+    function renderCard(a) {
+      const cfg = levelConfig[a.level] || levelConfig.intermediate;
+
+      if (!a.isLive) {
+        // Placeholder card
+        return `
+          <a href="${a.href}" class="article-card coming-soon">
+            <div class="article-top">
+              <span class="skill-badge ${cfg.badge}">${cfg.icon} ${cfg.label}</span>
+              <span class="coming-soon-tag">🔜 Coming Soon</span>
+            </div>
+            ${a.num ? `<div class="article-number ${cfg.num}">${a.num}</div>` : ''}
+            <div class="article-title">${esc(a.title)}</div>
+            <div class="article-desc">${esc(a.desc)}</div>
+            <div class="article-footer">
+              <span class="contribute-text">Want to write this? Post it in the forum!</span>
+              <span class="article-read-link">Forum →</span>
+            </div>
+          </a>`;
+      }
+
+      // Live article card
+      return `
+        <a href="${a.href}" class="article-card">
+          <div class="article-top">
+            <span class="skill-badge ${cfg.badge}">${cfg.icon} ${cfg.label}</span>
+            <span class="read-time">📖 ${a.readTime}</span>
+          </div>
+          ${a.num ? `<div class="article-number ${cfg.num}">${a.num}</div>` : ''}
+          <div class="article-title">${esc(a.title)}</div>
+          <div class="article-desc">${esc(a.desc)}</div>
+          <div class="article-footer">
+            <span class="article-author">
+              <span class="author-avatar">${esc(a.authorInitial)}</span>
+              ${esc(a.author)}
+            </span>
+            <span class="article-read-link">Read →</span>
+          </div>
+        </a>`;
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // UTILITIES
+    // ═══════════════════════════════════════════════
+
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function truncate(s, n) {
+      if (!s) return '';
+      if (s.length <= n) return s;
+      return s.slice(0, n).replace(/\s+\S*$/, '') + '…';
+    }
+
+    function stripMarkdown(text) {
+      if (!text) return '';
+      return text
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/\*(.+?)\*/g, '$1')
+        .replace(/`([^`]+)`/g, '$1')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/^>+\s?/gm, '')
+        .replace(/#{1,6}\s/g, '')
+        .replace(/\n+/g, ' ')
+        .trim();
+    }
+
+    function estimateReadTime(body) {
+      if (!body) return '1 min';
+      const words = body.split(/\s+/).length;
+      const mins = Math.max(1, Math.round(words / 200));
+      return mins + ' min read';
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════
+
+    (async () => {
+      initAuth();
+      await loadArticles();
+    })();
+  </script>
+</body>
+</html>

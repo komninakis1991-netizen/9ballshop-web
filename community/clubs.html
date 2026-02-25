@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Directory — 9BallShop Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       9BALLSHOP COMMUNITY — Club Directory
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0F1923;
+      --bg-dark:     #0A1628;
+      --card:        #1A2735;
+      --card-hover:  #1E2F3F;
+      --gold:        #F5C518;
+      --gold-light:  #FFD84D;
+      --gold-dark:   #C9A000;
+      --white:       #FFFFFF;
+      --text:        #E2E8F0;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --border:      #243040;
+      --success:     #22C55E;
+      --radius:      10px;
+      --radius-lg:   14px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.25);
+      --transition:  0.2s ease;
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+
+    /* ── Navbar ─────────────────────────────────── */
+
+    .navbar {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto;
+      padding: 0 1.25rem; height: 56px;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 1.15rem; color: var(--gold); letter-spacing: 0.03em;
+      display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 0.25rem; margin-left: 0.5rem; }
+    .nav-link {
+      padding: 0.4rem 0.75rem; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 500; color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-link:hover, .nav-link.active { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
+    .btn-join {
+      background: var(--gold); color: var(--bg-dark); font-weight: 700;
+      font-size: 0.8rem; padding: 0.4rem 1rem; border-radius: 6px;
+      letter-spacing: 0.02em; transition: background var(--transition);
+    }
+    .btn-join:hover { background: var(--gold-light); }
+    .nav-user { display: flex; align-items: center; gap: 0.6rem; }
+    .nav-avatar {
+      width: 30px; height: 30px; border-radius: 50%; background: var(--gold);
+      color: var(--bg-dark); font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-username { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .nav-logout { font-size: 0.8rem; color: var(--text-dim) !important; }
+
+
+    /* ── Hero ───────────────────────────────────── */
+
+    .hero {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 1.25rem 2rem;
+    }
+    .hero-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap;
+    }
+    .hero-text h1 { font-size: 1.75rem; font-weight: 800; color: var(--white); margin-bottom: 0.35rem; }
+    .hero-text p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+    .btn-submit-venue {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--gold); color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem;
+      padding: 0.55rem 1.2rem; border-radius: 8px; border: none;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-submit-venue:hover {
+      background: var(--gold-light); transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    }
+
+
+    /* ── Search & Filters ──────────────────────── */
+
+    .toolbar {
+      max-width: 1120px; margin: 0 auto;
+      padding: 1.25rem 1.25rem 0;
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1; min-width: 200px; position: relative;
+    }
+    .search-input {
+      width: 100%; padding: 0.6rem 0.85rem 0.6rem 2.2rem;
+      background: var(--card); border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input::placeholder { color: var(--text-dim); }
+    .search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,197,24,0.1); }
+    .search-icon {
+      position: absolute; left: 0.7rem; top: 50%; transform: translateY(-50%);
+      font-size: 0.85rem; opacity: 0.4; pointer-events: none;
+    }
+
+    .filter-select {
+      padding: 0.55rem 2rem 0.55rem 0.75rem;
+      background: var(--card); border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text-muted); font-family: 'Inter', sans-serif; font-size: 0.78rem;
+      font-weight: 500; cursor: pointer; outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.65rem center;
+      transition: border-color 0.2s;
+    }
+    .filter-select:focus { border-color: var(--gold); }
+
+    .result-count {
+      max-width: 1120px; margin: 0 auto;
+      padding: 0.75rem 1.25rem 0;
+      font-size: 0.78rem; color: var(--text-dim);
+    }
+    .result-count strong { color: var(--text-muted); }
+
+
+    /* ── Club Grid ──────────────────────────────── */
+
+    .clubs-grid {
+      max-width: 1120px; margin: 0 auto;
+      padding: 1rem 1.25rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .club-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .club-card:hover {
+      border-color: rgba(245,197,24,0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .club-body { padding: 1.25rem; }
+
+    .club-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 0.75rem; margin-bottom: 0.65rem;
+    }
+
+    .club-name {
+      font-family: 'Montserrat', sans-serif; font-size: 1rem;
+      font-weight: 700; color: var(--white); line-height: 1.3;
+    }
+
+    .club-rating-badge {
+      display: flex; align-items: center; gap: 0.3rem;
+      background: rgba(245,197,24,0.08); border: 1px solid rgba(245,197,24,0.12);
+      border-radius: 8px; padding: 0.3rem 0.6rem; flex-shrink: 0;
+    }
+    .rating-number {
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 0.95rem; color: var(--gold);
+    }
+    .rating-count {
+      font-size: 0.65rem; color: var(--text-dim);
+    }
+
+    .club-location {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.15rem;
+    }
+
+    .club-address {
+      font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.75rem;
+    }
+
+    .club-details {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+      font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.75rem;
+    }
+    .club-detail {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+    }
+
+    /* Tags */
+    .club-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem; }
+    .club-tag {
+      display: inline-flex; align-items: center; gap: 0.2rem;
+      padding: 0.2rem 0.55rem; border-radius: 5px;
+      font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tag-9ball    { background: rgba(245,197,24,0.1);  color: var(--gold); }
+    .tag-competitive { background: rgba(239,68,68,0.08); color: #FCA5A5; }
+    .tag-casual   { background: rgba(34,197,94,0.08);   color: #4ADE80; }
+    .tag-mixed    { background: rgba(59,130,246,0.08);   color: #60A5FA; }
+
+    /* Stars */
+    .stars { display: inline-flex; gap: 1px; }
+    .star { font-size: 0.85rem; color: var(--border); }
+    .star.filled { color: var(--gold); }
+    .star.half { color: var(--gold); opacity: 0.5; }
+
+    /* Actions row */
+    .club-actions {
+      display: flex; gap: 0.5rem; padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .btn-club {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.3rem; padding: 0.45rem 0.6rem; border-radius: 7px;
+      font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border);
+      background: none; color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .btn-club:hover {
+      background: rgba(255,255,255,0.04); border-color: var(--text-dim); color: var(--white);
+    }
+    .btn-club.active {
+      background: rgba(245,197,24,0.06); border-color: rgba(245,197,24,0.2); color: var(--gold);
+    }
+
+
+    /* ── Reviews Panel (inside club card) ──────── */
+
+    .reviews-panel {
+      display: none; border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.12); padding: 1rem 1.25rem;
+    }
+    .reviews-panel.open { display: block; }
+
+    .reviews-list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+    .review-item {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px; padding: 0.85rem;
+    }
+    .review-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+    .review-author {
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .review-avatar {
+      width: 24px; height: 24px; border-radius: 50%; background: var(--gold-dark);
+      color: var(--bg-dark); font-size: 0.6rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .review-name { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+    .review-date { font-size: 0.68rem; color: var(--text-dim); }
+    .review-text {
+      font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+    }
+
+    .no-reviews {
+      font-size: 0.82rem; color: var(--text-dim); font-style: italic;
+      padding: 0.5rem 0;
+    }
+
+    /* Write review form */
+    .review-form { margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--border); }
+    .review-form-title {
+      font-family: 'Montserrat', sans-serif; font-size: 0.82rem;
+      font-weight: 700; color: var(--white); margin-bottom: 0.65rem;
+    }
+
+    .star-picker {
+      display: flex; gap: 2px; margin-bottom: 0.65rem; cursor: pointer;
+    }
+    .star-picker .pick-star {
+      font-size: 1.3rem; color: var(--border); transition: color 0.15s;
+      cursor: pointer; background: none; border: none; padding: 0 1px;
+    }
+    .star-picker .pick-star.lit { color: var(--gold); }
+    .star-picker .pick-star:hover { color: var(--gold-light); }
+
+    .review-textarea {
+      width: 100%; padding: 0.6rem 0.85rem;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      outline: none; resize: vertical; min-height: 70px; line-height: 1.5;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .review-textarea::placeholder { color: var(--text-dim); }
+    .review-textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,197,24,0.1); }
+
+    .review-submit-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 0.5rem; gap: 0.5rem;
+    }
+    .review-alert {
+      font-size: 0.78rem; flex: 1;
+    }
+    .review-alert.error { color: #FCA5A5; }
+    .review-alert.success { color: #4ADE80; }
+
+    .btn-submit-review {
+      background: var(--gold); color: var(--bg-dark); border: none;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.78rem;
+      padding: 0.45rem 1.1rem; border-radius: 7px;
+      transition: background 0.2s, box-shadow 0.2s; flex-shrink: 0;
+    }
+    .btn-submit-review:hover:not(:disabled) {
+      background: var(--gold-light); box-shadow: 0 3px 10px rgba(245,197,24,0.3);
+    }
+    .btn-submit-review:disabled { opacity: 0.7; cursor: not-allowed; }
+
+
+    /* ── Submit Venue Modal ─────────────────────── */
+
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,22,40,0.85); z-index: 200;
+      overflow-y: auto; padding: 2rem 1.25rem;
+      justify-content: center; align-items: flex-start;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-panel {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; width: 100%; max-width: 580px;
+      margin-top: 2rem; animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .modal-title {
+      font-family: 'Montserrat', sans-serif; font-size: 1.15rem;
+      font-weight: 700; color: var(--white);
+    }
+    .btn-close-modal {
+      background: none; border: none; color: var(--text-dim);
+      font-size: 1.5rem; cursor: pointer; padding: 0.25rem;
+      line-height: 1; transition: color 0.2s;
+    }
+    .btn-close-modal:hover { color: var(--white); }
+
+    .modal-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .field-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .field-label {
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--text-dim);
+    }
+    .field-input, .field-select {
+      width: 100%; padding: 0.65rem 0.85rem;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-input::placeholder { color: var(--text-dim); }
+    .field-input:focus, .field-select:focus {
+      border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
+    }
+    .field-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.75rem center;
+      padding-right: 2.25rem; cursor: pointer;
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+    .modal-alert {
+      font-size: 0.85rem; padding: 0.65rem 1rem; border-radius: 8px; display: none;
+    }
+    .modal-alert.alert-error.visible {
+      display: block; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2); color: #FCA5A5;
+    }
+    .modal-alert.alert-success.visible {
+      display: block; background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.2); color: #4ADE80;
+    }
+
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem; }
+    .btn-modal-cancel {
+      background: none; border: 1.5px solid var(--border); color: var(--text-muted);
+      font-weight: 600; font-size: 0.85rem; padding: 0.6rem 1.25rem; border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-modal-cancel:hover { background: rgba(255,255,255,0.04); border-color: var(--text-dim); }
+    .btn-modal-submit {
+      background: var(--gold); color: var(--bg-dark); border: none;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem;
+      padding: 0.6rem 1.5rem; border-radius: 8px;
+      transition: background 0.2s, box-shadow 0.2s; position: relative;
+    }
+    .btn-modal-submit:hover:not(:disabled) {
+      background: var(--gold-light); box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    }
+    .btn-modal-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+    .btn-modal-submit .spinner {
+      display: none; width: 18px; height: 18px;
+      border: 2.5px solid rgba(10,22,40,0.3); border-top-color: var(--bg-dark);
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+    .btn-modal-submit.loading .btn-text { display: none; }
+    .btn-modal-submit.loading .spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+
+    /* ── Skeleton ───────────────────────────────── */
+
+    .skeleton-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); height: 220px;
+      background-image: linear-gradient(90deg, var(--border) 25%, rgba(255,255,255,0.04) 50%, var(--border) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+
+    /* ── Empty State ────────────────────────────── */
+
+    .empty-state {
+      grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-dim);
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+    .empty-state h3 { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .empty-state p { font-size: 0.9rem; }
+
+
+    /* ── Footer ─────────────────────────────────── */
+
+    .footer {
+      border-top: 1px solid var(--border); padding: 1.25rem; margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto; text-align: center;
+      font-size: 0.8rem; color: var(--text-dim);
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.6rem; flex-wrap: wrap;
+    }
+    .footer-inner a { color: var(--text-muted); transition: color var(--transition); }
+    .footer-inner a:hover { color: var(--gold); }
+    .footer-sep { opacity: 0.3; }
+
+
+    /* ── Responsive ─────────────────────────────── */
+
+    @media (max-width: 860px) {
+      .clubs-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+      .hero-text h1 { font-size: 1.4rem; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search-box { min-width: 100%; }
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
+      .modal-panel { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link active">Clubs</a>
+      </div>
+      <div class="nav-right" id="navRight"></div>
+    </div>
+  </nav>
+
+  <main style="flex:1;">
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1>🏢 Club Directory</h1>
+          <p>Find 9-ball friendly venues around the world. Rate, review, and share your favorites.</p>
+        </div>
+        <button class="btn-submit-venue" id="btnSubmitVenue" style="display:none" type="button">+ Submit a Venue</button>
+      </div>
+    </section>
+
+    <!-- ── Search & Filters ── -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search by name or city…">
+      </div>
+      <select class="filter-select" id="filterCountry">
+        <option value="">All Countries</option>
+      </select>
+      <select class="filter-select" id="filterSize">
+        <option value="">All Table Sizes</option>
+        <option value="9-foot">9-Foot</option>
+        <option value="7-foot">7-Foot</option>
+      </select>
+      <select class="filter-select" id="filterBrand">
+        <option value="">All Brands</option>
+      </select>
+    </div>
+
+    <!-- ── Count ── -->
+    <div class="result-count" id="resultCount"></div>
+
+    <!-- ── Club Grid ── -->
+    <div class="clubs-grid" id="clubsGrid">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+
+  </main>
+
+  <!-- ── Submit Venue Modal ── -->
+  <div class="modal-overlay" id="venueModal">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2 class="modal-title">Submit a Venue</h2>
+        <button class="btn-close-modal" id="btnCloseVenueModal" type="button">&times;</button>
+      </div>
+      <div id="venueModalAlert" class="modal-alert"></div>
+      <form class="modal-form" id="venueForm" autocomplete="off">
+        <div class="field-group">
+          <label class="field-label" for="vName">Venue Name *</label>
+          <input class="field-input" id="vName" type="text" required maxlength="200" placeholder="e.g. Break Room Billiards">
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="vCity">City *</label>
+            <input class="field-input" id="vCity" type="text" required maxlength="100" placeholder="e.g. Athens">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="vCountry">Country *</label>
+            <input class="field-input" id="vCountry" type="text" required maxlength="100" placeholder="e.g. Greece">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="vFlag">Country Flag</label>
+            <input class="field-input" id="vFlag" type="text" maxlength="4" placeholder="e.g. 🇬🇷">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="vAddress">Address</label>
+            <input class="field-input" id="vAddress" type="text" maxlength="300" placeholder="Street address">
+          </div>
+        </div>
+        <div class="field-row-3">
+          <div class="field-group">
+            <label class="field-label" for="vTableCount">Tables</label>
+            <input class="field-input" id="vTableCount" type="number" min="0" max="100" placeholder="e.g. 8">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="vTableBrand">Table Brand</label>
+            <input class="field-input" id="vTableBrand" type="text" maxlength="100" placeholder="e.g. Diamond">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="vTableSize">Table Size</label>
+            <select class="field-select" id="vTableSize">
+              <option value="">—</option>
+              <option value="9-foot">9-Foot</option>
+              <option value="7-foot">7-Foot</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="vHours">Hours</label>
+            <input class="field-input" id="vHours" type="text" maxlength="200" placeholder="e.g. Mon-Sun 10:00–02:00">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="vAtmosphere">Atmosphere</label>
+            <select class="field-select" id="vAtmosphere">
+              <option value="mixed">Mixed</option>
+              <option value="casual">Casual</option>
+              <option value="competitive">Competitive</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group" style="flex-direction:row; align-items:center; gap:0.5rem;">
+          <input type="checkbox" id="vNineBall" checked style="accent-color:var(--gold);width:16px;height:16px;">
+          <label for="vNineBall" style="font-size:0.82rem;color:var(--text-muted);cursor:pointer;">9-Ball Friendly Venue</label>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-modal-cancel" id="btnCancelVenueModal" type="button">Cancel</button>
+          <button class="btn-modal-submit" id="btnDoSubmitVenue" type="submit">
+            <span class="btn-text">Submit Venue</span>
+            <span class="spinner"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>🎱 9BallShop Community</span>
+      <span class="footer-sep">·</span>
+      <a href="index.html">Home</a>
+      <span class="footer-sep">·</span>
+      <a href="forum.html">Forum</a>
+      <span class="footer-sep">·</span>
+      <a href="register.html">Join</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Club Directory
+       ────────────────────────────────────────────── */
+
+    const $ = id => document.getElementById(id);
+
+    // ── State ──
+    let allClubs     = [];
+    let filtered     = [];
+    let currentUser  = null;
+    let openReviews  = {};     // clubId → { loaded, data[] }
+
+    // DOM
+    const clubsGrid   = $('clubsGrid');
+    const resultCount = $('resultCount');
+    const searchInput = $('searchInput');
+    const filterCountry = $('filterCountry');
+    const filterSize    = $('filterSize');
+    const filterBrand   = $('filterBrand');
+
+
+    // ═══════════════════════════════════════════════
+    // AUTH
+    // ═══════════════════════════════════════════════
+
+    async function initAuth() {
+      const session = await getSession();
+      const navRight = $('navRight');
+
+      if (session) {
+        currentUser = session.user;
+        const profile = await getProfile(currentUser.id);
+        const name = profile?.username || currentUser.email.split('@')[0];
+        navRight.innerHTML = `
+          <div class="nav-user">
+            <div class="nav-avatar">${name.charAt(0).toUpperCase()}</div>
+            <span class="nav-username">${esc(name)}</span>
+            <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>
+          </div>`;
+        $('btnSubmitVenue').style.display = 'inline-flex';
+      } else {
+        navRight.innerHTML = `
+          <a href="login.html" class="nav-link">Log In</a>
+          <a href="register.html" class="btn-join">Join Free</a>`;
+      }
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // LOAD CLUBS
+    // ═══════════════════════════════════════════════
+
+    async function loadClubs() {
+      const { data, error } = await supabase
+        .from('clubs')
+        .select('*')
+        .eq('approved', true)
+        .order('avg_rating', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load clubs:', error);
+        clubsGrid.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">⚠️</div>
+            <h3>Failed to load clubs</h3>
+            <p>Please try refreshing the page.</p>
+          </div>`;
+        return;
+      }
+
+      allClubs = data || [];
+      buildFilterOptions();
+      applyFilters();
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // FILTER OPTIONS — build from data
+    // ═══════════════════════════════════════════════
+
+    function buildFilterOptions() {
+      // Countries
+      const countries = [...new Set(allClubs.map(c => c.country).filter(Boolean))].sort();
+      countries.forEach(c => {
+        const flag = allClubs.find(x => x.country === c)?.country_flag || '';
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = (flag ? flag + ' ' : '') + c;
+        filterCountry.appendChild(opt);
+      });
+
+      // Brands
+      const brands = [...new Set(allClubs.map(c => c.table_brand).filter(Boolean))].sort();
+      brands.forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b;
+        opt.textContent = b;
+        filterBrand.appendChild(opt);
+      });
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // FILTER + SEARCH
+    // ═══════════════════════════════════════════════
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      const country = filterCountry.value;
+      const size    = filterSize.value;
+      const brand   = filterBrand.value;
+
+      filtered = allClubs.filter(c => {
+        if (q) {
+          const haystack = (c.name + ' ' + c.city + ' ' + c.country).toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        if (country && c.country !== country) return false;
+        if (size && c.table_size !== size && c.table_size !== 'Both') return false;
+        if (brand && c.table_brand !== brand) return false;
+        return true;
+      });
+
+      const n = filtered.length;
+      resultCount.innerHTML = `Showing <strong>${n}</strong> venue${n !== 1 ? 's' : ''}`;
+      renderClubs();
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    filterCountry.addEventListener('change', applyFilters);
+    filterSize.addEventListener('change', applyFilters);
+    filterBrand.addEventListener('change', applyFilters);
+
+
+    // ═══════════════════════════════════════════════
+    // RENDER CLUBS
+    // ═══════════════════════════════════════════════
+
+    function renderClubs() {
+      if (filtered.length === 0) {
+        clubsGrid.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🏢</div>
+            <h3>No venues found</h3>
+            <p>Try different search terms or filters. Or submit a venue!</p>
+          </div>`;
+        return;
+      }
+
+      clubsGrid.innerHTML = filtered.map(c => renderClubCard(c)).join('');
+    }
+
+    function renderClubCard(c) {
+      const rating = parseFloat(c.avg_rating) || 0;
+      const starsHtml = renderStars(rating);
+      const ratingDisplay = rating > 0 ? rating.toFixed(1) : '—';
+
+      // Tags
+      let tags = '';
+      if (c.nine_ball_friendly) tags += '<span class="club-tag tag-9ball">🎱 9-Ball</span>';
+      if (c.atmosphere === 'competitive') tags += '<span class="club-tag tag-competitive">🏆 Competitive</span>';
+      if (c.atmosphere === 'casual') tags += '<span class="club-tag tag-casual">🎮 Casual</span>';
+      if (c.atmosphere === 'mixed') tags += '<span class="club-tag tag-mixed">🤝 Mixed</span>';
+
+      // Details
+      let details = '';
+      if (c.table_count) details += `<span class="club-detail">🎱 ${c.table_count} table${c.table_count > 1 ? 's' : ''}</span>`;
+      if (c.table_brand) details += `<span class="club-detail">🏷️ ${esc(c.table_brand)}</span>`;
+      if (c.table_size) details += `<span class="club-detail">📐 ${esc(c.table_size)}</span>`;
+      if (c.hours) details += `<span class="club-detail">🕐 ${esc(c.hours)}</span>`;
+
+      const reviewBtnClass = openReviews[c.id]?.open ? 'active' : '';
+      const reviewPanelClass = openReviews[c.id]?.open ? 'open' : '';
+      const canReview = currentUser ? '' : 'style="display:none"';
+
+      return `
+        <div class="club-card" id="club-${c.id}">
+          <div class="club-body">
+            <div class="club-header">
+              <div>
+                <div class="club-name">${esc(c.name)}</div>
+                <div class="club-location">${c.country_flag || '📍'} ${esc(c.city)}${c.country ? ', ' + esc(c.country) : ''}</div>
+                ${c.address ? `<div class="club-address">${esc(c.address)}</div>` : ''}
+              </div>
+              <div class="club-rating-badge">
+                <span class="rating-number">${ratingDisplay}</span>
+                <div>
+                  <div class="stars">${starsHtml}</div>
+                  <div class="rating-count">${c.review_count || 0} review${(c.review_count || 0) !== 1 ? 's' : ''}</div>
+                </div>
+              </div>
+            </div>
+            <div class="club-details">${details}</div>
+            <div class="club-tags">${tags}</div>
+            <div class="club-actions">
+              <button class="btn-club ${reviewBtnClass}" onclick="toggleReviews('${c.id}')" type="button">
+                ⭐ Reviews (${c.review_count || 0})
+              </button>
+              <button class="btn-club" ${canReview} onclick="scrollToReviewForm('${c.id}')" type="button">
+                ✍️ Write a Review
+              </button>
+            </div>
+          </div>
+          <div class="reviews-panel ${reviewPanelClass}" id="reviews-${c.id}">
+            <div class="reviews-list" id="reviews-list-${c.id}">
+              <div class="no-reviews">Loading reviews…</div>
+            </div>
+            ${currentUser ? renderReviewForm(c.id) : ''}
+          </div>
+        </div>`;
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // STARS
+    // ═══════════════════════════════════════════════
+
+    function renderStars(rating) {
+      let html = '';
+      for (let i = 1; i <= 5; i++) {
+        if (rating >= i) html += '<span class="star filled">★</span>';
+        else if (rating >= i - 0.5) html += '<span class="star half">★</span>';
+        else html += '<span class="star">★</span>';
+      }
+      return html;
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // REVIEWS — toggle, load, submit
+    // ═══════════════════════════════════════════════
+
+    async function toggleReviews(clubId) {
+      const panel = $('reviews-' + clubId);
+      if (!panel) return;
+
+      const isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open');
+
+      // Update button style
+      const card = $('club-' + clubId);
+      const btn = card?.querySelector('.btn-club');
+      if (btn) btn.classList.toggle('active');
+
+      if (!isOpen) {
+        // Load reviews if not cached
+        if (!openReviews[clubId]?.loaded) {
+          await loadReviews(clubId);
+        }
+      }
+    }
+
+    async function loadReviews(clubId) {
+      const { data, error } = await supabase
+        .from('club_reviews')
+        .select('*, profiles(username)')
+        .eq('club_id', clubId)
+        .order('created_at', { ascending: false });
+
+      const list = $('reviews-list-' + clubId);
+      if (!list) return;
+
+      if (error || !data || data.length === 0) {
+        list.innerHTML = '<div class="no-reviews">No reviews yet. Be the first!</div>';
+        openReviews[clubId] = { loaded: true, data: [] };
+        return;
+      }
+
+      openReviews[clubId] = { loaded: true, data };
+
+      list.innerHTML = data.map(r => {
+        const name = r.profiles?.username || 'Anonymous';
+        const initial = name.charAt(0).toUpperCase();
+        const date = new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+        return `
+          <div class="review-item">
+            <div class="review-header">
+              <div class="review-author">
+                <span class="review-avatar">${esc(initial)}</span>
+                <span class="review-name">${esc(name)}</span>
+                <span class="stars" style="font-size:0.7rem;">${renderStars(r.rating)}</span>
+              </div>
+              <span class="review-date">${date}</span>
+            </div>
+            ${r.review_text ? `<div class="review-text">${esc(r.review_text)}</div>` : ''}
+          </div>`;
+      }).join('');
+    }
+
+    function renderReviewForm(clubId) {
+      return `
+        <div class="review-form" id="review-form-${clubId}">
+          <div class="review-form-title">Write a Review</div>
+          <div class="star-picker" id="star-picker-${clubId}">
+            ${[1,2,3,4,5].map(n => `<button type="button" class="pick-star" data-val="${n}" onclick="setStarRating('${clubId}', ${n})">★</button>`).join('')}
+          </div>
+          <textarea class="review-textarea" id="review-text-${clubId}" rows="3" placeholder="Share your experience at this venue…"></textarea>
+          <div class="review-submit-row">
+            <span class="review-alert" id="review-alert-${clubId}"></span>
+            <button class="btn-submit-review" id="review-btn-${clubId}" type="button" onclick="submitReview('${clubId}')">Submit Review</button>
+          </div>
+        </div>`;
+    }
+
+    // Star rating picker
+    const starRatings = {};
+
+    function setStarRating(clubId, val) {
+      starRatings[clubId] = val;
+      const picker = $('star-picker-' + clubId);
+      if (!picker) return;
+      picker.querySelectorAll('.pick-star').forEach(s => {
+        s.classList.toggle('lit', parseInt(s.dataset.val) <= val);
+      });
+    }
+
+    function scrollToReviewForm(clubId) {
+      // Ensure reviews panel is open
+      const panel = $('reviews-' + clubId);
+      if (!panel.classList.contains('open')) {
+        toggleReviews(clubId);
+      }
+      // Scroll to the form
+      setTimeout(() => {
+        const form = $('review-form-' + clubId);
+        if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    }
+
+    async function submitReview(clubId) {
+      if (!currentUser) { window.location.href = 'login.html'; return; }
+
+      const rating = starRatings[clubId];
+      const text   = ($('review-text-' + clubId)?.value || '').trim();
+      const alert  = $('review-alert-' + clubId);
+      const btn    = $('review-btn-' + clubId);
+
+      if (!rating || rating < 1) {
+        if (alert) { alert.className = 'review-alert error'; alert.textContent = 'Please select a star rating.'; }
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      if (alert) { alert.className = 'review-alert'; alert.textContent = ''; }
+
+      const { error } = await supabase
+        .from('club_reviews')
+        .insert({
+          club_id: clubId,
+          user_id: currentUser.id,
+          rating: rating,
+          review_text: text,
+        });
+
+      if (btn) btn.disabled = false;
+
+      if (error) {
+        if (error.code === '23505') {
+          if (alert) { alert.className = 'review-alert error'; alert.textContent = 'You already reviewed this venue.'; }
+        } else {
+          if (alert) { alert.className = 'review-alert error'; alert.textContent = error.message || 'Failed to submit.'; }
+        }
+        return;
+      }
+
+      // Success
+      if (alert) { alert.className = 'review-alert success'; alert.textContent = 'Review submitted! ⭐'; }
+
+      // Clear form
+      if ($('review-text-' + clubId)) $('review-text-' + clubId).value = '';
+      starRatings[clubId] = 0;
+      const picker = $('star-picker-' + clubId);
+      if (picker) picker.querySelectorAll('.pick-star').forEach(s => s.classList.remove('lit'));
+
+      // Reload reviews and refresh card rating
+      openReviews[clubId] = { loaded: false };
+      await loadReviews(clubId);
+
+      // Fetch updated club rating
+      const { data: updatedClub } = await supabase
+        .from('clubs')
+        .select('avg_rating, review_count')
+        .eq('id', clubId)
+        .single();
+
+      if (updatedClub) {
+        const club = allClubs.find(c => c.id === clubId);
+        if (club) {
+          club.avg_rating   = updatedClub.avg_rating;
+          club.review_count = updatedClub.review_count;
+        }
+        // Update the rating badge in the DOM
+        const card = $('club-' + clubId);
+        if (card) {
+          const badge = card.querySelector('.rating-number');
+          const starsEl = card.querySelector('.club-rating-badge .stars');
+          const countEl = card.querySelector('.rating-count');
+          const reviewBtn = card.querySelector('.btn-club');
+          const r = parseFloat(updatedClub.avg_rating) || 0;
+          if (badge) badge.textContent = r > 0 ? r.toFixed(1) : '—';
+          if (starsEl) starsEl.innerHTML = renderStars(r);
+          if (countEl) countEl.textContent = `${updatedClub.review_count} review${updatedClub.review_count !== 1 ? 's' : ''}`;
+          if (reviewBtn) reviewBtn.innerHTML = `⭐ Reviews (${updatedClub.review_count})`;
+        }
+      }
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // SUBMIT VENUE MODAL
+    // ═══════════════════════════════════════════════
+
+    const venueModal  = $('venueModal');
+    const venueForm   = $('venueForm');
+    const venueAlert  = $('venueModalAlert');
+    const btnDoSubmit = $('btnDoSubmitVenue');
+
+    $('btnSubmitVenue').addEventListener('click', () => {
+      venueForm.reset();
+      $('vNineBall').checked = true;
+      venueAlert.className = 'modal-alert';
+      venueModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeVenueModal() {
+      venueModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    $('btnCloseVenueModal').addEventListener('click', closeVenueModal);
+    $('btnCancelVenueModal').addEventListener('click', closeVenueModal);
+    venueModal.addEventListener('click', (e) => { if (e.target === venueModal) closeVenueModal(); });
+
+    venueForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      venueAlert.className = 'modal-alert';
+      setLoading(btnDoSubmit, true);
+
+      const payload = {
+        name:              $('vName').value.trim(),
+        city:              $('vCity').value.trim(),
+        country:           $('vCountry').value.trim(),
+        country_flag:      $('vFlag').value.trim() || '',
+        address:           $('vAddress').value.trim(),
+        table_count:       parseInt($('vTableCount').value) || 0,
+        table_brand:       $('vTableBrand').value.trim() || null,
+        table_size:        $('vTableSize').value || null,
+        hours:             $('vHours').value.trim(),
+        atmosphere:        $('vAtmosphere').value,
+        nine_ball_friendly: $('vNineBall').checked,
+        approved:          false,
+        submitted_by:      currentUser.id,
+      };
+
+      const { error } = await supabase.from('clubs').insert(payload);
+      setLoading(btnDoSubmit, false);
+
+      if (error) {
+        venueAlert.className = 'modal-alert alert-error visible';
+        venueAlert.textContent = error.message || 'Failed to submit venue.';
+        return;
+      }
+
+      venueAlert.className = 'modal-alert alert-success visible';
+      venueAlert.textContent = 'Thanks! Your venue will appear after admin review. 🎱';
+
+      venueForm.querySelectorAll('input, select').forEach(el => el.disabled = true);
+      btnDoSubmit.style.display = 'none';
+
+      setTimeout(closeVenueModal, 2500);
+    });
+
+
+    // ═══════════════════════════════════════════════
+    // UTILITIES
+    // ═══════════════════════════════════════════════
+
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════
+
+    (async () => {
+      await initAuth();
+      await loadClubs();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>9BallShop — The Global Home for 9-Ball Players</title>
+  <meta name="description" content="The internet's only dedicated 9-ball pool community. Discuss strategy, learn techniques, find events, and connect with players worldwide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       9BALLSHOP COMMUNITY — Landing Homepage
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0F1923;
+      --bg-dark:     #0A1628;
+      --card:        #1A2735;
+      --card-hover:  #1E2F3F;
+      --gold:        #F5C518;
+      --gold-light:  #FFD84D;
+      --gold-dark:   #C9A000;
+      --green:       #1B7A3D;
+      --green-light: #22C55E;
+      --white:       #FFFFFF;
+      --text:        #E2E8F0;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --border:      #243040;
+      --radius:      10px;
+      --radius-lg:   14px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.25);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.4);
+      --transition:  0.2s ease;
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+    img { max-width: 100%; }
+
+
+    /* ── NAVBAR ─────────────────────────────────── */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+
+    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .nav-logo .logo-ball { font-size: 1.3rem; }
+
+    .nav-links {
+      display: flex;
+      gap: 0.15rem;
+      margin-left: 1.5rem;
+    }
+
+    .nav-link {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Toggle buttons */
+    .nav-toggle {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-dim);
+      font-size: 1rem;
+      padding: 0.35rem;
+      border-radius: 6px;
+      transition: color var(--transition), background var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+    }
+
+    .nav-toggle:hover {
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .btn-join-nav {
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.4rem 1.1rem;
+      border-radius: 6px;
+      border: none;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-join-nav:hover {
+      background: var(--gold-light);
+      box-shadow: 0 2px 12px rgba(245,197,24,0.3);
+    }
+
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .nav-username {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .nav-logout {
+      font-size: 0.8rem;
+      color: var(--text-dim) !important;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      padding: 0.25rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: 60px;
+      background: var(--bg-dark);
+      z-index: 99;
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 0.25rem;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu .nav-link {
+      font-size: 1.05rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+    }
+
+    .mobile-menu .mobile-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+
+    /* ── HERO ──────────────────────────────────── */
+
+    .hero {
+      position: relative;
+      background: linear-gradient(160deg, #0A1628 0%, #0F2340 40%, #0A1628 100%);
+      overflow: hidden;
+      padding: 6rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    /* Subtle grid pattern */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(245,197,24,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, rgba(27,122,61,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Floating pool balls (decorative) */
+    .hero-deco {
+      position: absolute;
+      opacity: 0.06;
+      font-size: 8rem;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-deco-1 { top: 10%; left: 5%; animation: float 8s ease-in-out infinite; }
+    .hero-deco-2 { bottom: 10%; right: 8%; animation: float 10s ease-in-out infinite 2s; }
+    .hero-deco-3 { top: 50%; left: 70%; font-size: 5rem; animation: float 12s ease-in-out infinite 4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(245,197,24,0.08);
+      border: 1px solid rgba(245,197,24,0.15);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .gold { color: var(--gold); }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 580px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 0.85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      border: none;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .btn-hero-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(245,197,24,0.3);
+    }
+
+    .btn-hero-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .btn-hero-outline:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-2px);
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-tagline .greek { color: var(--text-muted); }
+
+
+    /* ── STATS BAR ─────────────────────────────── */
+
+    .stats-section {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+    }
+
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-block {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.25rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+    }
+
+
+    /* ── SECTION (shared) ──────────────────────── */
+
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .section-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: color var(--transition);
+    }
+
+    .section-link:hover { color: var(--gold-light); }
+
+
+    /* ── LATEST THREADS ────────────────────────── */
+
+    .threads-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .thread-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .thread-row:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.15);
+      box-shadow: var(--shadow);
+    }
+
+    .thread-cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    .thread-info { min-width: 0; }
+
+    .thread-title-link {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.35;
+      margin-bottom: 0.3rem;
+      transition: color var(--transition);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .thread-row:hover .thread-title-link { color: var(--gold); }
+
+    .thread-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .thread-author {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .thread-author-avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold-dark);
+      color: var(--bg-dark);
+      font-size: 0.55rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thread-replies {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .thread-replies svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+      opacity: 0.6;
+    }
+
+    /* Skeleton */
+    .thread-skeleton {
+      height: 68px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .skeleton-shimmer {
+      background: linear-gradient(90deg, var(--border) 25%, rgba(255,255,255,0.04) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+
+    /* ── LEARN PREVIEW ─────────────────────────── */
+
+    .learn-section {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .learn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .learn-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .learn-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.15);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .learn-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+    }
+
+    .learn-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .learn-card p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .learn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.82rem;
+      transition: color var(--transition);
+    }
+
+    .learn-link:hover { color: var(--gold-light); }
+
+
+    /* ── EVENTS ─────────────────────────────────── */
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .event-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .event-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.15);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .event-date-badge {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(245,197,24,0.08);
+      border: 1px solid rgba(245,197,24,0.12);
+      border-radius: 10px;
+      padding: 0.5rem 0.85rem;
+      margin-bottom: 0.85rem;
+      min-width: 56px;
+    }
+
+    .event-month {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .event-day {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .event-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .event-location {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .event-type {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .type-major       { background: rgba(245,197,24,0.12); color: var(--gold); }
+    .type-ranking     { background: rgba(139,92,246,0.12);  color: #A78BFA; }
+    .type-open        { background: rgba(59,130,246,0.12);  color: #60A5FA; }
+    .type-local       { background: rgba(148,163,184,0.12); color: #94A3B8; }
+
+    .events-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+
+    /* ── NEWSLETTER ─────────────────────────────── */
+
+    .newsletter-section {
+      background: linear-gradient(135deg, rgba(245,197,24,0.05) 0%, rgba(27,122,61,0.04) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .newsletter-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .newsletter-inner h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter-inner p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.6rem;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .newsletter-input::placeholder { color: var(--text-dim); }
+
+    .newsletter-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
+    }
+
+    .btn-subscribe {
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      transition: background var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-subscribe:hover:not(:disabled) {
+      background: var(--gold-light);
+      box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    }
+
+    .btn-subscribe:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    .newsletter-msg {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      display: none;
+    }
+
+    .newsletter-msg.visible { display: block; }
+    .newsletter-msg.success { color: var(--green-light); }
+    .newsletter-msg.error   { color: #FCA5A5; }
+
+
+    /* ── ABOUT ─────────────────────────────────── */
+
+    .about-section {
+      text-align: center;
+    }
+
+    .about-section .section-title { margin-bottom: 1rem; }
+
+    .about-text {
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .about-text strong { color: var(--gold); font-weight: 600; }
+
+    .about-values {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .about-value {
+      text-align: center;
+    }
+
+    .about-value-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-value-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+
+
+    /* ── FOOTER ─────────────────────────────────── */
+
+    .footer {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand .nav-logo { margin-bottom: 0.75rem; }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      padding: 0.25rem 0;
+      transition: color var(--transition);
+    }
+
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-social {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .social-icon:hover {
+      background: rgba(245,197,24,0.08);
+      border-color: rgba(245,197,24,0.2);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .footer-made { display: flex; align-items: center; gap: 0.35rem; }
+
+
+    /* ── SCROLL ANIMATIONS ─────────────────────── */
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    /* ── RESPONSIVE ────────────────────────────── */
+
+    @media (max-width: 960px) {
+      .events-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 4rem 1.25rem 3.5rem; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .hero-deco { display: none; }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; }
+      .stat-value { font-size: 1.75rem; }
+
+      .learn-grid { grid-template-columns: 1fr; }
+
+      .events-grid { grid-template-columns: 1fr 1fr; }
+
+      .newsletter-form { flex-direction: column; }
+
+      .section { padding: 3rem 1.25rem; }
+      .section-title { font-size: 1.25rem; }
+    }
+
+    @media (max-width: 540px) {
+      .hero h1 { font-size: 1.75rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; }
+
+      .events-grid { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .nav-toggle.lang-toggle-btn,
+      .nav-toggle.theme-toggle-btn { display: none; }
+    }
+
+    @media (max-width: 380px) {
+      .nav-username { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       1. NAVBAR
+       ══════════════════════════════════════════════ -->
+
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu">☰</button>
+      <a href="/" class="nav-logo"><span class="logo-ball">🎱</span> 9BALL</a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="#learn" class="nav-link">Learn</a>
+        <a href="#events" class="nav-link">Events</a>
+        <a href="#" class="nav-link">Clubs</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      <div class="nav-right" id="navRight">
+        <button class="nav-toggle theme-toggle-btn" id="themeToggle" type="button" title="Toggle theme">🌙</button>
+        <button class="nav-toggle lang-toggle-btn" id="langToggle" type="button" title="Toggle language">🇬🇧</button>
+        <a href="register.html" class="btn-join-nav" id="navJoinBtn">Join Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="forum.html" class="nav-link">Forum</a>
+    <a href="#learn" class="nav-link" onclick="closeMobile()">Learn</a>
+    <a href="#events" class="nav-link" onclick="closeMobile()">Events</a>
+    <a href="#" class="nav-link">Clubs</a>
+    <a href="#about" class="nav-link" onclick="closeMobile()">About</a>
+    <div class="mobile-actions">
+      <button class="nav-toggle theme-toggle-btn" id="themeToggleMobile" type="button">🌙</button>
+      <button class="nav-toggle lang-toggle-btn" id="langToggleMobile" type="button">🇬🇧</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       2. HERO
+       ══════════════════════════════════════════════ -->
+
+  <section class="hero">
+    <span class="hero-deco hero-deco-1">🎱</span>
+    <span class="hero-deco hero-deco-2">🎱</span>
+    <span class="hero-deco hero-deco-3">🎱</span>
+    <div class="hero-inner">
+      <div class="hero-badge">🎱 The 9-Ball Community</div>
+      <h1>The Global Home for<br><span class="gold">9-Ball Players</span></h1>
+      <p class="hero-subtitle">Discuss. Learn. Improve. Connect with players worldwide.</p>
+      <div class="hero-buttons">
+        <a href="register.html" class="btn-hero-primary">Join the Community →</a>
+        <a href="forum.html" class="btn-hero-outline">Enter the Forum</a>
+      </div>
+      <p class="hero-tagline">
+        <span class="greek">Κατασκευάστηκε από Πάθος</span> — Built from Passion 🎱
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       3. COMMUNITY STATS
+       ══════════════════════════════════════════════ -->
+
+  <section class="stats-section">
+    <div class="stats-grid fade-in" id="statsGrid">
+      <div class="stat-block">
+        <span class="stat-value" id="statMembers">0</span>
+        <span class="stat-label" data-en="Members" data-el="Μέλη">Members</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-value" id="statThreads">0</span>
+        <span class="stat-label" data-en="Threads" data-el="Θέματα">Threads</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-value" id="statPosts">0</span>
+        <span class="stat-label" data-en="Posts" data-el="Δημοσιεύσεις">Posts</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-value" id="statCountries">0</span>
+        <span class="stat-label" data-en="Countries" data-el="Χώρες">Countries</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       4. LATEST THREADS
+       ══════════════════════════════════════════════ -->
+
+  <section class="section" id="latestSection">
+    <div class="section-header fade-in">
+      <h2 class="section-title" data-en="Latest from the Community" data-el="Τελευταία από την Κοινότητα">Latest from the Community</h2>
+      <a href="forum.html" class="section-link" data-en="View All Discussions →" data-el="Όλες οι Συζητήσεις →">View All Discussions →</a>
+    </div>
+    <div class="threads-grid" id="threadsGrid">
+      <!-- Skeleton loaders -->
+      <div class="thread-skeleton skeleton-shimmer"></div>
+      <div class="thread-skeleton skeleton-shimmer"></div>
+      <div class="thread-skeleton skeleton-shimmer"></div>
+      <div class="thread-skeleton skeleton-shimmer"></div>
+      <div class="thread-skeleton skeleton-shimmer"></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       5. LEARN PREVIEW
+       ══════════════════════════════════════════════ -->
+
+  <section class="learn-section" id="learn">
+    <div class="section">
+      <div class="section-header fade-in">
+        <h2 class="section-title" data-en="Learn 9-Ball" data-el="Μάθε 9-Ball">Learn 9-Ball</h2>
+        <a href="#" class="section-link" data-en="See All Guides →" data-el="Όλοι οι Οδηγοί →">See All Guides →</a>
+      </div>
+      <div class="learn-grid">
+        <a href="#" class="learn-card fade-in">
+          <div class="learn-icon" style="background: rgba(34,197,94,0.1);">🟢</div>
+          <h3 data-en="Beginner Fundamentals" data-el="Βασικές Αρχές">Beginner Fundamentals</h3>
+          <p data-en="Stance, grip, bridge, and stroke basics. Build a solid foundation for your 9-ball game." data-el="Στάση, λαβή, γέφυρα και βασικά χτυπήματα. Χτίστε μια σταθερή βάση.">Stance, grip, bridge, and stroke basics. Build a solid foundation for your 9-ball game.</p>
+          <span class="learn-link" data-en="Start Learning →" data-el="Ξεκίνησε →">Start Learning →</span>
+        </a>
+        <a href="#" class="learn-card fade-in">
+          <div class="learn-icon" style="background: rgba(59,130,246,0.1);">🔵</div>
+          <h3 data-en="Pattern Play & Position" data-el="Μοτίβα & Θέση">Pattern Play & Position</h3>
+          <p data-en="Master cue ball control, pattern recognition, and strategic position play for the intermediate player." data-el="Εξειδικευτείτε στον έλεγχο, τα μοτίβα και τη στρατηγική θέση.">Master cue ball control, pattern recognition, and strategic position play for the intermediate player.</p>
+          <span class="learn-link" data-en="Level Up →" data-el="Εξέλιξη →">Level Up →</span>
+        </a>
+        <a href="#" class="learn-card fade-in">
+          <div class="learn-icon" style="background: rgba(139,92,246,0.1);">🟣</div>
+          <h3 data-en="Advanced Strategy" data-el="Προχωρημένη Στρατηγική">Advanced Strategy</h3>
+          <p data-en="Safety play, kick shots, break analysis, and mental game. Compete at the highest levels." data-el="Αμυντικό παιχνίδι, kick shots, ανάλυση σπασίματος και νοοτροπία.">Safety play, kick shots, break analysis, and mental game. Compete at the highest levels.</p>
+          <span class="learn-link" data-en="Go Pro →" data-el="Γίνε Pro →">Go Pro →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       6. UPCOMING EVENTS
+       ══════════════════════════════════════════════ -->
+
+  <section class="section" id="events">
+    <div class="section-header fade-in">
+      <h2 class="section-title" data-en="Upcoming Events" data-el="Επερχόμενα Events">Upcoming Events</h2>
+      <a href="#" class="section-link" data-en="Full Calendar →" data-el="Πλήρες Ημερολόγιο →">Full Calendar →</a>
+    </div>
+    <div class="events-grid" id="eventsGrid">
+      <div class="events-empty" data-en="Loading events…" data-el="Φόρτωση events…">Loading events…</div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       7. NEWSLETTER
+       ══════════════════════════════════════════════ -->
+
+  <section class="newsletter-section">
+    <div class="newsletter-inner fade-in">
+      <h2 data-en="Stay in the Game" data-el="Μείνε στο Παιχνίδι">🎱 Stay in the Game</h2>
+      <p data-en="Get the latest threads, event announcements, and community highlights in your inbox." data-el="Λάβε τα τελευταία θέματα, ανακοινώσεις events και highlights.">Get the latest threads, event announcements, and community highlights in your inbox.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input class="newsletter-input" id="newsletterEmail" type="email" placeholder="your@email.com" required>
+        <button class="btn-subscribe" id="btnSubscribe" type="submit" data-en="Subscribe" data-el="Εγγραφή">Subscribe</button>
+      </form>
+      <div class="newsletter-msg" id="newsletterMsg"></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       8. ABOUT
+       ══════════════════════════════════════════════ -->
+
+  <section class="section about-section fade-in" id="about">
+    <h2 class="section-title" data-en="About 9BallShop" data-el="Σχετικά">About 9BallShop</h2>
+    <p class="about-text" data-en="Born in Athens, built for the world. <strong>9BallShop</strong> is the internet's only dedicated 9-ball community — a place where players of every level share knowledge, discuss strategy, review gear, and push each other to improve." data-el="Γεννήθηκε στην Αθήνα, χτίστηκε για τον κόσμο. Η <strong>9BallShop</strong> είναι η μοναδική αφιερωμένη κοινότητα 9-ball στο internet — ένας χώρος όπου παίκτες κάθε επιπέδου μοιράζονται γνώσεις, συζητούν στρατηγική και εξελίσσονται μαζί.">Born in Athens, built for the world. <strong>9BallShop</strong> is the internet's only dedicated 9-ball community — a place where players of every level share knowledge, discuss strategy, review gear, and push each other to improve.</p>
+    <div class="about-values">
+      <div class="about-value">
+        <div class="about-value-icon">💬</div>
+        <div class="about-value-label" data-en="Discuss" data-el="Συζήτηση">Discuss</div>
+      </div>
+      <div class="about-value">
+        <div class="about-value-icon">📚</div>
+        <div class="about-value-label" data-en="Learn" data-el="Μάθηση">Learn</div>
+      </div>
+      <div class="about-value">
+        <div class="about-value-icon">📈</div>
+        <div class="about-value-label" data-en="Improve" data-el="Βελτίωση">Improve</div>
+      </div>
+      <div class="about-value">
+        <div class="about-value-icon">🌍</div>
+        <div class="about-value-label" data-en="Connect" data-el="Σύνδεση">Connect</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       9. FOOTER
+       ══════════════════════════════════════════════ -->
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo"><span class="logo-ball">🎱</span> 9BALL</a>
+          <p>The internet's only dedicated 9-ball pool community.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="forum.html">Forum</a>
+          <a href="#">Events</a>
+          <a href="#">Clubs</a>
+          <a href="#">Leaderboard</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Learn 9-Ball</a>
+          <a href="#">Gear Reviews</a>
+          <a href="#">Rules & Glossary</a>
+          <a href="#">Hall of Fame</a>
+        </div>
+        <div class="footer-col">
+          <h4>Social</h4>
+          <div class="footer-social">
+            <a href="#" class="social-icon" title="YouTube">▶</a>
+            <a href="#" class="social-icon" title="Instagram">📷</a>
+            <a href="#" class="social-icon" title="Discord">💬</a>
+            <a href="#" class="social-icon" title="Twitter / X">𝕏</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 9ballshop.com</span>
+        <span class="footer-made">🇬🇷 Made in Athens, Greece</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════════
+       SCRIPTS
+       ══════════════════════════════════════════════ -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Landing Homepage
+       ────────────────────────────────────────────── */
+
+    const $ = id => document.getElementById(id);
+
+    // ── State ──
+    let currentLang = 'en';
+    let statsAnimated = false;
+
+
+    // ═══════════════════════════════════════════════
+    // AUTH
+    // ═══════════════════════════════════════════════
+
+    async function initAuth() {
+      const session = await getSession();
+      if (!session) return;
+
+      const profile = await getProfile(session.user.id);
+      const name = profile?.username || session.user.email.split('@')[0];
+      const initial = name.charAt(0).toUpperCase();
+
+      // Replace "Join Free" with user info
+      const navRight = $('navRight');
+      const joinBtn = $('navJoinBtn');
+      if (joinBtn) joinBtn.remove();
+
+      // Insert user UI before theme toggle
+      const userHtml = document.createElement('div');
+      userHtml.className = 'nav-user';
+      userHtml.innerHTML = `
+        <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-avatar">${esc(initial)}</a>
+        <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-username">${esc(name)}</a>
+        <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>`;
+      navRight.appendChild(userHtml);
+
+      // Update hero CTA
+      const heroJoin = document.querySelector('.btn-hero-primary');
+      if (heroJoin) {
+        heroJoin.href = 'forum.html';
+        heroJoin.textContent = 'Go to Forum →';
+      }
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // COMMUNITY STATS
+    // ═══════════════════════════════════════════════
+
+    async function loadStats() {
+      const results = await Promise.allSettled([
+        supabase.from('profiles').select('id', { count: 'exact', head: true }),
+        supabase.from('threads').select('id', { count: 'exact', head: true }),
+        supabase.from('posts').select('id', { count: 'exact', head: true }),
+        supabase.from('profiles').select('country'),
+      ]);
+
+      const members   = results[0].status === 'fulfilled' ? (results[0].value.count || 0) : 0;
+      const threads   = results[1].status === 'fulfilled' ? (results[1].value.count || 0) : 0;
+      const posts     = results[2].status === 'fulfilled' ? (results[2].value.count || 0) : 0;
+
+      let countries = 0;
+      if (results[3].status === 'fulfilled' && results[3].value.data) {
+        const unique = new Set(results[3].value.data.map(r => r.country).filter(Boolean));
+        countries = unique.size;
+      }
+
+      // Store targets for animation on scroll
+      window._statTargets = { members, threads, posts, countries };
+    }
+
+    function animateStats() {
+      if (statsAnimated) return;
+      statsAnimated = true;
+
+      const t = window._statTargets || { members: 0, threads: 0, posts: 0, countries: 0 };
+      animateCounter($('statMembers'),   t.members);
+      animateCounter($('statThreads'),   t.threads);
+      animateCounter($('statPosts'),     t.posts);
+      animateCounter($('statCountries'), t.countries);
+    }
+
+    function animateCounter(el, target) {
+      if (!el || target === 0) { if (el) el.textContent = '0'; return; }
+
+      const duration = 1200;
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatNumber(Math.floor(eased * target));
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    function formatNumber(n) {
+      if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+      return String(n);
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // LATEST THREADS
+    // ═══════════════════════════════════════════════
+
+    async function loadThreads() {
+      const { data, error } = await supabase
+        .from('threads')
+        .select('id, title, created_at, reply_count, profiles(username, avatar_url), categories(name, color, icon)')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      const grid = $('threadsGrid');
+
+      if (error || !data || data.length === 0) {
+        grid.innerHTML = '<div class="events-empty">No threads yet. Be the first to start a discussion!</div>';
+        return;
+      }
+
+      grid.innerHTML = data.map(t => {
+        const cat = t.categories || {};
+        const author = t.profiles || {};
+        const initial = (author.username || '?').charAt(0).toUpperCase();
+        const catBg = cat.color ? hexToRgba(cat.color, 0.1) : 'rgba(255,255,255,0.04)';
+        const catFg = cat.color || 'var(--text-dim)';
+
+        return `
+          <a href="thread.html?id=${t.id}" class="thread-row">
+            <span class="thread-cat-badge" style="background:${catBg};color:${catFg}">
+              ${cat.icon || '💬'} ${esc(cat.name || '')}
+            </span>
+            <div class="thread-info">
+              <div class="thread-title-link">${esc(t.title)}</div>
+              <div class="thread-meta">
+                <span class="thread-author">
+                  <span class="thread-author-avatar">${esc(initial)}</span>
+                  ${esc(author.username || 'Unknown')}
+                </span>
+                <span>·</span>
+                <span>${timeAgo(t.created_at)}</span>
+              </div>
+            </div>
+            <span class="thread-replies">
+              <svg viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z"/></svg>
+              ${t.reply_count || 0}
+            </span>
+          </a>`;
+      }).join('');
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // UPCOMING EVENTS
+    // ═══════════════════════════════════════════════
+
+    async function loadEvents() {
+      const today = new Date().toISOString().slice(0, 10);
+
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .gte('date_start', today)
+        .order('date_start', { ascending: true })
+        .limit(4);
+
+      const grid = $('eventsGrid');
+
+      if (error || !data || data.length === 0) {
+        grid.innerHTML = '<div class="events-empty">No upcoming events. Check back soon!</div>';
+        return;
+      }
+
+      grid.innerHTML = data.map(ev => {
+        const d = new Date(ev.date_start);
+        const month = d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+        const day = d.getDate();
+        const typeCls = 'type-' + (ev.event_type || 'open');
+        const typeLabel = (ev.event_type || 'open').replace('_', ' ');
+
+        return `
+          <div class="event-card fade-in">
+            <div class="event-date-badge">
+              <span class="event-month">${month}</span>
+              <span class="event-day">${day}</span>
+            </div>
+            <div class="event-name">${esc(ev.name)}</div>
+            <div class="event-location">
+              ${ev.country_flag || '📍'} ${esc(ev.location || 'TBA')}
+            </div>
+            <span class="event-type ${typeCls}">${typeLabel}</span>
+          </div>`;
+      }).join('');
+
+      // Trigger fade-in for event cards
+      requestAnimationFrame(() => {
+        grid.querySelectorAll('.fade-in').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 100);
+        });
+      });
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // NEWSLETTER
+    // ═══════════════════════════════════════════════
+
+    $('newsletterForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const emailInput = $('newsletterEmail');
+      const btn = $('btnSubscribe');
+      const msg = $('newsletterMsg');
+      const email = emailInput.value.trim();
+
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = '…';
+
+      const { error } = await supabase
+        .from('newsletter_subscribers')
+        .insert({ email });
+
+      btn.disabled = false;
+      btn.textContent = currentLang === 'el' ? 'Εγγραφή' : 'Subscribe';
+
+      if (error) {
+        if (error.code === '23505') {
+          msg.textContent = currentLang === 'el' ? 'Αυτό το email είναι ήδη εγγεγραμμένο!' : 'You\'re already subscribed!';
+          msg.className = 'newsletter-msg visible success';
+        } else {
+          msg.textContent = error.message || 'Something went wrong.';
+          msg.className = 'newsletter-msg visible error';
+        }
+        return;
+      }
+
+      emailInput.value = '';
+      msg.textContent = currentLang === 'el' ? 'Εγγραφήκατε! 🎱' : 'You\'re in! Welcome to the community 🎱';
+      msg.className = 'newsletter-msg visible success';
+    });
+
+
+    // ═══════════════════════════════════════════════
+    // NAVBAR — Scroll, Hamburger
+    // ═══════════════════════════════════════════════
+
+    // Sticky scroll shadow
+    window.addEventListener('scroll', () => {
+      $('navbar').classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // Hamburger
+    $('hamburger').addEventListener('click', () => {
+      $('mobileMenu').classList.toggle('open');
+    });
+
+    function closeMobile() {
+      $('mobileMenu').classList.remove('open');
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // LANGUAGE TOGGLE
+    // ═══════════════════════════════════════════════
+
+    function setLang(lang) {
+      currentLang = lang;
+      const flag = lang === 'el' ? '🇬🇷' : '🇬🇧';
+      $('langToggle').textContent = flag;
+      const mob = $('langToggleMobile');
+      if (mob) mob.textContent = flag;
+
+      document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val) el.innerHTML = val;
+      });
+    }
+
+    $('langToggle').addEventListener('click', () => {
+      setLang(currentLang === 'en' ? 'el' : 'en');
+    });
+
+    const mobLang = $('langToggleMobile');
+    if (mobLang) mobLang.addEventListener('click', () => {
+      setLang(currentLang === 'en' ? 'el' : 'en');
+    });
+
+
+    // ═══════════════════════════════════════════════
+    // THEME TOGGLE (placeholder — page is dark-first)
+    // ═══════════════════════════════════════════════
+
+    let darkMode = true;
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      const icon = darkMode ? '🌙' : '☀️';
+      $('themeToggle').textContent = icon;
+      const mob = $('themeToggleMobile');
+      if (mob) mob.textContent = icon;
+      // Full light-theme implementation can be added via CSS variables swap
+    }
+
+    $('themeToggle').addEventListener('click', toggleTheme);
+    const mobTheme = $('themeToggleMobile');
+    if (mobTheme) mobTheme.addEventListener('click', toggleTheme);
+
+
+    // ═══════════════════════════════════════════════
+    // INTERSECTION OBSERVER — fade-in & stats animate
+    // ═══════════════════════════════════════════════
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Trigger stat counter animation when stats come into view
+          if (entry.target.id === 'statsGrid') {
+            animateStats();
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+
+    // ═══════════════════════════════════════════════
+    // UTILITIES
+    // ═══════════════════════════════════════════════
+
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function timeAgo(d) {
+      if (!d) return '';
+      const s = Math.floor((Date.now() - new Date(d).getTime()) / 1000);
+      if (s < 60) return 'just now';
+      if (s < 3600) return Math.floor(s / 60) + 'm ago';
+      if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+      if (s < 604800) return Math.floor(s / 86400) + 'd ago';
+      return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function hexToRgba(hex, alpha) {
+      if (!hex || hex.charAt(0) !== '#') return `rgba(100,100,100,${alpha})`;
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════
+
+    (async () => {
+      initAuth();
+      loadStats();
+      loadThreads();
+      loadEvents();
+    })();
+  </script>
+</body>
+</html>

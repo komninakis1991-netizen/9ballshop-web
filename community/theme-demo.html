@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Demo — 9Ball Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- ① Import theme system FIRST -->
+  <link rel="stylesheet" href="theme.css">
+  <script src="theme.js"></script>
+
+  <style>
+    /* ── All styles use theme variables ─────────── */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-body);
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); }
+
+
+    /* ── Navbar ──────────────────────────────────── */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.15rem;
+      margin-left: 1.5rem;
+    }
+
+    .nav-link {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: rgba(128,128,128,0.1);
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+
+    /* ── Page layout ────────────────────────────── */
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .page-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+
+    /* ── Section ────────────────────────────────── */
+
+    .demo-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .demo-section h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    /* ── Color swatches ─────────────────────────── */
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .swatch {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .swatch-color {
+      height: 50px;
+    }
+
+    .swatch-label {
+      padding: 0.5rem 0.65rem;
+      font-size: 0.72rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: var(--text-dim);
+      background: var(--bg-card);
+    }
+
+    .swatch-label strong {
+      display: block;
+      color: var(--text-body);
+      font-size: 0.75rem;
+      margin-bottom: 0.15rem;
+    }
+
+
+    /* ── Cards ───────────────────────────────────── */
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(128,128,128,0.15);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-meta {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+
+    /* ── Buttons ─────────────────────────────────── */
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.6rem 1.3rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 16px rgba(245,197,24,0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-body);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text-dim);
+      color: var(--text-primary);
+    }
+
+    .btn-success {
+      background: var(--accent-green);
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: var(--accent-green-light);
+    }
+
+    .btn-danger {
+      background: var(--error);
+      color: #fff;
+    }
+
+
+    /* ── Form inputs ─────────────────────────────── */
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-input {
+      width: 100%;
+      max-width: 360px;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      background: var(--bg-primary);
+      color: var(--text-body);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: var(--text-dim); }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .form-row .form-group { flex: 1; min-width: 160px; }
+
+
+    /* ── Badges / pills ──────────────────────────── */
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .badge-accent { background: rgba(245,197,24,0.12); color: var(--accent); }
+    .badge-green  { background: rgba(34,197,94,0.12);  color: var(--accent-green-light); }
+    .badge-error  { background: var(--error-bg);        color: var(--error); }
+    .badge-muted  { background: rgba(128,128,128,0.1);  color: var(--text-muted); }
+
+
+    /* ── Table ────────────────────────────────────── */
+
+    .demo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .demo-table th {
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-dim);
+      padding: 0.6rem 0.85rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .demo-table td {
+      padding: 0.7rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-body);
+    }
+
+    .demo-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+
+    /* ── Alert boxes ─────────────────────────────── */
+
+    .alert {
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid;
+    }
+
+    .alert-success {
+      background: var(--success-bg);
+      border-color: rgba(34,197,94,0.2);
+      color: var(--success);
+    }
+
+    .alert-error {
+      background: var(--error-bg);
+      border-color: rgba(239,68,68,0.2);
+      color: var(--error);
+    }
+
+
+    /* ── Skeleton demo ───────────────────────────── */
+
+    .skeleton-demo {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .skel-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .skel-lines { flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+    .skel-line-lg { height: 14px; width: 70%; border-radius: 4px; }
+    .skel-line-sm { height: 10px; width: 45%; border-radius: 4px; }
+
+
+    /* ── Responsive ───────────────────────────────── */
+
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.5rem; }
+      .swatches { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       NAVBAR — with theme toggle
+       ══════════════════════════════════════════════ -->
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><span>🎱</span> 9BALL</a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
+      </div>
+      <div class="nav-right">
+        <!-- ② Theme toggle button -->
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme"></button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════
+       DEMO CONTENT
+       ══════════════════════════════════════════════ -->
+
+  <main class="page">
+    <h1 class="page-title">Theme System Demo</h1>
+    <p class="page-subtitle">Click the moon/sun icon in the navbar to switch themes. All components below react to the toggle.</p>
+
+
+    <!-- ── Color Palette ── -->
+    <section class="demo-section">
+      <h2>Color Palette</h2>
+      <div class="swatches" id="swatches"></div>
+    </section>
+
+
+    <!-- ── Cards ── -->
+    <section class="demo-section">
+      <h2>Cards</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <h3>Strategy Talk</h3>
+          <p>Discuss break patterns, safety play, and cue ball control with the community.</p>
+          <span class="card-meta">42 replies &middot; 3h ago</span>
+        </div>
+        <div class="card">
+          <h3>Equipment Reviews</h3>
+          <p>Share your experience with cues, shafts, tips, and tables. Help others choose wisely.</p>
+          <span class="card-meta">18 replies &middot; 1d ago</span>
+        </div>
+        <div class="card">
+          <h3>Tournament Results</h3>
+          <p>Post and discuss results from local, regional, and international 9-ball events.</p>
+          <span class="card-meta">7 replies &middot; 5h ago</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── Buttons ── -->
+    <section class="demo-section">
+      <h2>Buttons</h2>
+      <div class="btn-row">
+        <button class="btn btn-primary">Primary Action</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-success">Success</button>
+        <button class="btn btn-danger">Danger</button>
+      </div>
+    </section>
+
+
+    <!-- ── Badges ── -->
+    <section class="demo-section">
+      <h2>Badges</h2>
+      <div class="badge-row">
+        <span class="badge badge-accent">Top Contributor</span>
+        <span class="badge badge-green">Online</span>
+        <span class="badge badge-error">Banned</span>
+        <span class="badge badge-muted">Beginner</span>
+      </div>
+    </section>
+
+
+    <!-- ── Form Inputs ── -->
+    <section class="demo-section">
+      <h2>Form Inputs</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Username</label>
+          <input class="form-input" type="text" placeholder="e.g. PoolShark92">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-input" type="email" placeholder="you@example.com">
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── Alerts ── -->
+    <section class="demo-section">
+      <h2>Alerts</h2>
+      <div class="alert alert-success">Badge unlocked: First Post! Keep contributing to earn more.</div>
+      <div class="alert alert-error">Failed to submit review. Please try again.</div>
+    </section>
+
+
+    <!-- ── Data Table ── -->
+    <section class="demo-section">
+      <h2>Data Table</h2>
+      <table class="demo-table">
+        <thead>
+          <tr><th>Player</th><th>Fargo</th><th>Country</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shane Van Boening</td><td>826</td><td>USA</td><td><span class="badge badge-accent">Pro</span></td></tr>
+          <tr><td>Francisco Sanchez Ruiz</td><td>810</td><td>Spain</td><td><span class="badge badge-accent">Pro</span></td></tr>
+          <tr><td>Ko Pin Yi</td><td>805</td><td>Taiwan</td><td><span class="badge badge-accent">Pro</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <!-- ── Skeleton Loader ── -->
+    <section class="demo-section">
+      <h2>Skeleton Loader</h2>
+      <div class="skeleton-demo">
+        <div class="skel-block skel-circle"></div>
+        <div class="skel-lines">
+          <div class="skel-block skel-line-lg"></div>
+          <div class="skel-block skel-line-sm"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════
+       Render color swatches dynamically
+       ══════════════════════════════════════════════ -->
+  <script>
+    var palette = [
+      ['--bg-primary',    'bg-primary'],
+      ['--bg-secondary',  'bg-secondary'],
+      ['--bg-card',       'bg-card'],
+      ['--bg-card-hover', 'bg-card-hover'],
+      ['--text-primary',  'text-primary'],
+      ['--text-secondary','text-secondary'],
+      ['--text-body',     'text-body'],
+      ['--text-muted',    'text-muted'],
+      ['--text-dim',      'text-dim'],
+      ['--accent',        'accent'],
+      ['--accent-hover',  'accent-hover'],
+      ['--accent-dark',   'accent-dark'],
+      ['--accent-green',  'accent-green'],
+      ['--border',        'border'],
+      ['--error',         'error'],
+      ['--success',       'success'],
+    ];
+
+    function renderSwatches() {
+      var html = '';
+      for (var i = 0; i < palette.length; i++) {
+        var varName = palette[i][0];
+        var label = palette[i][1];
+        var val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        html += '<div class="swatch">' +
+          '<div class="swatch-color" style="background:var(' + varName + ')"></div>' +
+          '<div class="swatch-label"><strong>' + label + '</strong>var(' + varName + ')<br>' + val + '</div>' +
+          '</div>';
+      }
+      document.getElementById('swatches').innerHTML = html;
+    }
+
+    // Re-render swatches when theme changes so hex values update
+    var observer = new MutationObserver(function (mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        if (mutations[i].attributeName === 'data-theme') {
+          // Small delay so computed styles resolve after transition starts
+          setTimeout(renderSwatches, 50);
+        }
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true });
+
+    renderSwatches();
+  </script>
+
+</body>
+</html>

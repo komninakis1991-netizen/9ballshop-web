@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — 9BallShop Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       9BALLSHOP COMMUNITY — Events Page
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0F1923;
+      --bg-dark:     #0A1628;
+      --card:        #1A2735;
+      --card-hover:  #1E2F3F;
+      --gold:        #F5C518;
+      --gold-light:  #FFD84D;
+      --gold-dark:   #C9A000;
+      --white:       #FFFFFF;
+      --text:        #E2E8F0;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --border:      #243040;
+      --success:     #22C55E;
+      --radius:      10px;
+      --radius-lg:   14px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.25);
+      --transition:  0.2s ease;
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+
+    /* ── Navbar ─────────────────────────────────── */
+
+    .navbar {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .nav-links { display: flex; gap: 0.25rem; margin-left: 0.5rem; }
+
+    .nav-link {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
+
+    .btn-join {
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      transition: background var(--transition);
+    }
+    .btn-join:hover { background: var(--gold-light); }
+
+    .nav-user { display: flex; align-items: center; gap: 0.6rem; }
+
+    .nav-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--gold); color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-username { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .nav-logout { font-size: 0.8rem; color: var(--text-dim) !important; }
+
+
+    /* ── Hero ───────────────────────────────────── */
+
+    .hero {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 1.25rem 2rem;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-text h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .hero-actions { display: flex; gap: 0.75rem; align-items: center; }
+
+    .btn-submit-event {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .btn-submit-event:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    }
+
+
+    /* ── Toolbar (filters + view toggle) ───────── */
+
+    .toolbar {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .filter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin-right: 0.15rem;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      transition: all var(--transition);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--text-dim);
+      color: var(--text-muted);
+    }
+
+    .filter-btn.active {
+      background: rgba(245,197,24,0.1);
+      border-color: rgba(245,197,24,0.3);
+      color: var(--gold);
+    }
+
+    .filter-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      margin: 0 0.35rem;
+    }
+
+    /* View toggle */
+    .view-toggles { display: flex; gap: 0.25rem; }
+
+    .view-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .view-btn:hover { border-color: var(--text-dim); color: var(--text-muted); }
+
+    .view-btn.active {
+      background: rgba(245,197,24,0.1);
+      border-color: rgba(245,197,24,0.3);
+      color: var(--gold);
+    }
+
+
+    /* ── Event Count ───────────────────────────── */
+
+    .event-count {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.85rem 1.25rem 0;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .event-count strong { color: var(--text-muted); }
+
+
+    /* ── LIST VIEW ─────────────────────────────── */
+
+    .events-list {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .month-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .month-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .event-card {
+      display: grid;
+      grid-template-columns: 68px 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .event-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.12);
+      box-shadow: var(--shadow);
+    }
+
+    /* Date block */
+    .date-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(245,197,24,0.06);
+      border: 1px solid rgba(245,197,24,0.1);
+      border-radius: 10px;
+      padding: 0.5rem 0.4rem;
+      min-width: 60px;
+    }
+
+    .date-month {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .date-day {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+    }
+
+    .date-year {
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      line-height: 1;
+    }
+
+    /* Event info */
+    .event-info { min-width: 0; }
+
+    .event-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+
+    .event-card:hover .event-name { color: var(--gold); }
+
+    .event-details {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .event-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .event-organizer {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .event-date-range {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .detail-dot { opacity: 0.3; }
+
+    /* Type badge */
+    .type-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .type-major   { background: rgba(245,197,24,0.12); color: var(--gold); }
+    .type-ranking { background: rgba(59,130,246,0.12);  color: #60A5FA; }
+    .type-open    { background: rgba(34,197,94,0.12);   color: #4ADE80; }
+    .type-local   { background: rgba(148,163,184,0.12); color: #94A3B8; }
+
+    /* Actions column */
+    .event-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .btn-event-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-event-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,197,24,0.06);
+    }
+
+    .btn-discuss {
+      border-color: rgba(34,197,94,0.3);
+      color: #4ADE80;
+    }
+
+    .btn-discuss:hover {
+      border-color: #4ADE80;
+      background: rgba(34,197,94,0.06);
+    }
+
+
+    /* ── CALENDAR VIEW ─────────────────────────── */
+
+    .calendar-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 3rem;
+      display: none;
+    }
+
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .cal-nav-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .cal-nav-btn:hover {
+      border-color: var(--text-dim);
+      color: var(--white);
+    }
+
+    .cal-month-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cal-header {
+      background: var(--bg-dark);
+      padding: 0.6rem 0.25rem;
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+
+    .cal-day {
+      background: var(--card);
+      padding: 0.5rem;
+      min-height: 80px;
+      transition: background var(--transition);
+      position: relative;
+    }
+
+    .cal-day:hover { background: var(--card-hover); }
+
+    .cal-day.other-month {
+      background: var(--bg-dark);
+      opacity: 0.4;
+    }
+
+    .cal-day.today {
+      outline: 2px solid var(--gold);
+      outline-offset: -2px;
+      z-index: 1;
+    }
+
+    .cal-day-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 0.3rem;
+    }
+
+    .cal-day.today .cal-day-num { color: var(--gold); font-weight: 700; }
+
+    .cal-events {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cal-event-dot {
+      display: block;
+      padding: 0.12rem 0.3rem;
+      border-radius: 3px;
+      font-size: 0.58rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: opacity var(--transition);
+    }
+
+    .cal-event-dot:hover { opacity: 0.8; }
+
+    .cal-event-dot.type-major   { background: rgba(245,197,24,0.15); color: var(--gold); }
+    .cal-event-dot.type-ranking { background: rgba(59,130,246,0.15);  color: #60A5FA; }
+    .cal-event-dot.type-open    { background: rgba(34,197,94,0.15);   color: #4ADE80; }
+    .cal-event-dot.type-local   { background: rgba(148,163,184,0.15); color: #94A3B8; }
+
+    .cal-more {
+      font-size: 0.55rem;
+      color: var(--text-dim);
+      margin-top: 1px;
+    }
+
+    /* Calendar event popup on click */
+    .cal-popup {
+      display: none;
+      position: fixed;
+      z-index: 300;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      min-width: 240px;
+      max-width: 300px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+
+    .cal-popup.open { display: block; }
+
+    .cal-popup-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .cal-popup-meta {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 0.6rem;
+    }
+
+    .cal-popup-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .cal-popup-links .btn-event-link { font-size: 0.7rem; }
+
+
+    /* ── Empty State ────────────────────────────── */
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-dim);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.4;
+    }
+
+    .empty-state h3 {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .empty-state p { font-size: 0.9rem; }
+
+
+    /* ── Skeleton ───────────────────────────────── */
+
+    .skeleton-card {
+      height: 74px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background-image: linear-gradient(90deg, var(--border) 25%, rgba(255,255,255,0.04) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+
+    /* ── Submit Modal ──────────────────────────── */
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,22,40,0.85);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 2rem 1.25rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 560px;
+      margin-top: 2rem;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .btn-close-modal:hover { color: var(--white); }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .field-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+    }
+
+    .field-input, .field-select {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input::placeholder { color: var(--text-dim); }
+
+    .field-input:focus, .field-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
+    }
+
+    .field-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2.25rem;
+      cursor: pointer;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .modal-alert {
+      font-size: 0.85rem;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .modal-alert.alert-error.visible {
+      display: block;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: #FCA5A5;
+    }
+
+    .modal-alert.alert-success.visible {
+      display: block;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.2);
+      color: #4ADE80;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    .btn-modal-cancel {
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-modal-cancel:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--text-dim);
+    }
+
+    .btn-modal-submit {
+      background: var(--gold);
+      color: var(--bg-dark);
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      transition: background 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .btn-modal-submit:hover:not(:disabled) {
+      background: var(--gold-light);
+      box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    }
+
+    .btn-modal-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    .btn-modal-submit .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(10,22,40,0.3);
+      border-top-color: var(--bg-dark);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    .btn-modal-submit.loading .btn-text { display: none; }
+    .btn-modal-submit.loading .spinner { display: inline-block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+
+    /* ── Footer ─────────────────────────────────── */
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem;
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-inner a { color: var(--text-muted); transition: color var(--transition); }
+    .footer-inner a:hover { color: var(--gold); }
+    .footer-sep { opacity: 0.3; }
+
+
+    /* ── Responsive ─────────────────────────────── */
+
+    @media (max-width: 860px) {
+      .event-card {
+        grid-template-columns: 60px 1fr;
+        gap: 0.75rem;
+      }
+
+      .event-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255,255,255,0.04);
+      }
+
+      .cal-day { min-height: 60px; padding: 0.35rem; }
+      .cal-event-dot { font-size: 0.5rem; padding: 0.1rem 0.2rem; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+      .hero-text h1 { font-size: 1.4rem; }
+
+      .filters { gap: 0.3rem; }
+      .filter-btn { font-size: 0.68rem; padding: 0.25rem 0.5rem; }
+
+      .event-card { grid-template-columns: 1fr; }
+      .date-block {
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: flex-start;
+        min-width: auto;
+        padding: 0.4rem 0.75rem;
+      }
+      .date-day { font-size: 1rem; }
+
+      .cal-day { min-height: 48px; }
+      .cal-day-num { font-size: 0.65rem; }
+      .cal-event-dot { display: none; }
+      .cal-day.has-events::after {
+        content: '';
+        display: block;
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
+        margin: 2px auto 0;
+      }
+
+      .field-row { grid-template-columns: 1fr; }
+      .modal-panel { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="events.html" class="nav-link active">Events</a>
+        <a href="#" class="nav-link">Clubs</a>
+      </div>
+      <div class="nav-right" id="navRight"></div>
+    </div>
+  </nav>
+
+  <main class="main" style="flex:1;">
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1>🏆 Events Calendar</h1>
+          <p>Tournaments, ranking events, and local meetups around the world.</p>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-submit-event" id="btnSubmitEvent" style="display:none" type="button">+ Submit an Event</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Toolbar ── -->
+    <div class="toolbar">
+      <div class="filters">
+        <span class="filter-label">Region:</span>
+        <div class="filter-group" id="regionFilters">
+          <button class="filter-btn active" data-region="all">All</button>
+          <button class="filter-btn" data-region="europe">Europe</button>
+          <button class="filter-btn" data-region="americas">Americas</button>
+          <button class="filter-btn" data-region="asia">Asia</button>
+        </div>
+        <span class="filter-sep"></span>
+        <span class="filter-label">Type:</span>
+        <div class="filter-group" id="typeFilters">
+          <button class="filter-btn active" data-type="all">All</button>
+          <button class="filter-btn" data-type="major">Major</button>
+          <button class="filter-btn" data-type="ranking">Ranking</button>
+          <button class="filter-btn" data-type="open">Open</button>
+          <button class="filter-btn" data-type="local">Local</button>
+        </div>
+      </div>
+      <div class="view-toggles">
+        <button class="view-btn active" id="viewList" type="button" title="List view">☰</button>
+        <button class="view-btn" id="viewCal" type="button" title="Calendar view">📅</button>
+      </div>
+    </div>
+
+    <!-- ── Event Count ── -->
+    <div class="event-count" id="eventCount"></div>
+
+    <!-- ── List View ── -->
+    <div class="events-list" id="eventsList">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+
+    <!-- ── Calendar View ── -->
+    <div class="calendar-container" id="calendarContainer">
+      <div class="calendar-nav">
+        <button class="cal-nav-btn" id="calPrev" type="button">&larr;</button>
+        <span class="cal-month-label" id="calMonthLabel">—</span>
+        <button class="cal-nav-btn" id="calNext" type="button">&rarr;</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+  </main>
+
+  <!-- ── Submit Event Modal ── -->
+  <div class="modal-overlay" id="submitModal">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2 class="modal-title">Submit an Event</h2>
+        <button class="btn-close-modal" id="btnCloseModal" type="button">&times;</button>
+      </div>
+      <div id="modalAlert" class="modal-alert"></div>
+      <form class="modal-form" id="submitForm" autocomplete="off">
+        <div class="field-group">
+          <label class="field-label" for="evName">Event Name *</label>
+          <input class="field-input" id="evName" type="text" placeholder="e.g. European 9-Ball Championship 2026" required maxlength="200">
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="evDateStart">Start Date *</label>
+            <input class="field-input" id="evDateStart" type="date" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="evDateEnd">End Date</label>
+            <input class="field-input" id="evDateEnd" type="date">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="evLocation">Location *</label>
+            <input class="field-input" id="evLocation" type="text" placeholder="e.g. Athens, Greece" required maxlength="200">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="evCountryFlag">Country Flag</label>
+            <input class="field-input" id="evCountryFlag" type="text" placeholder="e.g. 🇬🇷" maxlength="4">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="evOrganizer">Organizer</label>
+            <input class="field-input" id="evOrganizer" type="text" placeholder="e.g. EPBF" maxlength="200">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="evType">Type *</label>
+            <select class="field-select" id="evType" required>
+              <option value="open">Open</option>
+              <option value="local">Local</option>
+              <option value="ranking">Ranking</option>
+              <option value="major">Major</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="evUrl">Website / More Info URL</label>
+          <input class="field-input" id="evUrl" type="url" placeholder="https://...">
+        </div>
+        <div class="modal-actions">
+          <button class="btn-modal-cancel" id="btnCancelModal" type="button">Cancel</button>
+          <button class="btn-modal-submit" id="btnDoSubmit" type="submit">
+            <span class="btn-text">Submit Event</span>
+            <span class="spinner"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Calendar popup ── -->
+  <div class="cal-popup" id="calPopup">
+    <div class="cal-popup-name" id="popupName"></div>
+    <div class="cal-popup-meta" id="popupMeta"></div>
+    <div class="cal-popup-links" id="popupLinks"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>🎱 9BallShop Community</span>
+      <span class="footer-sep">·</span>
+      <a href="index.html">Home</a>
+      <span class="footer-sep">·</span>
+      <a href="forum.html">Forum</a>
+      <span class="footer-sep">·</span>
+      <a href="register.html">Join</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Events Page
+       ────────────────────────────────────────────── */
+
+    const $ = id => document.getElementById(id);
+
+    // ── State ──
+    let allEvents   = [];
+    let filtered    = [];
+    let currentUser = null;
+    let activeView  = 'list';   // 'list' | 'calendar'
+    let regionFilter = 'all';
+    let typeFilter   = 'all';
+    let calYear, calMonth;
+
+    // Calendar starts at current month
+    const today = new Date();
+    calYear  = today.getFullYear();
+    calMonth = today.getMonth();
+
+    // DOM
+    const eventsList   = $('eventsList');
+    const calContainer = $('calendarContainer');
+    const calGrid      = $('calGrid');
+    const calLabel     = $('calMonthLabel');
+    const eventCount   = $('eventCount');
+    const calPopup     = $('calPopup');
+
+
+    // ═══════════════════════════════════════════════
+    // REGION MAPPING — flag emoji → region
+    // ═══════════════════════════════════════════════
+
+    const europeFlags = new Set([
+      '🇦🇱','🇦🇩','🇦🇹','🇧🇾','🇧🇪','🇧🇦','🇧🇬','🇭🇷','🇨🇾','🇨🇿',
+      '🇩🇰','🇪🇪','🇫🇮','🇫🇷','🇩🇪','🇬🇷','🇭🇺','🇮🇸','🇮🇪','🇮🇹',
+      '🇽🇰','🇱🇻','🇱🇮','🇱🇹','🇱🇺','🇲🇹','🇲🇩','🇲🇨','🇲🇪','🇳🇱',
+      '🇲🇰','🇳🇴','🇵🇱','🇵🇹','🇷🇴','🇷🇺','🇷🇸','🇸🇰','🇸🇮','🇪🇸',
+      '🇸🇪','🇨🇭','🇹🇷','🇺🇦','🇬🇧',
+    ]);
+
+    const americasFlags = new Set([
+      '🇺🇸','🇨🇦','🇲🇽','🇧🇷','🇦🇷','🇨🇱','🇨🇴','🇵🇪','🇻🇪','🇪🇨',
+      '🇧🇴','🇵🇾','🇺🇾','🇨🇷','🇵🇦','🇨🇺','🇩🇴','🇵🇷','🇯🇲','🇹🇹',
+    ]);
+
+    const asiaFlags = new Set([
+      '🇯🇵','🇨🇳','🇰🇷','🇹🇼','🇵🇭','🇻🇳','🇹🇭','🇮🇩','🇲🇾','🇸🇬',
+      '🇮🇳','🇦🇪','🇶🇦','🇸🇦','🇰🇼','🇧🇭','🇮🇱','🇮🇷','🇵🇰','🇧🇩',
+      '🇱🇧','🇯🇴','🇭🇰','🇲🇴','🇰🇿','🇺🇿',
+    ]);
+
+    function getRegion(flag) {
+      if (!flag) return 'other';
+      if (europeFlags.has(flag))  return 'europe';
+      if (americasFlags.has(flag)) return 'americas';
+      if (asiaFlags.has(flag))    return 'asia';
+      return 'other';
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // AUTH
+    // ═══════════════════════════════════════════════
+
+    async function initAuth() {
+      const session = await getSession();
+      const navRight = $('navRight');
+
+      if (session) {
+        currentUser = session.user;
+        const profile = await getProfile(currentUser.id);
+        const name = profile?.username || currentUser.email.split('@')[0];
+        navRight.innerHTML = `
+          <div class="nav-user">
+            <div class="nav-avatar">${name.charAt(0).toUpperCase()}</div>
+            <span class="nav-username">${esc(name)}</span>
+            <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>
+          </div>`;
+        $('btnSubmitEvent').style.display = 'inline-flex';
+      } else {
+        navRight.innerHTML = `
+          <a href="login.html" class="nav-link">Log In</a>
+          <a href="register.html" class="btn-join">Join Free</a>`;
+      }
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // LOAD EVENTS
+    // ═══════════════════════════════════════════════
+
+    async function loadEvents() {
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .order('date_start', { ascending: true });
+
+      if (error) {
+        console.error('Failed to load events:', error);
+        eventsList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">⚠️</div>
+            <h3>Failed to load events</h3>
+            <p>Please try refreshing the page.</p>
+          </div>`;
+        return;
+      }
+
+      allEvents = data || [];
+      applyFilters();
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // FILTERS
+    // ═══════════════════════════════════════════════
+
+    function applyFilters() {
+      filtered = allEvents.filter(ev => {
+        if (regionFilter !== 'all') {
+          const r = getRegion(ev.country_flag);
+          if (r !== regionFilter) return false;
+        }
+        if (typeFilter !== 'all') {
+          if (ev.event_type !== typeFilter) return false;
+        }
+        return true;
+      });
+
+      const n = filtered.length;
+      eventCount.innerHTML = `Showing <strong>${n}</strong> event${n !== 1 ? 's' : ''}`;
+
+      if (activeView === 'list') renderListView();
+      else renderCalendar();
+    }
+
+    // Region filter buttons
+    $('regionFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      $('regionFilters').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      regionFilter = btn.dataset.region;
+      applyFilters();
+    });
+
+    // Type filter buttons
+    $('typeFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      $('typeFilters').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      typeFilter = btn.dataset.type;
+      applyFilters();
+    });
+
+
+    // ═══════════════════════════════════════════════
+    // VIEW TOGGLE
+    // ═══════════════════════════════════════════════
+
+    $('viewList').addEventListener('click', () => switchView('list'));
+    $('viewCal').addEventListener('click', () => switchView('calendar'));
+
+    function switchView(view) {
+      activeView = view;
+      $('viewList').classList.toggle('active', view === 'list');
+      $('viewCal').classList.toggle('active', view === 'calendar');
+      eventsList.style.display     = view === 'list' ? 'flex' : 'none';
+      calContainer.style.display   = view === 'calendar' ? 'block' : 'none';
+
+      if (view === 'list') renderListView();
+      else renderCalendar();
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // LIST VIEW
+    // ═══════════════════════════════════════════════
+
+    function renderListView() {
+      if (filtered.length === 0) {
+        eventsList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <h3>No events found</h3>
+            <p>Try changing your filters, or submit an event!</p>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+      let lastMonth = '';
+
+      filtered.forEach(ev => {
+        const d = new Date(ev.date_start + 'T00:00:00');
+        const monthKey = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+        // Month divider
+        if (monthKey !== lastMonth) {
+          lastMonth = monthKey;
+          html += `<div class="month-divider">${monthKey}</div>`;
+        }
+
+        html += renderEventCard(ev, d);
+      });
+
+      eventsList.innerHTML = html;
+    }
+
+    function renderEventCard(ev, d) {
+      const month = d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+      const day   = d.getDate();
+      const year  = d.getFullYear();
+      const typeCls = 'type-' + (ev.event_type || 'open');
+      const typeLabel = formatType(ev.event_type);
+
+      // Date range
+      let dateRange = formatDateNice(ev.date_start);
+      if (ev.date_end && ev.date_end !== ev.date_start) {
+        dateRange += ' — ' + formatDateNice(ev.date_end);
+      }
+
+      // Links
+      let linksHtml = '';
+      if (ev.external_url) {
+        linksHtml += `<a href="${esc(ev.external_url)}" target="_blank" rel="noopener" class="btn-event-link">🔗 More Info</a>`;
+      }
+      if (ev.discussion_thread_id) {
+        linksHtml += `<a href="thread.html?id=${ev.discussion_thread_id}" class="btn-event-link btn-discuss">💬 Discuss</a>`;
+      }
+
+      return `
+        <div class="event-card">
+          <div class="date-block">
+            <span class="date-month">${month}</span>
+            <span class="date-day">${day}</span>
+            <span class="date-year">${year}</span>
+          </div>
+          <div class="event-info">
+            <div class="event-name">${esc(ev.name)}</div>
+            <div class="event-details">
+              <span class="event-location">${ev.country_flag || '📍'} ${esc(ev.location || 'TBA')}</span>
+              ${ev.organizer ? `<span class="detail-dot">·</span><span class="event-organizer">${esc(ev.organizer)}</span>` : ''}
+              <span class="detail-dot">·</span>
+              <span class="event-date-range">📅 ${dateRange}</span>
+              <span class="detail-dot">·</span>
+              <span class="type-badge ${typeCls}">${typeLabel}</span>
+            </div>
+          </div>
+          <div class="event-actions">
+            ${linksHtml}
+          </div>
+        </div>`;
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // CALENDAR VIEW
+    // ═══════════════════════════════════════════════
+
+    $('calPrev').addEventListener('click', () => { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); });
+    $('calNext').addEventListener('click', () => { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); });
+
+    function renderCalendar() {
+      calLabel.textContent = new Date(calYear, calMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+      const firstDay  = new Date(calYear, calMonth, 1);
+      const lastDay   = new Date(calYear, calMonth + 1, 0);
+      const startPad  = firstDay.getDay(); // 0=Sun
+      const totalDays = lastDay.getDate();
+
+      // Build event lookup for this month
+      const eventsByDay = {};
+      filtered.forEach(ev => {
+        const start = new Date(ev.date_start + 'T00:00:00');
+        const end   = ev.date_end ? new Date(ev.date_end + 'T00:00:00') : start;
+
+        // Walk each day in range
+        const cursor = new Date(start);
+        while (cursor <= end) {
+          if (cursor.getFullYear() === calYear && cursor.getMonth() === calMonth) {
+            const key = cursor.getDate();
+            if (!eventsByDay[key]) eventsByDay[key] = [];
+            eventsByDay[key].push(ev);
+          }
+          cursor.setDate(cursor.getDate() + 1);
+        }
+      });
+
+      let html = '';
+
+      // Weekday headers
+      const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      days.forEach(d => { html += `<div class="cal-header">${d}</div>`; });
+
+      // Previous month padding
+      const prevLast = new Date(calYear, calMonth, 0).getDate();
+      for (let i = startPad - 1; i >= 0; i--) {
+        html += `<div class="cal-day other-month"><span class="cal-day-num">${prevLast - i}</span></div>`;
+      }
+
+      // Days of month
+      const todayDate = today.getDate();
+      const todayMonth = today.getMonth();
+      const todayYear  = today.getFullYear();
+
+      for (let d = 1; d <= totalDays; d++) {
+        const isToday = (d === todayDate && calMonth === todayMonth && calYear === todayYear);
+        const dayEvents = eventsByDay[d] || [];
+        const hasEvents = dayEvents.length > 0;
+
+        let evHtml = '';
+        const show = dayEvents.slice(0, 2);
+        show.forEach(ev => {
+          const cls = 'type-' + (ev.event_type || 'open');
+          evHtml += `<span class="cal-event-dot ${cls}" data-event-id="${ev.id}" onclick="showCalPopup(event, '${ev.id}')">${esc(truncate(ev.name, 14))}</span>`;
+        });
+        if (dayEvents.length > 2) {
+          evHtml += `<span class="cal-more">+${dayEvents.length - 2} more</span>`;
+        }
+
+        html += `
+          <div class="cal-day ${isToday ? 'today' : ''} ${hasEvents ? 'has-events' : ''}">
+            <span class="cal-day-num">${d}</span>
+            <div class="cal-events">${evHtml}</div>
+          </div>`;
+      }
+
+      // Next month padding
+      const totalCells = startPad + totalDays;
+      const remaining  = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= remaining; i++) {
+        html += `<div class="cal-day other-month"><span class="cal-day-num">${i}</span></div>`;
+      }
+
+      calGrid.innerHTML = html;
+    }
+
+    // Calendar event popup
+    function showCalPopup(e, eventId) {
+      e.stopPropagation();
+      const ev = allEvents.find(x => x.id === eventId);
+      if (!ev) return;
+
+      $('popupName').textContent = ev.name;
+
+      let meta = '';
+      meta += `${ev.country_flag || '📍'} ${esc(ev.location || 'TBA')}<br>`;
+      meta += `📅 ${formatDateNice(ev.date_start)}`;
+      if (ev.date_end && ev.date_end !== ev.date_start) meta += ` — ${formatDateNice(ev.date_end)}`;
+      if (ev.organizer) meta += `<br>🏢 ${esc(ev.organizer)}`;
+      $('popupMeta').innerHTML = meta;
+
+      let links = '';
+      if (ev.external_url) links += `<a href="${esc(ev.external_url)}" target="_blank" rel="noopener" class="btn-event-link">🔗 Info</a>`;
+      if (ev.discussion_thread_id) links += `<a href="thread.html?id=${ev.discussion_thread_id}" class="btn-event-link btn-discuss">💬 Discuss</a>`;
+      $('popupLinks').innerHTML = links;
+
+      // Position near click
+      const popup = calPopup;
+      popup.style.left = Math.min(e.clientX, window.innerWidth - 310) + 'px';
+      popup.style.top  = Math.min(e.clientY + 10, window.innerHeight - 200) + 'px';
+      popup.classList.add('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!calPopup.contains(e.target)) {
+        calPopup.classList.remove('open');
+      }
+    });
+
+
+    // ═══════════════════════════════════════════════
+    // SUBMIT EVENT MODAL
+    // ═══════════════════════════════════════════════
+
+    const submitModal = $('submitModal');
+    const submitForm  = $('submitForm');
+    const modalAlert  = $('modalAlert');
+    const btnDoSubmit = $('btnDoSubmit');
+
+    $('btnSubmitEvent').addEventListener('click', () => {
+      submitForm.reset();
+      modalAlert.className = 'modal-alert';
+      submitModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeModal() {
+      submitModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    $('btnCloseModal').addEventListener('click', closeModal);
+    $('btnCancelModal').addEventListener('click', closeModal);
+    submitModal.addEventListener('click', (e) => { if (e.target === submitModal) closeModal(); });
+
+    submitForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      modalAlert.className = 'modal-alert';
+      setLoading(btnDoSubmit, true);
+
+      const payload = {
+        name:         $('evName').value.trim(),
+        date_start:   $('evDateStart').value,
+        date_end:     $('evDateEnd').value || null,
+        location:     $('evLocation').value.trim(),
+        country_flag: $('evCountryFlag').value.trim() || '',
+        organizer:    $('evOrganizer').value.trim(),
+        event_type:   $('evType').value,
+        external_url: $('evUrl').value.trim() || null,
+        approved:     false,
+        submitted_by: currentUser.id,
+      };
+
+      const { error } = await supabase.from('events').insert(payload);
+
+      setLoading(btnDoSubmit, false);
+
+      if (error) {
+        modalAlert.className = 'modal-alert alert-error visible';
+        modalAlert.textContent = error.message || 'Failed to submit event.';
+        return;
+      }
+
+      modalAlert.className = 'modal-alert alert-success visible';
+      modalAlert.textContent = 'Thanks! Your event will appear after admin review. 🎱';
+
+      submitForm.querySelectorAll('input, select').forEach(el => el.disabled = true);
+      btnDoSubmit.style.display = 'none';
+
+      setTimeout(closeModal, 2500);
+    });
+
+
+    // ═══════════════════════════════════════════════
+    // UTILITIES
+    // ═══════════════════════════════════════════════
+
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function truncate(s, n) {
+      return s && s.length > n ? s.slice(0, n) + '…' : (s || '');
+    }
+
+    function formatType(t) {
+      const map = { major: 'Major', ranking: 'Ranking', open: 'Open', local: 'Local' };
+      return map[t] || 'Open';
+    }
+
+    function formatDateNice(d) {
+      if (!d) return '';
+      const dt = new Date(d + 'T00:00:00');
+      return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+
+    // ═══════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════
+
+    (async () => {
+      await initAuth();
+      await loadEvents();
+    })();
+  </script>
+</body>
+</html>

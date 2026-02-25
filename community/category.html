@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category — 9BallShop Community</title>
+  <link rel="stylesheet" href="forum.css">
+  <link rel="stylesheet" href="category.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="#" class="nav-link">Events</a>
+        <a href="#" class="nav-link">Clubs</a>
+      </div>
+      <div class="nav-right" id="navRight"></div>
+    </div>
+  </nav>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Breadcrumb + Header (skeleton until loaded) -->
+    <section class="cat-hero" id="catHero">
+      <div class="cat-hero-inner">
+        <nav class="breadcrumb">
+          <a href="forum.html">Forum</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="bcCategory">Loading…</span>
+        </nav>
+        <div class="cat-hero-row">
+          <div class="cat-hero-icon skeleton-circle" id="catIcon"></div>
+          <div class="cat-hero-text">
+            <h1 id="catName" class="skeleton-text">Loading category…</h1>
+            <p id="catDesc" class="skeleton-text">‌</p>
+          </div>
+          <button class="btn-new-thread" id="newThreadBtn" style="display:none" type="button">
+            + New Thread
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thread List -->
+    <section class="threads-section">
+      <div class="threads-inner">
+
+        <!-- Sort Bar -->
+        <div class="sort-bar">
+          <span class="thread-count" id="threadCount"></span>
+          <div class="sort-options">
+            <button class="sort-btn active" data-sort="activity">Latest Activity</button>
+            <button class="sort-btn" data-sort="newest">Newest</button>
+            <button class="sort-btn" data-sort="most-replies">Most Replies</button>
+          </div>
+        </div>
+
+        <!-- Skeleton Loader -->
+        <div id="skeletonList" class="thread-list">
+          <div class="thread-row skeleton"><div class="skeleton-block-wide"></div></div>
+          <div class="thread-row skeleton"><div class="skeleton-block-wide"></div></div>
+          <div class="thread-row skeleton"><div class="skeleton-block-wide"></div></div>
+          <div class="thread-row skeleton"><div class="skeleton-block-wide"></div></div>
+          <div class="thread-row skeleton"><div class="skeleton-block-wide"></div></div>
+        </div>
+
+        <!-- Real thread list (JS populates) -->
+        <div id="threadList" class="thread-list" style="display:none"></div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display:none">
+          <div class="empty-icon">💬</div>
+          <h3>No threads yet</h3>
+          <p>Be the first to start a discussion in this category.</p>
+          <button class="btn-new-thread" id="emptyNewBtn" style="display:none" type="button">
+            + Start a Thread
+          </button>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display:none">
+          <p>Failed to load threads. <a href="#" onclick="location.reload()">Try again</a></p>
+        </div>
+
+        <!-- Load More -->
+        <div id="loadMoreWrap" class="load-more-wrap" style="display:none">
+          <button class="btn-load-more" id="loadMoreBtn" type="button">
+            <span class="lm-text">Load More Threads</span>
+            <span class="lm-spinner"></span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ── New Thread Modal ── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Thread</h2>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="threadForm" novalidate>
+        <div class="modal-body">
+          <!-- Alert -->
+          <div id="modalAlert" class="modal-alert" role="alert"></div>
+
+          <!-- Title -->
+          <div class="form-group">
+            <label class="form-label" for="threadTitle">Title</label>
+            <input class="form-input" type="text" id="threadTitle" placeholder="What's on your mind?" maxlength="200" required>
+            <div class="field-error" id="titleError"></div>
+            <div class="char-count"><span id="titleChars">0</span>/200</div>
+          </div>
+
+          <!-- Body -->
+          <div class="form-group">
+            <label class="form-label" for="threadBody">
+              Body
+              <span class="label-hint">Markdown supported — **bold**, *italic*, `code`, [links](url)</span>
+            </label>
+            <textarea class="form-textarea" id="threadBody" rows="10" placeholder="Share your thoughts, questions, or insights…" required></textarea>
+            <div class="field-error" id="bodyError"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-cancel" type="button" id="cancelBtn">Cancel</button>
+          <button class="btn-submit" type="submit" id="postBtn">
+            <span class="btn-text">Post Thread</span>
+            <span class="spinner"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>🎱 9BallShop Community</span>
+      <span class="footer-sep">·</span>
+      <a href="/">Home</a>
+      <span class="footer-sep">·</span>
+      <a href="register.html">Join</a>
+      <span class="footer-sep">·</span>
+      <a href="login.html">Log In</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Category / Thread-List Page
+       ────────────────────────────────────────────── */
+
+    // ── State ──
+    let category     = null;
+    let currentUser  = null;
+    let offset       = 0;
+    const PAGE_SIZE  = 20;
+    let currentSort  = 'activity';      // activity | newest | most-replies
+    let allLoaded    = false;
+
+    // ── DOM refs ──
+    const catHero      = document.getElementById('catHero');
+    const catIcon      = document.getElementById('catIcon');
+    const catName      = document.getElementById('catName');
+    const catDesc      = document.getElementById('catDesc');
+    const bcCategory   = document.getElementById('bcCategory');
+    const threadList   = document.getElementById('threadList');
+    const skeletonList = document.getElementById('skeletonList');
+    const emptyState   = document.getElementById('emptyState');
+    const errorState   = document.getElementById('errorState');
+    const threadCount  = document.getElementById('threadCount');
+    const loadMoreWrap = document.getElementById('loadMoreWrap');
+    const loadMoreBtn  = document.getElementById('loadMoreBtn');
+    const newThreadBtn = document.getElementById('newThreadBtn');
+    const emptyNewBtn  = document.getElementById('emptyNewBtn');
+    const navRight     = document.getElementById('navRight');
+
+    // Modal
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modal        = document.getElementById('modal');
+    const modalClose   = document.getElementById('modalClose');
+    const cancelBtn    = document.getElementById('cancelBtn');
+    const threadForm   = document.getElementById('threadForm');
+    const threadTitle  = document.getElementById('threadTitle');
+    const threadBody   = document.getElementById('threadBody');
+    const titleError   = document.getElementById('titleError');
+    const bodyError    = document.getElementById('bodyError');
+    const modalAlert   = document.getElementById('modalAlert');
+    const postBtn      = document.getElementById('postBtn');
+    const titleChars   = document.getElementById('titleChars');
+
+    // ── Parse slug from URL ──
+    const params = new URLSearchParams(window.location.search);
+    const slug   = params.get('slug');
+
+    if (!slug) { window.location.href = 'forum.html'; }
+
+    // ── Auth ──
+
+    async function initAuth() {
+      const session = await getSession();
+      if (session) {
+        currentUser = session.user;
+        const profile = await getProfile(currentUser.id);
+        const name = profile?.username || currentUser.email.split('@')[0];
+        navRight.innerHTML = `
+          <div class="nav-user">
+            <div class="nav-avatar">${name.charAt(0).toUpperCase()}</div>
+            <span class="nav-username">${esc(name)}</span>
+            <a href="#" class="nav-link nav-logout" onclick="signOut(); return false;">Log Out</a>
+          </div>`;
+        newThreadBtn.style.display = 'inline-flex';
+        emptyNewBtn.style.display  = 'inline-flex';
+      } else {
+        navRight.innerHTML = `
+          <a href="login.html" class="nav-link">Log In</a>
+          <a href="register.html" class="btn-join">Join Free</a>`;
+      }
+    }
+
+    // ── Load category ──
+
+    async function loadCategory() {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (error || !data) {
+        window.location.href = 'forum.html';
+        return;
+      }
+
+      category = data;
+      document.title = `${data.name} — 9BallShop Community`;
+
+      catIcon.textContent      = data.icon;
+      catIcon.style.background = data.color + '20';
+      catIcon.style.color      = data.color;
+      catIcon.classList.remove('skeleton-circle');
+
+      catName.textContent = data.name;
+      catName.classList.remove('skeleton-text');
+
+      catDesc.textContent = data.description;
+      catDesc.classList.remove('skeleton-text');
+
+      bcCategory.textContent = data.name;
+
+      catHero.style.setProperty('--accent', data.color);
+
+      // Pre-fill template
+      if (data.topic_template) {
+        threadBody.value = data.topic_template;
+      }
+    }
+
+    // ── Load threads ──
+
+    async function loadThreads(append = false) {
+      if (!category) return;
+
+      // Build query based on sort
+      let query = supabase
+        .from('threads')
+        .select('*, profiles(username, avatar_url)', { count: 'exact' })
+        .eq('category_id', category.id);
+
+      // Always pin first
+      query = query.order('is_pinned', { ascending: false });
+
+      if (currentSort === 'newest') {
+        query = query.order('created_at', { ascending: false });
+      } else if (currentSort === 'most-replies') {
+        query = query.order('reply_count', { ascending: false });
+      } else {
+        query = query.order('last_activity_at', { ascending: false });
+      }
+
+      query = query.range(offset, offset + PAGE_SIZE - 1);
+
+      const { data, error, count } = await query;
+
+      if (error) {
+        console.error('Failed to load threads:', error);
+        skeletonList.style.display = 'none';
+        errorState.style.display   = 'block';
+        return;
+      }
+
+      skeletonList.style.display = 'none';
+
+      if (!append && (!data || data.length === 0)) {
+        threadList.style.display  = 'none';
+        emptyState.style.display  = 'block';
+        loadMoreWrap.style.display = 'none';
+        threadCount.textContent = '0 threads';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      const html = data.map(renderThread).join('');
+
+      if (append) {
+        threadList.insertAdjacentHTML('beforeend', html);
+      } else {
+        threadList.innerHTML = html;
+      }
+
+      threadList.style.display = 'block';
+      threadCount.textContent = `${count ?? '—'} thread${count === 1 ? '' : 's'}`;
+
+      offset += data.length;
+      allLoaded = data.length < PAGE_SIZE;
+      loadMoreWrap.style.display = allLoaded ? 'none' : 'flex';
+      loadMoreBtn.classList.remove('loading');
+    }
+
+    function renderThread(t) {
+      const author   = t.profiles;
+      const username = author?.username || 'Unknown';
+      const initial  = username.charAt(0).toUpperCase();
+      const color    = category?.color || '#F5C518';
+
+      let badges = '';
+      if (t.is_pinned)  badges += '<span class="thread-badge badge-pinned" title="Pinned">📌</span>';
+      if (t.is_solved)  badges += '<span class="thread-badge badge-solved" title="Solved">✅</span>';
+      if (t.is_locked)  badges += '<span class="thread-badge badge-locked" title="Locked">🔒</span>';
+
+      return `
+        <a href="thread.html?id=${t.id}" class="thread-row" style="--accent: ${color}">
+          <div class="thread-main">
+            <div class="thread-title-row">
+              ${badges}
+              <span class="thread-title">${esc(t.title)}</span>
+            </div>
+            <div class="thread-meta">
+              <div class="thread-author">
+                <span class="thread-avatar" style="background:${color}">${initial}</span>
+                <span>${esc(username)}</span>
+              </div>
+              <span class="meta-sep">·</span>
+              <span>${timeAgo(t.created_at)}</span>
+            </div>
+          </div>
+          <div class="thread-stats-row">
+            <div class="thread-stat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <span>${t.reply_count}</span>
+            </div>
+            <div class="thread-stat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>${t.view_count}</span>
+            </div>
+            <div class="thread-activity">
+              ${timeAgo(t.last_activity_at)}
+            </div>
+          </div>
+        </a>`;
+    }
+
+    // ── Sort buttons ──
+
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.sort === currentSort) return;
+        document.querySelector('.sort-btn.active')?.classList.remove('active');
+        btn.classList.add('active');
+        currentSort = btn.dataset.sort;
+        offset = 0;
+        allLoaded = false;
+        loadThreads();
+      });
+    });
+
+    // ── Load more ──
+
+    loadMoreBtn.addEventListener('click', () => {
+      loadMoreBtn.classList.add('loading');
+      loadThreads(true);
+    });
+
+    // ── New Thread Modal ──
+
+    function openModal() {
+      if (!currentUser) { window.location.href = 'login.html'; return; }
+      modalOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      threadTitle.focus();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    newThreadBtn.addEventListener('click', openModal);
+    emptyNewBtn.addEventListener('click', openModal);
+    modalClose.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Title char count
+    threadTitle.addEventListener('input', () => {
+      titleChars.textContent = threadTitle.value.length;
+      clearFieldError(threadTitle, titleError);
+    });
+
+    threadBody.addEventListener('input', () => {
+      clearFieldError(threadBody, bodyError);
+    });
+
+    // Submit
+    threadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      modalAlert.className = 'modal-alert';
+      modalAlert.textContent = '';
+
+      let valid = true;
+      const title = threadTitle.value.trim();
+      const body  = threadBody.value.trim();
+
+      if (!title) {
+        showFieldError(threadTitle, titleError, 'Title is required');
+        valid = false;
+      } else if (title.length < 5) {
+        showFieldError(threadTitle, titleError, 'Title must be at least 5 characters');
+        valid = false;
+      }
+
+      if (!body) {
+        showFieldError(threadBody, bodyError, 'Body is required');
+        valid = false;
+      } else if (body.length < 10) {
+        showFieldError(threadBody, bodyError, 'Write at least 10 characters');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      setLoading(postBtn, true);
+
+      const { data, error } = await supabase
+        .from('threads')
+        .insert({
+          title: title,
+          body: body,
+          author_id: currentUser.id,
+          category_id: category.id,
+        })
+        .select('id')
+        .single();
+
+      if (error) {
+        console.error('Insert thread error:', error);
+        modalAlert.className = 'modal-alert alert-error visible';
+        modalAlert.textContent = error.message || 'Failed to post thread. Please try again.';
+        setLoading(postBtn, false);
+        return;
+      }
+
+      // Redirect to new thread
+      window.location.href = `thread.html?id=${data.id}`;
+    });
+
+    // ── Utilities ──
+
+    function timeAgo(dateStr) {
+      if (!dateStr) return '';
+      const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
+      if (seconds < 60)     return 'just now';
+      if (seconds < 3600)   return Math.floor(seconds / 60) + 'm ago';
+      if (seconds < 86400)  return Math.floor(seconds / 3600) + 'h ago';
+      if (seconds < 604800) return Math.floor(seconds / 86400) + 'd ago';
+      return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function esc(str) {
+      if (!str) return '';
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    // ── Init ──
+
+    (async () => {
+      await initAuth();
+      await loadCategory();
+      await loadThreads();
+    })();
+  </script>
+</body>
+</html>

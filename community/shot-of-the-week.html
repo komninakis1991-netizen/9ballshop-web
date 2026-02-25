@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shot of the Week — 9Ball Community</title>
+  <meta name="description" content="Weekly pool position puzzles. Study the layout, plan your shot, and discuss strategy with the community.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       SHOT OF THE WEEK — 9BallShop Community
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0F1923;
+      --bg-dark:     #0A1628;
+      --card:        #1A2735;
+      --card-hover:  #1E2F3F;
+      --gold:        #F5C518;
+      --gold-light:  #FFD84D;
+      --gold-dark:   #C9A000;
+      --green:       #1B7A3D;
+      --green-light: #22C55E;
+      --white:       #FFFFFF;
+      --text:        #E2E8F0;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --border:      #243040;
+      --radius:      10px;
+      --radius-lg:   14px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.25);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.4);
+      --transition:  0.2s ease;
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+
+    /* ── NAVBAR ────────────────────────────────── */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .nav-logo .logo-ball { font-size: 1.3rem; }
+    .nav-links {
+      display: flex;
+      gap: 0.15rem;
+      margin-left: 1.5rem;
+    }
+    .nav-link {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+      white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-link.active { color: var(--gold); }
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-join-nav {
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.4rem 1.1rem;
+      border-radius: 6px;
+      border: none;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+    .btn-join-nav:hover { background: var(--gold-light); box-shadow: 0 2px 12px rgba(245,197,24,0.3); }
+    .nav-user { display: flex; align-items: center; gap: 0.6rem; }
+    .nav-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gold); color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-username { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .hamburger {
+      display: none; background: none; border: none;
+      color: var(--text-muted); font-size: 1.5rem; padding: 0.25rem; margin-right: 0.5rem;
+    }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; top: 60px;
+      background: var(--bg-dark); z-index: 99; padding: 1.5rem;
+      flex-direction: column; gap: 0.25rem; overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .nav-link { font-size: 1.05rem; padding: 0.75rem 1rem; }
+
+
+    /* ── PAGE LAYOUT ──────────────────────────── */
+
+    .page-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 0;
+      text-align: center;
+    }
+    .page-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .page-title-icon { color: var(--gold); }
+    .page-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .page-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+
+    /* ── SHOT OF THE WEEK WIDGET (embeddable) ── */
+
+    .sotw {
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .sotw:hover {
+      border-color: rgba(245,197,24,0.18);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Header */
+    .sotw-head {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .sotw-head-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .sotw-icon {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .sotw-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+    .sotw-week {
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .sotw-diff {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+    .sotw-diff.easy   { background: rgba(34,197,94,0.15); color: #22C55E; }
+    .sotw-diff.medium { background: rgba(59,130,246,0.15); color: #60A5FA; }
+    .sotw-diff.hard   { background: rgba(245,197,24,0.15); color: var(--gold); }
+
+    /* SVG Table Container */
+    .sotw-table {
+      padding: 1rem 1rem 0.5rem;
+      background: linear-gradient(180deg, rgba(0,0,0,0.08) 0%, transparent 100%);
+    }
+    .sotw-table svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+    }
+
+    /* Info */
+    .sotw-info {
+      padding: 1rem 1.5rem 0;
+    }
+    .sotw-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .sotw-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Question + CTA */
+    .sotw-cta {
+      padding: 1rem 1.5rem 1.25rem;
+    }
+    .sotw-question {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.85rem;
+      font-style: italic;
+    }
+    .sotw-btn {
+      display: block;
+      text-align: center;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .sotw-btn:hover {
+      background: var(--gold-light);
+      box-shadow: 0 4px 16px rgba(245,197,24,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* Footer meta */
+    .sotw-meta {
+      padding: 0.85rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .sotw-countdown,
+    .sotw-winner {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    .sotw-countdown strong { color: var(--text-muted); font-weight: 600; }
+    .sotw-winner a {
+      color: var(--gold);
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+    .sotw-winner a:hover { color: var(--gold-light); }
+
+
+    /* ── SKELETON LOADER ─────────────────────── */
+
+    .sotw-skeleton { padding: 1.25rem 1.5rem; }
+    .skel-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+    .skel-block {
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--border) 25%, rgba(255,255,255,0.04) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skel-circle { width: 28px; height: 28px; border-radius: 50%; }
+    .skel-line  { height: 14px; flex: 1; }
+    .skel-table { width: 100%; height: 180px; border-radius: 8px; margin-bottom: 1rem; }
+    .skel-title { height: 18px; width: 60%; margin-bottom: 0.5rem; }
+    .skel-text  { height: 12px; width: 90%; margin-bottom: 0.35rem; }
+    .skel-btn   { height: 42px; width: 100%; border-radius: 8px; margin-top: 0.75rem; }
+
+
+    /* ── ARCHIVE GRID ────────────────────────── */
+
+    .archive-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .archive-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .archive-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .archive-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.15);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .archive-card.current {
+      border-color: rgba(245,197,24,0.25);
+      box-shadow: 0 0 0 1px rgba(245,197,24,0.1);
+    }
+    .archive-thumb {
+      padding: 0.6rem 0.6rem 0;
+    }
+    .archive-thumb svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .archive-info {
+      padding: 0.7rem 0.85rem;
+    }
+    .archive-week-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
+    .archive-week-num span {
+      display: inline-block;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.35rem;
+    }
+    .archive-week-num span.easy   { background: rgba(34,197,94,0.12); color: #22C55E; }
+    .archive-week-num span.medium { background: rgba(59,130,246,0.12); color: #60A5FA; }
+    .archive-week-num span.hard   { background: rgba(245,197,24,0.12); color: var(--gold); }
+    .archive-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+
+    /* ── FOOTER ───────────────────────────────── */
+
+    .footer {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .footer a { color: var(--gold); }
+    .footer a:hover { color: var(--gold-light); }
+
+
+    /* ── RESPONSIVE ───────────────────────────── */
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page-title { font-size: 1.5rem; }
+      .sotw { margin: 0 auto 2rem; }
+      .sotw-head { padding: 1rem 1.1rem; }
+      .sotw-info { padding: 0.85rem 1.1rem 0; }
+      .sotw-cta { padding: 0.85rem 1.1rem 1rem; }
+      .sotw-meta { padding: 0.75rem 1.1rem; }
+      .archive-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .archive-grid { grid-template-columns: 1fr; }
+      .sotw-meta { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       NAVBAR
+       ══════════════════════════════════════════════ -->
+
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu">☰</button>
+      <a href="/" class="nav-logo"><span class="logo-ball">🎱</span> 9BALL</a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
+        <a href="learn.html" class="nav-link">Learn</a>
+        <a href="shot-of-the-week.html" class="nav-link active">Shot of the Week</a>
+      </div>
+      <div class="nav-right" id="navRight">
+        <a href="register.html" class="btn-join-nav" id="navJoinBtn">Join Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="forum.html" class="nav-link">Forum</a>
+    <a href="events.html" class="nav-link">Events</a>
+    <a href="clubs.html" class="nav-link">Clubs</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="shot-of-the-week.html" class="nav-link active">Shot of the Week</a>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       PAGE HEADER
+       ══════════════════════════════════════════════ -->
+
+  <header class="page-header">
+    <h1 class="page-title"><span class="page-title-icon">🎯</span> Shot of the Week</h1>
+    <p class="page-subtitle">Study the layout, plan your shot, and discuss strategy with the community.</p>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════════════ -->
+
+  <main class="page-body">
+
+    <!-- ═══ Current Challenge Widget ═══ -->
+    <div class="sotw" id="sotwWidget">
+
+      <!-- Skeleton (shown while loading) -->
+      <div id="sotwSkeleton" class="sotw-skeleton">
+        <div class="skel-row">
+          <div class="skel-block skel-circle"></div>
+          <div class="skel-block skel-line"></div>
+        </div>
+        <div class="skel-block skel-table"></div>
+        <div class="skel-block skel-title"></div>
+        <div class="skel-block skel-text"></div>
+        <div class="skel-block skel-text" style="width:70%"></div>
+        <div class="skel-block skel-btn"></div>
+      </div>
+
+      <!-- Real content (hidden until loaded) -->
+      <div id="sotwContent" style="display:none">
+
+        <div class="sotw-head">
+          <div class="sotw-head-left">
+            <span class="sotw-icon">🎯</span>
+            <span class="sotw-label">Shot of the Week</span>
+            <span class="sotw-week" id="sotwWeekNum">#—</span>
+          </div>
+          <span class="sotw-diff" id="sotwDiff"></span>
+        </div>
+
+        <div class="sotw-table" id="sotwTable"></div>
+
+        <div class="sotw-info">
+          <h2 class="sotw-title" id="sotwTitle"></h2>
+          <p class="sotw-desc" id="sotwDesc"></p>
+        </div>
+
+        <div class="sotw-cta">
+          <p class="sotw-question">How would you play this?</p>
+          <a class="sotw-btn" id="sotwBtn" href="forum.html">Discuss This Shot →</a>
+        </div>
+
+        <div class="sotw-meta">
+          <div class="sotw-countdown">
+            <span>⏱</span>
+            <span>New challenge in <strong id="sotwTimer">—</strong></span>
+          </div>
+          <div class="sotw-winner" id="sotwWinner" style="display:none">
+            <span>🏆</span>
+            <span>Last winner: <a href="#" id="sotwWinnerLink"></a></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══ Past Challenges Archive ═══ -->
+    <section>
+      <div class="archive-header">
+        <h2 class="archive-title">Past Challenges</h2>
+      </div>
+      <div class="archive-grid" id="archiveGrid"></div>
+    </section>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════ -->
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 <a href="/">9BallShop.com</a> — The Global Home for 9-Ball Players</p>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════════
+       SCRIPTS
+       ══════════════════════════════════════════════ -->
+
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ============================================================
+       Shot of the Week — Component JS
+       ============================================================ */
+
+    const $ = id => document.getElementById(id);
+
+
+    // ─── Ball color definitions ───────────────────
+    // f=fill, h=highlight, l=lowlight, t=text on number dot, s=stripe
+    const BALL_COLORS = {
+      cue: { f:'#F0F0F0', h:'#FFFFFF',  l:'#C8C8C8' },
+      1:   { f:'#FDD835', h:'#FFF59D',  l:'#F9A825', t:'#1A1A1A' },
+      2:   { f:'#1565C0', h:'#64B5F6',  l:'#0D47A1' },
+      3:   { f:'#E53935', h:'#EF9A9A',  l:'#B71C1C' },
+      4:   { f:'#7B1FA2', h:'#CE93D8',  l:'#4A148C' },
+      5:   { f:'#EF6C00', h:'#FFB74D',  l:'#BF360C' },
+      6:   { f:'#2E7D32', h:'#81C784',  l:'#1B5E20' },
+      7:   { f:'#6D1B1B', h:'#C56262',  l:'#3E0B0B' },
+      8:   { f:'#212121', h:'#757575',  l:'#000000' },
+      9:   { f:'#FDD835', h:'#FFF59D',  l:'#F9A825', t:'#1A1A1A', s:true },
+    };
+
+
+    // ─── Hardcoded samples (fallback if DB is empty) ──
+    const SAMPLES = [
+      { id:1, week_number:9,  year:2026, title:'The Corner Cut',    description:'Last ball on the table. A thin cut on the 9-ball into the top corner pocket — simple in theory, but where exactly do you aim, and what happens to the cue ball after contact?', ball_positions:[{n:'cue',x:25,y:55},{n:9,x:82,y:14}], difficulty:'easy' },
+      { id:2, week_number:10, year:2026, title:'The Safety Escape',  description:'Three balls left and your opponent left you snookered! The 8-ball blocks your direct path to the 7. Can you find a kick route off the rail — or is a safety the smarter play?', ball_positions:[{n:'cue',x:20,y:68},{n:7,x:65,y:25},{n:8,x:32,y:48},{n:9,x:78,y:72}], difficulty:'medium' },
+      { id:3, week_number:11, year:2026, title:'Cross-Side Bank',    description:'The 9-ball is sitting near the top rail. Banking it cross-side into the bottom center pocket looks like the play — but how much speed do you use, and where does the cue ball end up?', ball_positions:[{n:'cue',x:15,y:50},{n:9,x:60,y:8}], difficulty:'medium' },
+      { id:4, week_number:12, year:2026, title:'Shape on the Nine',  description:'Three balls left: 7, 8, 9. You need to run out to win. The key is cue ball position from ball to ball — where do you leave the cue ball after the 7? And how do you get from the 8 to the 9?', ball_positions:[{n:'cue',x:68,y:58},{n:7,x:28,y:78},{n:8,x:50,y:18},{n:9,x:85,y:82}], difficulty:'hard' },
+    ];
+
+
+    // ─── SVG Pool Table Renderer ──────────────────
+    //
+    // Draws a pool table with balls into the given element.
+    //
+    // Usage:
+    //   renderPoolTable(element, [
+    //     { n: 'cue', x: 25, y: 50 },
+    //     { n: 1, x: 60, y: 30 },
+    //     { n: 9, x: 85, y: 12 },
+    //   ]);
+    //
+    // x/y are percentages (0–100) of the playing surface.
+
+    function renderPoolTable(el, balls) {
+      const W = 500, H = 272;
+      const RAIL = 22;
+      const PW = W - RAIL * 2;          // 456 — playing surface width
+      const PH = H - RAIL * 2;          // 228 — playing surface height
+      const BR = 10;                     // ball radius
+      const PR_CORNER = 13, PR_SIDE = 11;
+
+      // Convert percentage positions to SVG coordinates
+      const coords = balls.map(b => ({
+        n: String(b.n),
+        cx: RAIL + (b.x / 100) * PW,
+        cy: RAIL + (b.y / 100) * PH,
+      }));
+
+      // ── Build <defs> ──
+      let defs = '';
+
+      // Pocket gradient
+      defs += '<radialGradient id="pk"><stop offset="0%" stop-color="#000"/><stop offset="85%" stop-color="#111"/><stop offset="100%" stop-color="#1a1a1a"/></radialGradient>';
+
+      // Felt gradient (subtle lighting)
+      defs += '<linearGradient id="felt" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1E8540"/><stop offset="100%" stop-color="#177234"/></linearGradient>';
+
+      // Ball gradients + clip paths
+      for (const b of coords) {
+        const c = BALL_COLORS[b.n] || BALL_COLORS[1];
+        const uid = 'b' + b.n;
+        defs += `<radialGradient id="${uid}" cx="35%" cy="28%" r="68%">` +
+                `<stop offset="0%" stop-color="${c.h}"/>` +
+                `<stop offset="100%" stop-color="${c.l}"/>` +
+                `</radialGradient>`;
+        if (c.s) {
+          defs += `<clipPath id="cp${uid}"><circle cx="${b.cx}" cy="${b.cy}" r="${BR}"/></clipPath>`;
+        }
+      }
+
+      // ── Build elements ──
+      let svg = '';
+
+      // Frame (dark wood)
+      svg += `<rect width="${W}" height="${H}" rx="12" fill="#2C1810"/>`;
+
+      // Rail bed (dark green)
+      svg += `<rect x="5" y="5" width="${W - 10}" height="${H - 10}" rx="8" fill="#1F5C2A"/>`;
+
+      // Playing surface (felt)
+      svg += `<rect x="${RAIL}" y="${RAIL}" width="${PW}" height="${PH}" rx="2" fill="url(#felt)"/>`;
+
+      // Cushion noses — bright green lines (broken at pockets)
+      const CN = '#22913F', CW = 2.5, GAP = 16;
+      // Top
+      svg += `<line x1="${RAIL + GAP}" y1="${RAIL}" x2="${W / 2 - GAP}" y2="${RAIL}" stroke="${CN}" stroke-width="${CW}" stroke-linecap="round"/>`;
+      svg += `<line x1="${W / 2 + GAP}" y1="${RAIL}" x2="${W - RAIL - GAP}" y2="${RAIL}" stroke="${CN}" stroke-width="${CW}" stroke-linecap="round"/>`;
+      // Bottom
+      svg += `<line x1="${RAIL + GAP}" y1="${H - RAIL}" x2="${W / 2 - GAP}" y2="${H - RAIL}" stroke="${CN}" stroke-width="${CW}" stroke-linecap="round"/>`;
+      svg += `<line x1="${W / 2 + GAP}" y1="${H - RAIL}" x2="${W - RAIL - GAP}" y2="${H - RAIL}" stroke="${CN}" stroke-width="${CW}" stroke-linecap="round"/>`;
+      // Left
+      svg += `<line x1="${RAIL}" y1="${RAIL + GAP}" x2="${RAIL}" y2="${H - RAIL - GAP}" stroke="${CN}" stroke-width="${CW}" stroke-linecap="round"/>`;
+      // Right
+      svg += `<line x1="${W - RAIL}" y1="${RAIL + GAP}" x2="${W - RAIL}" y2="${H - RAIL - GAP}" stroke="${CN}" stroke-width="${CW}" stroke-linecap="round"/>`;
+
+      // Pockets
+      const pockets = [
+        [RAIL, RAIL, PR_CORNER], [W / 2, RAIL - 4, PR_SIDE], [W - RAIL, RAIL, PR_CORNER],
+        [RAIL, H - RAIL, PR_CORNER], [W / 2, H - RAIL + 4, PR_SIDE], [W - RAIL, H - RAIL, PR_CORNER],
+      ];
+      for (const [px, py, pr] of pockets) {
+        svg += `<circle cx="${px}" cy="${py}" r="${pr}" fill="url(#pk)"/>`;
+      }
+
+      // Diamond sights on rails
+      const diamondX = [79, 136, 193, 307, 364, 421];
+      const diamondY = [79, 136, 193];
+      for (const x of diamondX) {
+        svg += `<circle cx="${x}" cy="11" r="2.2" fill="#C9A000" opacity="0.45"/>`;
+        svg += `<circle cx="${x}" cy="${H - 11}" r="2.2" fill="#C9A000" opacity="0.45"/>`;
+      }
+      for (const y of diamondY) {
+        svg += `<circle cx="10" cy="${y}" r="2.2" fill="#C9A000" opacity="0.45"/>`;
+        svg += `<circle cx="${W - 10}" cy="${y}" r="2.2" fill="#C9A000" opacity="0.45"/>`;
+      }
+
+      // Foot spot
+      svg += `<circle cx="${RAIL + PW * 0.75}" cy="${RAIL + PH * 0.5}" r="2" fill="rgba(255,255,255,0.12)"/>`;
+
+      // ── Balls ──
+      for (const b of coords) {
+        const c = BALL_COLORS[b.n] || BALL_COLORS[1];
+        const uid = 'b' + b.n;
+        const isCue = b.n === 'cue';
+
+        // Drop shadow
+        svg += `<circle cx="${b.cx + 1.5}" cy="${b.cy + 2}" r="${BR}" fill="rgba(0,0,0,0.35)"/>`;
+
+        // Ball body
+        svg += `<circle cx="${b.cx}" cy="${b.cy}" r="${BR}" fill="url(#${uid})" stroke="rgba(0,0,0,0.18)" stroke-width="0.5"/>`;
+
+        // Stripe band (9-ball)
+        if (c.s) {
+          svg += `<rect x="${b.cx - BR}" y="${b.cy - BR * 0.32}" width="${BR * 2}" height="${BR * 0.64}" fill="white" opacity="0.88" clip-path="url(#cp${uid})"/>`;
+        }
+
+        // Number dot + number (not on cue ball)
+        if (!isCue) {
+          const nr = BR * 0.38;
+          svg += `<circle cx="${b.cx}" cy="${b.cy}" r="${nr}" fill="white"/>`;
+          svg += `<text x="${b.cx}" y="${b.cy}" text-anchor="middle" dominant-baseline="central" ` +
+                 `font-family="Arial,Helvetica,sans-serif" font-size="${BR * 0.52}" font-weight="bold" ` +
+                 `fill="${c.t || '#1A1A1A'}">${b.n}</text>`;
+        }
+
+        // Specular highlight
+        svg += `<circle cx="${b.cx - BR * 0.28}" cy="${b.cy - BR * 0.3}" r="${BR * 0.22}" fill="rgba(255,255,255,${isCue ? '0.6' : '0.45'})"/>`;
+      }
+
+      el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs>${svg}</svg>`;
+    }
+
+
+    // ─── ISO Week Number ──────────────────────────
+    function getISOWeek(d) {
+      const date = new Date(d);
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+      const jan4 = new Date(date.getFullYear(), 0, 4);
+      return 1 + Math.round(((date - jan4) / 86400000 - 3 + ((jan4.getDay() + 6) % 7)) / 7);
+    }
+
+
+    // ─── Next Monday (UTC) ────────────────────────
+    function getNextMonday() {
+      const now = new Date();
+      const day = now.getUTCDay();          // 0=Sun .. 6=Sat
+      const daysUntil = (8 - day) % 7 || 7; // days until next Mon
+      const next = new Date(now);
+      next.setUTCDate(next.getUTCDate() + daysUntil);
+      next.setUTCHours(0, 0, 0, 0);
+      return next;
+    }
+
+
+    // ─── Countdown Timer ──────────────────────────
+    let countdownInterval = null;
+
+    function startCountdown() {
+      const timerEl = $('sotwTimer');
+      if (!timerEl) return;
+
+      function tick() {
+        const diff = getNextMonday() - Date.now();
+        if (diff <= 0) {
+          timerEl.textContent = 'Now!';
+          clearInterval(countdownInterval);
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+
+        let parts = [];
+        if (d > 0) parts.push(d + 'd');
+        parts.push(String(h).padStart(2, '0') + 'h');
+        parts.push(String(m).padStart(2, '0') + 'm');
+        parts.push(String(s).padStart(2, '0') + 's');
+        timerEl.textContent = parts.join(' ');
+      }
+
+      tick();
+      countdownInterval = setInterval(tick, 1000);
+    }
+
+
+    // ─── Escape HTML ──────────────────────────────
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+
+    // ─── Render the main widget ───────────────────
+    function renderWidget(challenge, previousChallenge) {
+      $('sotwWeekNum').textContent = '#' + challenge.week_number;
+      $('sotwTitle').textContent = challenge.title;
+      $('sotwDesc').textContent = challenge.description;
+
+      // Difficulty badge
+      const diffEl = $('sotwDiff');
+      diffEl.textContent = challenge.difficulty.charAt(0).toUpperCase() + challenge.difficulty.slice(1);
+      diffEl.className = 'sotw-diff ' + challenge.difficulty;
+
+      // Pool table SVG
+      const balls = typeof challenge.ball_positions === 'string'
+        ? JSON.parse(challenge.ball_positions)
+        : challenge.ball_positions;
+      renderPoolTable($('sotwTable'), balls);
+
+      // Discuss button
+      if (challenge.thread_id) {
+        $('sotwBtn').href = 'thread.html?id=' + challenge.thread_id;
+      } else {
+        $('sotwBtn').href = 'forum.html';
+      }
+
+      // Previous winner
+      if (previousChallenge) {
+        const winner = previousChallenge.winner;
+        if (winner && winner.username) {
+          $('sotwWinnerLink').textContent = winner.username;
+          $('sotwWinnerLink').href = 'profile.html?u=' + encodeURIComponent(winner.username);
+          $('sotwWinner').style.display = 'flex';
+        }
+      }
+
+      // Show content, hide skeleton
+      $('sotwSkeleton').style.display = 'none';
+      $('sotwContent').style.display = 'block';
+
+      startCountdown();
+    }
+
+
+    // ─── Render archive grid ──────────────────────
+    function renderArchive(challenges, currentId) {
+      const grid = $('archiveGrid');
+      if (!challenges || challenges.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-dim);font-size:0.85rem;">No past challenges yet.</p>';
+        return;
+      }
+
+      grid.innerHTML = challenges.map(ch => {
+        const balls = typeof ch.ball_positions === 'string'
+          ? JSON.parse(ch.ball_positions)
+          : ch.ball_positions;
+        const isCurrent = ch.id === currentId;
+        const url = `shot-of-the-week.html?week=${ch.week_number}&year=${ch.year}`;
+
+        return `
+          <a href="${url}" class="archive-card${isCurrent ? ' current' : ''}">
+            <div class="archive-thumb" id="arch-${ch.id}"></div>
+            <div class="archive-info">
+              <div class="archive-week-num">
+                Week ${ch.week_number} &middot; ${ch.year}
+                <span class="${esc(ch.difficulty)}">${esc(ch.difficulty)}</span>
+              </div>
+              <div class="archive-card-title">${esc(ch.title)}</div>
+            </div>
+          </a>`;
+      }).join('');
+
+      // Render mini tables in each card
+      for (const ch of challenges) {
+        const balls = typeof ch.ball_positions === 'string'
+          ? JSON.parse(ch.ball_positions)
+          : ch.ball_positions;
+        const thumb = document.getElementById('arch-' + ch.id);
+        if (thumb) renderPoolTable(thumb, balls);
+      }
+    }
+
+
+    // ─── Load from Supabase ───────────────────────
+    async function loadChallenge() {
+      const params = new URLSearchParams(window.location.search);
+      const reqWeek = params.get('week');
+      const reqYear = params.get('year');
+
+      try {
+        if (reqWeek && reqYear) {
+          // ── Specific week requested via URL ──
+          const { data, error } = await supabase
+            .from('weekly_challenges')
+            .select('*, winner:profiles!winner_user_id(username, avatar_url)')
+            .eq('week_number', parseInt(reqWeek))
+            .eq('year', parseInt(reqYear))
+            .single();
+
+          if (error || !data) throw new Error('Challenge not found');
+
+          // Also fetch all for archive
+          const { data: all } = await supabase
+            .from('weekly_challenges')
+            .select('id, week_number, year, title, ball_positions, difficulty')
+            .order('year', { ascending: false })
+            .order('week_number', { ascending: false })
+            .limit(20);
+
+          renderWidget(data, null);
+          renderArchive(all || [], data.id);
+
+        } else {
+          // ── Current week (latest 2 for winner) ──
+          const { data, error } = await supabase
+            .from('weekly_challenges')
+            .select('*, winner:profiles!winner_user_id(username, avatar_url)')
+            .order('year', { ascending: false })
+            .order('week_number', { ascending: false })
+            .limit(2);
+
+          if (error || !data || data.length === 0) throw new Error('No challenges');
+
+          const current = data[0];
+          const previous = data.length > 1 ? data[1] : null;
+
+          // Fetch all for archive
+          const { data: all } = await supabase
+            .from('weekly_challenges')
+            .select('id, week_number, year, title, ball_positions, difficulty')
+            .order('year', { ascending: false })
+            .order('week_number', { ascending: false })
+            .limit(20);
+
+          renderWidget(current, previous);
+          renderArchive(all || [], current.id);
+        }
+
+      } catch (err) {
+        console.warn('Falling back to sample data:', err.message);
+        useFallback(reqWeek, reqYear);
+      }
+    }
+
+
+    // ─── Fallback to hardcoded samples ────────────
+    function useFallback(reqWeek, reqYear) {
+      let current, previous;
+
+      if (reqWeek && reqYear) {
+        current = SAMPLES.find(s => s.week_number === parseInt(reqWeek) && s.year === parseInt(reqYear));
+        if (!current) current = SAMPLES[0];
+        previous = null;
+      } else {
+        current = SAMPLES[0];
+        previous = SAMPLES.length > 1 ? SAMPLES[1] : null;
+      }
+
+      renderWidget(current, previous);
+      renderArchive(SAMPLES, current.id);
+    }
+
+
+    // ─── Auth (nav user) ─────────────────────────
+    async function initAuth() {
+      const session = await getSession();
+      if (!session) return;
+
+      const profile = await getProfile(session.user.id);
+      const name = profile?.username || session.user.email.split('@')[0];
+      const initial = name.charAt(0).toUpperCase();
+
+      const navRight = $('navRight');
+      const joinBtn = $('navJoinBtn');
+      if (joinBtn) joinBtn.remove();
+
+      const userEl = document.createElement('div');
+      userEl.className = 'nav-user';
+      userEl.innerHTML = `
+        <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-avatar">${esc(initial)}</a>
+        <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-username">${esc(name)}</a>
+        <a href="#" class="nav-link" style="color:var(--text-dim)" onclick="signOut();return false;">Log Out</a>`;
+      navRight.appendChild(userEl);
+    }
+
+
+    // ─── Mobile menu ─────────────────────────────
+    $('hamburger').addEventListener('click', () => {
+      $('mobileMenu').classList.toggle('open');
+    });
+
+
+    // ─── Init ────────────────────────────────────
+    initAuth();
+    loadChallenge();
+  </script>
+</body>
+</html>

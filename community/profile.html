@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — 9BallShop Community</title>
+  <link rel="stylesheet" href="forum.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="#" class="nav-link">Events</a>
+        <a href="#" class="nav-link">Clubs</a>
+      </div>
+      <div class="nav-right" id="navRight"></div>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ── Profile Hero ── -->
+    <section class="profile-hero" id="profileHero">
+      <div class="profile-hero-inner">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar skeleton-avatar" id="profileAvatar"></div>
+          <div class="fargo-ring" id="fargoRing" style="display:none"></div>
+        </div>
+        <div class="profile-identity">
+          <h1 class="profile-username" id="profileUsername">Loading…</h1>
+          <div class="profile-meta" id="profileMeta">
+            <span class="profile-country" id="profileCountry"></span>
+            <span class="profile-level" id="profileLevel"></span>
+            <span class="profile-joined" id="profileJoined"></span>
+          </div>
+          <p class="profile-bio" id="profileBio"></p>
+          <button class="btn-edit-profile" id="btnEditProfile" style="display:none" type="button">✏️ Edit Profile</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Stats Row ── -->
+    <section class="profile-stats">
+      <div class="stats-row" id="statsRow">
+        <div class="stat-item">
+          <span class="stat-number" id="statPosts">—</span>
+          <span class="stat-label">Posts</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="statThreads">—</span>
+          <span class="stat-label">Threads</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="statLikes">—</span>
+          <span class="stat-label">Likes Received</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Content Cards ── -->
+    <div class="profile-content" id="profileContent">
+
+      <!-- My Setup -->
+      <div class="profile-card" id="setupCard">
+        <h3 class="profile-card-title">🎱 My Setup</h3>
+        <div id="setupList">
+          <div class="setup-item">
+            <span class="setup-label">Cue Setup</span>
+            <span class="setup-value" id="setupCue"><span class="setup-empty">Not set</span></span>
+          </div>
+          <div class="setup-item">
+            <span class="setup-label">Favorite Chalk</span>
+            <span class="setup-value" id="setupChalk"><span class="setup-empty">Not set</span></span>
+          </div>
+          <div class="setup-item">
+            <span class="setup-label">Home Club</span>
+            <span class="setup-value" id="setupClub"><span class="setup-empty">Not set</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="profile-card" id="badgesCard">
+        <h3 class="profile-card-title">🏅 Badges Earned</h3>
+        <div class="badges-list" id="badgesList">
+          <span class="no-badges">No badges earned yet.</span>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="profile-card activity-card" id="activityCard">
+        <h3 class="profile-card-title">📋 Recent Activity</h3>
+        <div class="activity-list" id="activityList">
+          <span class="no-activity">No recent activity.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Not Found State ── -->
+    <div class="profile-not-found" id="notFound" style="display:none">
+      <h2>Player Not Found</h2>
+      <p>We couldn't find a player with that username.</p>
+      <a href="forum.html">&larr; Back to Forum</a>
+    </div>
+  </main>
+
+  <!-- ── Edit Profile Overlay ── -->
+  <div class="edit-overlay" id="editOverlay">
+    <div class="edit-panel">
+      <div class="edit-header">
+        <h2 class="edit-title">Edit Profile</h2>
+        <button class="btn-close-edit" id="btnCloseEdit" type="button">&times;</button>
+      </div>
+      <div id="editAlert" class="edit-alert"></div>
+      <form class="edit-form" id="editForm" autocomplete="off">
+
+        <!-- Avatar -->
+        <div class="field-group">
+          <label class="field-label">Avatar</label>
+          <div class="avatar-upload-area">
+            <div class="avatar-preview" id="editAvatarPreview"></div>
+            <div>
+              <label class="avatar-upload-btn">
+                📷 Upload Photo
+                <input type="file" id="editAvatarFile" accept="image/png,image/jpeg,image/webp">
+              </label>
+              <div class="avatar-hint">Max 2 MB. JPG, PNG or WebP.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="field-group">
+          <label class="field-label" for="editBio">Bio</label>
+          <textarea class="field-textarea" id="editBio" rows="3" placeholder="Tell the community about yourself…" maxlength="500"></textarea>
+        </div>
+
+        <!-- Level + Fargo -->
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="editLevel">Playing Level</label>
+            <select class="field-select" id="editLevel">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+              <option value="semi_pro">Semi-Pro</option>
+              <option value="professional">Professional</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="editFargo">Fargo Rating</label>
+            <input class="field-input" id="editFargo" type="number" min="1" max="900" placeholder="e.g. 450">
+          </div>
+        </div>
+
+        <!-- Cue Setup -->
+        <div class="field-group">
+          <label class="field-label" for="editCue">Cue Setup</label>
+          <input class="field-input" id="editCue" type="text" placeholder="e.g. Predator Revo 12.4mm + Mezz EC7-WK" maxlength="200">
+        </div>
+
+        <!-- Chalk + Club -->
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="editChalk">Favorite Chalk</label>
+            <input class="field-input" id="editChalk" type="text" placeholder="e.g. Taom Pro" maxlength="100">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="editClub">Home Club</label>
+            <input class="field-input" id="editClub" type="text" placeholder="e.g. Break Room Billiards" maxlength="200">
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="field-group">
+          <label class="field-label" for="editCountry">Country</label>
+          <input class="field-input" id="editCountry" type="text" placeholder="e.g. Greece" maxlength="100">
+        </div>
+
+        <!-- Actions -->
+        <div class="edit-actions">
+          <button class="btn-cancel" id="btnCancelEdit" type="button">Cancel</button>
+          <button class="btn-save" id="btnSaveProfile" type="submit">
+            <span class="btn-text">Save Changes</span>
+            <span class="spinner"></span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>🎱 9BallShop Community</span>
+      <span class="footer-sep">·</span>
+      <a href="/">Home</a>
+      <span class="footer-sep">·</span>
+      <a href="register.html">Join</a>
+      <span class="footer-sep">·</span>
+      <a href="login.html">Log In</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       User Profile Page
+       ────────────────────────────────────────────── */
+
+    // ── State ──
+    let profile     = null;
+    let currentUser = null;
+    let isOwnProfile = false;
+    let avatarFile   = null;   // pending upload
+
+    const username = new URLSearchParams(window.location.search).get('u');
+    if (!username) window.location.href = 'forum.html';
+
+    // ── DOM ──
+    const $ = id => document.getElementById(id);
+    const navRight       = $('navRight');
+    const profileAvatar  = $('profileAvatar');
+    const fargoRing      = $('fargoRing');
+    const profileUsername = $('profileUsername');
+    const profileCountry = $('profileCountry');
+    const profileLevel   = $('profileLevel');
+    const profileJoined  = $('profileJoined');
+    const profileBio     = $('profileBio');
+    const btnEditProfile = $('btnEditProfile');
+    const statPosts      = $('statPosts');
+    const statThreads    = $('statThreads');
+    const statLikes      = $('statLikes');
+    const setupCue       = $('setupCue');
+    const setupChalk     = $('setupChalk');
+    const setupClub      = $('setupClub');
+    const badgesList     = $('badgesList');
+    const activityList   = $('activityList');
+    const profileContent = $('profileContent');
+    const profileHero    = $('profileHero');
+    const profileStats   = document.querySelector('.profile-stats');
+    const notFound       = $('notFound');
+
+    // Edit form
+    const editOverlay     = $('editOverlay');
+    const editForm        = $('editForm');
+    const editAlert       = $('editAlert');
+    const btnCloseEdit    = $('btnCloseEdit');
+    const btnCancelEdit   = $('btnCancelEdit');
+    const btnSaveProfile  = $('btnSaveProfile');
+    const editAvatarPreview = $('editAvatarPreview');
+    const editAvatarFile  = $('editAvatarFile');
+    const editBio         = $('editBio');
+    const editLevel       = $('editLevel');
+    const editFargo       = $('editFargo');
+    const editCue         = $('editCue');
+    const editChalk       = $('editChalk');
+    const editClub        = $('editClub');
+    const editCountry     = $('editCountry');
+
+
+    // ── Country → Flag mapping ──
+
+    const countryFlags = {
+      'greece':'🇬🇷','usa':'🇺🇸','united states':'🇺🇸','uk':'🇬🇧','united kingdom':'🇬🇧',
+      'germany':'🇩🇪','france':'🇫🇷','spain':'🇪🇸','italy':'🇮🇹','netherlands':'🇳🇱',
+      'belgium':'🇧🇪','austria':'🇦🇹','switzerland':'🇨🇭','sweden':'🇸🇪','norway':'🇳🇴',
+      'denmark':'🇩🇰','finland':'🇫🇮','poland':'🇵🇱','czech republic':'🇨🇿','czechia':'🇨🇿',
+      'romania':'🇷🇴','hungary':'🇭🇺','portugal':'🇵🇹','ireland':'🇮🇪','croatia':'🇭🇷',
+      'serbia':'🇷🇸','bulgaria':'🇧🇬','turkey':'🇹🇷','russia':'🇷🇺','canada':'🇨🇦',
+      'australia':'🇦🇺','japan':'🇯🇵','china':'🇨🇳','taiwan':'🇹🇼','philippines':'🇵🇭',
+      'south korea':'🇰🇷','korea':'🇰🇷','vietnam':'🇻🇳','thailand':'🇹🇭','india':'🇮🇳',
+      'mexico':'🇲🇽','brazil':'🇧🇷','argentina':'🇦🇷','colombia':'🇨🇴','chile':'🇨🇱',
+      'south africa':'🇿🇦','egypt':'🇪🇬','cyprus':'🇨🇾','albania':'🇦🇱','singapore':'🇸🇬',
+      'malaysia':'🇲🇾','indonesia':'🇮🇩','qatar':'🇶🇦','uae':'🇦🇪','saudi arabia':'🇸🇦',
+      'kuwait':'🇰🇼','bahrain':'🇧🇭','slovakia':'🇸🇰','slovenia':'🇸🇮','estonia':'🇪🇪',
+      'latvia':'🇱🇻','lithuania':'🇱🇹','luxembourg':'🇱🇺','malta':'🇲🇹','iceland':'🇮🇸',
+    };
+
+    function getFlag(country) {
+      if (!country) return '';
+      // If the profile already has a flag emoji stored, use it
+      return countryFlags[country.toLowerCase().trim()] || '';
+    }
+
+
+    // ── Auth ──
+
+    async function initAuth() {
+      const session = await getSession();
+      if (session) {
+        currentUser = session.user;
+        const myProfile = await getProfile(currentUser.id);
+        const name = myProfile?.username || currentUser.email.split('@')[0];
+        navRight.innerHTML = `
+          <div class="nav-user">
+            <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-avatar">${name.charAt(0).toUpperCase()}</a>
+            <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-username">${esc(name)}</a>
+            <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>
+          </div>`;
+      } else {
+        navRight.innerHTML = `
+          <a href="login.html" class="nav-link">Log In</a>
+          <a href="register.html" class="btn-join">Join Free</a>`;
+      }
+    }
+
+
+    // ── Load Profile ──
+
+    async function loadProfile() {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('username', username)
+        .single();
+
+      if (error || !data) {
+        // Show not found
+        profileHero.style.display = 'none';
+        profileStats.style.display = 'none';
+        profileContent.style.display = 'none';
+        notFound.style.display = 'block';
+        return;
+      }
+
+      profile = data;
+      document.title = `${data.username} — 9BallShop Community`;
+
+      // Check own profile
+      if (currentUser && currentUser.id === data.id) {
+        isOwnProfile = true;
+        btnEditProfile.style.display = 'inline-flex';
+      }
+
+      // Avatar
+      renderAvatar(profileAvatar, data);
+
+      // Fargo ring
+      if (data.fargo_rating) {
+        fargoRing.style.display = 'flex';
+        fargoRing.textContent = data.fargo_rating;
+        fargoRing.className = 'fargo-ring ' + fargoClass(data.fargo_rating);
+      }
+
+      // Username
+      profileUsername.textContent = data.username;
+
+      // Country + flag
+      const flag = data.country_flag || getFlag(data.country);
+      if (data.country) {
+        profileCountry.innerHTML = flag ? `<span class="flag">${flag}</span> ${esc(data.country)}` : esc(data.country);
+      }
+
+      // Level badge
+      profileLevel.textContent = formatLevel(data.playing_level);
+      profileLevel.className = 'profile-level level-' + (data.playing_level || 'beginner');
+
+      // Joined
+      if (data.created_at) {
+        profileJoined.textContent = 'Joined ' + new Date(data.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      }
+
+      // Bio
+      profileBio.textContent = data.bio || '';
+
+      // Stats
+      statPosts.textContent   = data.post_count   || 0;
+      statThreads.textContent = data.thread_count  || 0;
+      statLikes.textContent   = data.likes_received || 0;
+
+      // Setup
+      setupCue.innerHTML   = data.cue_setup      ? esc(data.cue_setup)      : '<span class="setup-empty">Not set</span>';
+      setupChalk.innerHTML = data.favorite_chalk  ? esc(data.favorite_chalk) : '<span class="setup-empty">Not set</span>';
+      setupClub.innerHTML  = data.home_club       ? esc(data.home_club)      : '<span class="setup-empty">Not set</span>';
+
+      // Load badges & activity in parallel
+      loadBadges(data.id);
+      loadActivity(data.id);
+    }
+
+
+    // ── Load Badges ──
+
+    async function loadBadges(userId) {
+      const { data, error } = await supabase
+        .from('user_badges')
+        .select('*, badges(*)')
+        .eq('user_id', userId);
+
+      if (error || !data || data.length === 0) return;
+
+      badgesList.innerHTML = data.map(ub => {
+        const b = ub.badges;
+        const typeClass = 'badge-' + (b.badge_type || 'bronze');
+        return `<span class="badge-pill ${typeClass}" title="${esc(b.description)}">
+          <span class="badge-icon">${b.icon}</span> ${esc(b.name)}
+        </span>`;
+      }).join('');
+    }
+
+
+    // ── Load Recent Activity ──
+
+    async function loadActivity(userId) {
+      // Fetch last 5 threads
+      const { data: threads } = await supabase
+        .from('threads')
+        .select('id, title, created_at, categories(name, slug)')
+        .eq('author_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      // Fetch last 5 posts (replies)
+      const { data: posts } = await supabase
+        .from('posts')
+        .select('id, created_at, thread_id, threads(id, title, categories(name, slug))')
+        .eq('author_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      // Merge and sort
+      const items = [];
+
+      if (threads) {
+        threads.forEach(t => items.push({
+          type: 'thread',
+          title: t.title,
+          href: `thread.html?id=${t.id}`,
+          category: t.categories?.name || '',
+          categorySlug: t.categories?.slug || '',
+          time: t.created_at,
+        }));
+      }
+
+      if (posts) {
+        posts.forEach(p => {
+          const t = p.threads;
+          if (!t) return;
+          items.push({
+            type: 'post',
+            title: t.title,
+            href: `thread.html?id=${t.id}`,
+            category: t.categories?.name || '',
+            categorySlug: t.categories?.slug || '',
+            time: p.created_at,
+          });
+        });
+      }
+
+      // Sort by time desc, take first 5
+      items.sort((a, b) => new Date(b.time) - new Date(a.time));
+      const top5 = items.slice(0, 5);
+
+      if (top5.length === 0) return;
+
+      activityList.innerHTML = top5.map(item => {
+        const isThread = item.type === 'thread';
+        return `
+          <a class="activity-item" href="${item.href}">
+            <div class="activity-icon ${isThread ? 'thread-icon' : 'post-icon'}">
+              ${isThread ? '📝' : '💬'}
+            </div>
+            <div class="activity-info">
+              <div class="activity-title">${esc(item.title)}</div>
+              <div class="activity-meta">
+                <span class="activity-category">${esc(item.category)}</span>
+                <span>${isThread ? 'Started' : 'Replied'} ${timeAgo(item.time)}</span>
+              </div>
+            </div>
+          </a>`;
+      }).join('');
+    }
+
+
+    // ── Edit Profile ──
+
+    btnEditProfile.addEventListener('click', () => openEditForm());
+
+    btnCloseEdit.addEventListener('click', () => closeEditForm());
+    btnCancelEdit.addEventListener('click', () => closeEditForm());
+
+    editOverlay.addEventListener('click', (e) => {
+      if (e.target === editOverlay) closeEditForm();
+    });
+
+    function openEditForm() {
+      if (!profile) return;
+
+      // Pre-fill form
+      renderEditAvatar();
+      editBio.value     = profile.bio || '';
+      editLevel.value   = profile.playing_level || 'beginner';
+      editFargo.value   = profile.fargo_rating || '';
+      editCue.value     = profile.cue_setup || '';
+      editChalk.value   = profile.favorite_chalk || '';
+      editClub.value    = profile.home_club || '';
+      editCountry.value = profile.country || '';
+      avatarFile = null;
+
+      editAlert.className = 'edit-alert';
+      editOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeEditForm() {
+      editOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function renderEditAvatar() {
+      if (profile.avatar_url) {
+        editAvatarPreview.innerHTML = `<img src="${profile.avatar_url}" alt="Avatar">`;
+      } else {
+        const initial = (profile.username || '?').charAt(0).toUpperCase();
+        editAvatarPreview.innerHTML = '';
+        editAvatarPreview.textContent = initial;
+      }
+    }
+
+    // Avatar file picker
+    editAvatarFile.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        editAlert.className = 'edit-alert alert-error visible';
+        editAlert.textContent = 'Image must be under 2 MB.';
+        return;
+      }
+
+      avatarFile = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        editAvatarPreview.innerHTML = `<img src="${reader.result}" alt="Preview">`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Save
+    editForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!isOwnProfile || !profile) return;
+
+      editAlert.className = 'edit-alert';
+      setLoading(btnSaveProfile, true);
+
+      let newAvatarUrl = profile.avatar_url;
+
+      // Upload avatar if changed
+      if (avatarFile) {
+        const ext = avatarFile.name.split('.').pop().toLowerCase();
+        const path = `${currentUser.id}/avatar.${ext}`;
+
+        const { error: uploadErr } = await supabase.storage
+          .from('avatars')
+          .upload(path, avatarFile, { cacheControl: '3600', upsert: true });
+
+        if (uploadErr) {
+          editAlert.className = 'edit-alert alert-error visible';
+          editAlert.textContent = 'Avatar upload failed: ' + uploadErr.message;
+          setLoading(btnSaveProfile, false);
+          return;
+        }
+
+        const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(path);
+        newAvatarUrl = urlData.publicUrl + '?t=' + Date.now();
+      }
+
+      // Resolve flag
+      const newCountry = editCountry.value.trim();
+      const newFlag = getFlag(newCountry);
+
+      // Update profile
+      const updates = {
+        avatar_url:     newAvatarUrl || '',
+        bio:            editBio.value.trim(),
+        playing_level:  editLevel.value,
+        fargo_rating:   editFargo.value ? parseInt(editFargo.value) : null,
+        cue_setup:      editCue.value.trim(),
+        favorite_chalk: editChalk.value.trim(),
+        home_club:      editClub.value.trim(),
+        country:        newCountry,
+        country_flag:   newFlag,
+      };
+
+      const { error } = await supabase
+        .from('profiles')
+        .update(updates)
+        .eq('id', currentUser.id);
+
+      setLoading(btnSaveProfile, false);
+
+      if (error) {
+        editAlert.className = 'edit-alert alert-error visible';
+        editAlert.textContent = error.message || 'Failed to save changes.';
+        return;
+      }
+
+      // Success — update local state & UI
+      Object.assign(profile, updates);
+      editAlert.className = 'edit-alert alert-success visible';
+      editAlert.textContent = 'Profile updated!';
+
+      // Re-render profile display
+      renderProfileDisplay();
+
+      // Close after brief delay
+      setTimeout(() => closeEditForm(), 800);
+    });
+
+    function renderProfileDisplay() {
+      renderAvatar(profileAvatar, profile);
+
+      if (profile.fargo_rating) {
+        fargoRing.style.display = 'flex';
+        fargoRing.textContent = profile.fargo_rating;
+        fargoRing.className = 'fargo-ring ' + fargoClass(profile.fargo_rating);
+      } else {
+        fargoRing.style.display = 'none';
+      }
+
+      profileUsername.textContent = profile.username;
+
+      const flag = profile.country_flag || getFlag(profile.country);
+      if (profile.country) {
+        profileCountry.innerHTML = flag ? `<span class="flag">${flag}</span> ${esc(profile.country)}` : esc(profile.country);
+      } else {
+        profileCountry.innerHTML = '';
+      }
+
+      profileLevel.textContent = formatLevel(profile.playing_level);
+      profileLevel.className = 'profile-level level-' + (profile.playing_level || 'beginner');
+
+      profileBio.textContent = profile.bio || '';
+
+      setupCue.innerHTML   = profile.cue_setup      ? esc(profile.cue_setup)      : '<span class="setup-empty">Not set</span>';
+      setupChalk.innerHTML = profile.favorite_chalk  ? esc(profile.favorite_chalk) : '<span class="setup-empty">Not set</span>';
+      setupClub.innerHTML  = profile.home_club       ? esc(profile.home_club)      : '<span class="setup-empty">Not set</span>';
+    }
+
+
+    // ── Render Avatar ──
+
+    function renderAvatar(el, data) {
+      el.classList.remove('skeleton-avatar');
+      if (data.avatar_url) {
+        el.innerHTML = `<img src="${data.avatar_url}" alt="${esc(data.username)}'s avatar">`;
+      } else {
+        el.innerHTML = '';
+        el.textContent = (data.username || '?').charAt(0).toUpperCase();
+      }
+    }
+
+
+    // ── Helpers ──
+
+    function fargoClass(rating) {
+      if (!rating) return 'fargo-white';
+      if (rating < 300)  return 'fargo-white';
+      if (rating < 450)  return 'fargo-green';
+      if (rating < 550)  return 'fargo-blue';
+      if (rating < 650)  return 'fargo-purple';
+      return 'fargo-gold';
+    }
+
+    function formatLevel(l) {
+      const map = {
+        beginner: 'Beginner',
+        intermediate: 'Intermediate',
+        advanced: 'Advanced',
+        semi_pro: 'Semi-Pro',
+        professional: 'Professional',
+      };
+      return map[l] || 'Beginner';
+    }
+
+    function timeAgo(d) {
+      if (!d) return '';
+      const s = Math.floor((Date.now() - new Date(d).getTime()) / 1000);
+      if (s < 60) return 'just now';
+      if (s < 3600) return Math.floor(s / 60) + 'm ago';
+      if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+      if (s < 604800) return Math.floor(s / 86400) + 'd ago';
+      return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+
+    // ── Init ──
+
+    (async () => {
+      await initAuth();
+      await loadProfile();
+    })();
+  </script>
+</body>
+</html>
