@@ -1,0 +1,195 @@
+/* ============================================================
+   THEME SYSTEM — 9BallShop Community
+   ============================================================
+   Import this file BEFORE any other CSS.
+   All pages should use var(--variable) instead of hard-coded colors.
+
+   Usage:
+     <link rel="stylesheet" href="theme.css">
+     <script src="theme.js"></script>
+
+   The [data-theme] attribute is set on <html> by theme.js.
+   Defaults to "dark" if no preference is saved.
+   ============================================================ */
+
+
+/* ── Transition on theme change ───────────────── */
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    fill 0.3s ease,
+    stroke 0.3s ease !important;
+}
+
+
+/* ── DARK THEME (default) ─────────────────────── */
+
+:root,
+[data-theme="dark"] {
+
+  /* Primary backgrounds */
+  --bg-primary:    #0A1628;
+  --bg-secondary:  #0F1923;
+  --bg-card:       #1A2735;
+  --bg-card-hover: #1E2F3F;
+
+  /* Text */
+  --text-primary:   #FFFFFF;
+  --text-secondary: #8899AA;
+  --text-body:      #E2E8F0;
+  --text-muted:     #94A3B8;
+  --text-dim:       #64748B;
+
+  /* Accent */
+  --accent:         #F5C518;
+  --accent-hover:   #FFD84D;
+  --accent-dark:    #C9A000;
+  --accent-green:   #1B7A3D;
+  --accent-green-light: #22C55E;
+
+  /* Borders & surfaces */
+  --border:         #2A3A4D;
+  --border-light:   #243040;
+
+  /* Feedback */
+  --error:          #EF4444;
+  --error-bg:       rgba(239, 68, 68, 0.08);
+  --success:        #22C55E;
+  --success-bg:     rgba(34, 197, 94, 0.08);
+
+  /* Shadows */
+  --shadow:         0 2px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.40);
+
+  /* Radius */
+  --radius:         10px;
+  --radius-lg:      14px;
+
+  /* Transitions */
+  --transition:     0.2s ease;
+
+  /* Overlay */
+  --overlay:        rgba(0, 0, 0, 0.6);
+
+  /* Skeleton shimmer */
+  --skeleton-from:  #243040;
+  --skeleton-via:   rgba(255, 255, 255, 0.04);
+
+  /* Navbar glass */
+  --nav-bg:         rgba(10, 22, 40, 0.92);
+
+  /* ── Legacy aliases (backward-compat with existing pages) ── */
+  --bg:             var(--bg-secondary);
+  --bg-dark:        var(--bg-primary);
+  --card:           var(--bg-card);
+  --card-hover:     var(--bg-card-hover);
+  --gold:           var(--accent);
+  --gold-light:     var(--accent-hover);
+  --gold-dark:      var(--accent-dark);
+  --green:          var(--accent-green);
+  --green-light:    var(--accent-green-light);
+  --white:          var(--text-primary);
+  --text:           var(--text-body);
+}
+
+
+/* ── LIGHT THEME ──────────────────────────────── */
+
+[data-theme="light"] {
+
+  /* Primary backgrounds */
+  --bg-primary:    #F5F5F5;
+  --bg-secondary:  #EBEBEB;
+  --bg-card:       #FFFFFF;
+  --bg-card-hover: #F0F0F0;
+
+  /* Text */
+  --text-primary:   #1A1A1A;
+  --text-secondary: #666666;
+  --text-body:      #2D2D2D;
+  --text-muted:     #777777;
+  --text-dim:       #999999;
+
+  /* Accent */
+  --accent:         #D4A017;
+  --accent-hover:   #B8860B;
+  --accent-dark:    #A07710;
+  --accent-green:   #15632F;
+  --accent-green-light: #1A9D45;
+
+  /* Borders & surfaces */
+  --border:         #E0E0E0;
+  --border-light:   #EEEEEE;
+
+  /* Feedback */
+  --error:          #DC2626;
+  --error-bg:       rgba(220, 38, 38, 0.06);
+  --success:        #16A34A;
+  --success-bg:     rgba(22, 163, 74, 0.06);
+
+  /* Shadows */
+  --shadow:         0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.12);
+
+  /* Overlay */
+  --overlay:        rgba(0, 0, 0, 0.3);
+
+  /* Skeleton shimmer */
+  --skeleton-from:  #E0E0E0;
+  --skeleton-via:   rgba(255, 255, 255, 0.6);
+
+  /* Navbar glass */
+  --nav-bg:         rgba(245, 245, 245, 0.92);
+}
+
+
+/* ── Theme toggle button ─────────────────────── */
+
+.theme-toggle {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  padding: 0.3rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  transition: color 0.2s ease, background 0.2s ease;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+  background: rgba(128, 128, 128, 0.1);
+}
+
+
+/* ── Skeleton shimmer (using theme tokens) ───── */
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-shimmer,
+.skel-block {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-from) 25%,
+    var(--skeleton-via) 50%,
+    var(--skeleton-from) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

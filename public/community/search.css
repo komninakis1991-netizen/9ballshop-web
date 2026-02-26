@@ -1,0 +1,396 @@
+/* ============================================================
+   SEARCH COMPONENT — 9BallShop Community
+   ============================================================
+   Drop-in search bar + results dropdown for the navbar.
+
+   Usage:
+     <link rel="stylesheet" href="search.css">
+     <script src="search.js" defer></script>
+
+     <!-- Inside .nav-inner, between .nav-links and .nav-right: -->
+     <div class="search-wrap" id="searchWrap">
+       <div class="search-bar">
+         <span class="search-icon">🔍</span>
+         <input id="searchInput" type="text" class="search-input"
+                placeholder="Search threads, players, clubs..."
+                autocomplete="off" spellcheck="false">
+         <kbd class="search-kbd" id="searchKbd">⌘K</kbd>
+       </div>
+       <div class="search-dropdown" id="searchDropdown"></div>
+     </div>
+   ============================================================ */
+
+
+/* ── Search wrapper (positioned context) ────── */
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+  margin: 0 0.75rem;
+}
+
+
+/* ── Search bar ─────────────────────────────── */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg-card, #1A2735);
+  border: 1px solid var(--border, #2A3A4D);
+  border-radius: 8px;
+  padding: 0 0.7rem;
+  height: 36px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.search-bar:focus-within {
+  border-color: var(--accent, #F5C518);
+  box-shadow: 0 0 0 2px rgba(245, 197, 24, 0.15);
+  background: var(--bg-card-hover, #1E2F3F);
+}
+
+.search-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--text-body, #E2E8F0);
+  min-width: 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim, #64748B);
+}
+
+.search-kbd {
+  flex-shrink: 0;
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-dim, #64748B);
+  background: var(--bg-primary, #0A1628);
+  border: 1px solid var(--border, #2A3A4D);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+/* Hide kbd hint when input has focus */
+.search-bar:focus-within .search-kbd {
+  display: none;
+}
+
+
+/* ── Results dropdown ───────────────────────── */
+
+.search-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card, #1A2735);
+  border: 1px solid var(--border, #2A3A4D);
+  border-radius: var(--radius, 10px);
+  box-shadow: var(--shadow-lg, 0 8px 32px rgba(0,0,0,0.4));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  max-height: 420px;
+  overflow-y: auto;
+  z-index: 200;
+  padding: 0.35rem 0;
+}
+
+.search-dropdown.open {
+  display: block;
+  animation: searchSlideIn 0.15s ease;
+}
+
+@keyframes searchSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar */
+.search-dropdown::-webkit-scrollbar { width: 5px; }
+.search-dropdown::-webkit-scrollbar-track { background: transparent; }
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: var(--border, #2A3A4D);
+  border-radius: 3px;
+}
+
+
+/* ── Group headers ──────────────────────────── */
+
+.search-group {
+  padding: 0.5rem 0.85rem 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim, #64748B);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.search-group-icon { font-size: 0.75rem; }
+
+.search-group + .search-group { border-top: 1px solid var(--border, #2A3A4D); margin-top: 0.25rem; padding-top: 0.6rem; }
+
+
+/* ── Result items ───────────────────────────── */
+
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.82rem;
+  color: var(--text-body, #E2E8F0);
+  text-decoration: none;
+  transition: background 0.12s ease;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.search-item:hover,
+.search-item.active {
+  background: var(--bg-card-hover, #1E2F3F);
+}
+
+.search-item-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+/* Thread icon */
+.search-item-icon.thread { background: rgba(245, 197, 24, 0.1); }
+
+/* Profile avatar */
+.search-item-avatar {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent, #F5C518);
+  color: var(--bg-primary, #0A1628);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.search-item-meta {
+  font-size: 0.7rem;
+  color: var(--text-dim, #64748B);
+  margin-top: 0.1rem;
+}
+
+/* Category badge in thread results */
+.search-cat-badge {
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+
+/* ── Match highlight ────────────────────────── */
+
+.search-hl {
+  color: var(--accent, #F5C518);
+  font-weight: 700;
+  background: rgba(245, 197, 24, 0.1);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+
+/* ── Empty / no results ─────────────────────── */
+
+.search-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+.search-empty-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+  opacity: 0.3;
+}
+
+.search-empty-text {
+  font-size: 0.82rem;
+  color: var(--text-dim, #64748B);
+  margin-bottom: 0.6rem;
+}
+
+.search-empty-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent, #F5C518);
+  transition: color 0.2s;
+}
+
+.search-empty-link:hover {
+  color: var(--accent-hover, #FFD84D);
+}
+
+
+/* ── Recent searches section ────────────────── */
+
+.search-recent-header {
+  padding: 0.5rem 0.85rem 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-recent-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim, #64748B);
+}
+
+.search-recent-clear {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-dim, #64748B);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.search-recent-clear:hover {
+  color: var(--error, #EF4444);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.search-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8rem;
+  color: var(--text-muted, #94A3B8);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.search-recent-item:hover {
+  background: var(--bg-card-hover, #1E2F3F);
+  color: var(--text-body, #E2E8F0);
+}
+
+.search-recent-item-icon {
+  font-size: 0.75rem;
+  opacity: 0.4;
+}
+
+
+/* ── Loading spinner ────────────────────────── */
+
+.search-loading {
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.search-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border, #2A3A4D);
+  border-top-color: var(--accent, #F5C518);
+  border-radius: 50%;
+  animation: searchSpin 0.6s linear infinite;
+}
+
+@keyframes searchSpin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ── Backdrop overlay (mobile) ──────────────── */
+
+.search-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--overlay, rgba(0,0,0,0.6));
+  z-index: 149;
+}
+
+.search-backdrop.open {
+  display: block;
+}
+
+
+/* ── Responsive ─────────────────────────────── */
+
+@media (max-width: 768px) {
+  .search-wrap {
+    max-width: none;
+    margin: 0 0.35rem;
+  }
+
+  .search-kbd { display: none; }
+
+  .search-dropdown {
+    position: fixed;
+    top: 67px;
+    left: 0.5rem;
+    right: 0.5rem;
+    max-height: calc(100vh - 80px);
+    max-height: calc(100dvh - 80px);
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar { height: 32px; padding: 0 0.5rem; }
+  .search-input { font-size: 0.78rem; }
+  .search-bar .search-icon { font-size: 0.75rem; }
+}

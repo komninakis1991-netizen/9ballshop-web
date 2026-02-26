@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Guidelines — 9Ball Community</title>
+  <meta name="description" content="Community guidelines for 9BallShop — a few ground rules to keep our community respectful, helpful, and fun.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       COMMUNITY GUIDELINES — 9BallShop
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0F1923;
+      --bg-dark:     #0A1628;
+      --card:        #1A2735;
+      --card-hover:  #1E2F3F;
+      --gold:        #F5C518;
+      --gold-light:  #FFD84D;
+      --white:       #FFFFFF;
+      --text:        #E2E8F0;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --border:      #243040;
+      --radius:      10px;
+      --radius-lg:   14px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.25);
+      --transition:  0.2s ease;
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: var(--gold-light); }
+
+
+    /* ── NAVBAR ────────────────────────────────── */
+
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+      height: 60px; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem;
+      color: var(--gold); display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;
+    }
+    .nav-logo .logo-ball { font-size: 1.3rem; }
+    .nav-links { display: flex; gap: 0.15rem; margin-left: 1.5rem; }
+    .nav-link {
+      padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;
+      color: var(--text-muted); transition: background var(--transition), color var(--transition); white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+    .btn-join-nav {
+      background: var(--gold); color: var(--bg-dark); font-weight: 700; font-size: 0.8rem;
+      padding: 0.4rem 1.1rem; border-radius: 6px; border: none; transition: background var(--transition);
+    }
+    .btn-join-nav:hover { background: var(--gold-light); }
+    .hamburger {
+      display: none; background: none; border: none; color: var(--text-muted);
+      font-size: 1.5rem; padding: 0.25rem; margin-right: 0.5rem; cursor: pointer;
+    }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; top: 60px; background: var(--bg-dark);
+      z-index: 99; padding: 1.5rem; flex-direction: column; gap: 0.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .nav-link { font-size: 1.05rem; padding: 0.75rem 1rem; }
+
+
+    /* ── PAGE HEADER ──────────────────────────── */
+
+    .page-header {
+      max-width: 800px; margin: 0 auto;
+      padding: 3rem 1.5rem 0; text-align: center;
+    }
+
+    .page-title {
+      font-size: 2.1rem; font-weight: 900; color: var(--white);
+      margin-bottom: 0.5rem; line-height: 1.2;
+    }
+
+    .page-subtitle {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 500px; margin: 0 auto; line-height: 1.5;
+    }
+
+
+    /* ── GUIDELINES GRID ──────────────────────── */
+
+    .rules {
+      max-width: 800px; margin: 0 auto;
+      padding: 2.25rem 1.5rem 1rem;
+      display: flex; flex-direction: column; gap: 0.85rem;
+    }
+
+    .rule {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .rule:hover {
+      background: var(--card-hover);
+      border-color: rgba(245,197,24,0.12);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .rule-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .rule-body { flex: 1; min-width: 0; }
+
+    .rule-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .rule-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .rule-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--text-dim);
+      background: rgba(255,255,255,0.04);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+
+    /* ── FOOTER NOTICE ────────────────────────── */
+
+    .guidelines-footer {
+      max-width: 800px; margin: 0 auto;
+      padding: 1rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .guidelines-notice {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 2rem;
+    }
+
+    .guidelines-notice p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .guidelines-notice p + p { margin-top: 0.5rem; }
+
+    .guidelines-notice a {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+
+    /* ── SITE FOOTER ──────────────────────────── */
+
+    .footer {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem; text-align: center;
+      margin-top: 2rem;
+    }
+    .footer p { font-size: 0.8rem; color: var(--text-dim); }
+    .footer a { color: var(--gold); }
+
+
+    /* ── RESPONSIVE ───────────────────────────── */
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page-title { font-size: 1.6rem; }
+      .rule { padding: 1.1rem 1.15rem; gap: 0.75rem; }
+      .rule-icon { font-size: 1.35rem; }
+    }
+
+    @media (max-width: 480px) {
+      .rule-number { display: none; }
+      .guidelines-notice { padding: 1.25rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       NAVBAR
+       ══════════════════════════════════════════════ -->
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu">☰</button>
+      <a href="/" class="nav-logo"><span class="logo-ball">🎱</span> 9BALL</a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
+        <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+      </div>
+      <div class="nav-right">
+        <a href="register.html" class="btn-join-nav">Join Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="forum.html" class="nav-link">Forum</a>
+    <a href="events.html" class="nav-link">Events</a>
+    <a href="clubs.html" class="nav-link">Clubs</a>
+    <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       HEADER
+       ══════════════════════════════════════════════ -->
+
+  <header class="page-header">
+    <h1 class="page-title">Community Guidelines — How We Play 🎱</h1>
+    <p class="page-subtitle">A few ground rules to keep our community respectful, helpful, and fun.</p>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════
+       RULES
+       ══════════════════════════════════════════════ -->
+
+  <main class="rules">
+
+    <div class="rule">
+      <span class="rule-icon">🤝</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Be Respectful</h2>
+        <p class="rule-text">Treat every member like a practice partner. Disagree with ideas, not people.</p>
+      </div>
+      <span class="rule-number">1</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">🎯</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Stay on Topic</h2>
+        <p class="rule-text">Post in the right category. Off-topic goes in the Player Lounge.</p>
+      </div>
+      <span class="rule-number">2</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">📹</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Credit Sources</h2>
+        <p class="rule-text">Sharing someone else's content? Give credit. Link the original creator or source.</p>
+      </div>
+      <span class="rule-number">3</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">🚫</span>
+      <div class="rule-body">
+        <h2 class="rule-title">No Spam</h2>
+        <p class="rule-text">Genuine contributions are welcome. Pure ads and self-promotion are not.</p>
+      </div>
+      <span class="rule-number">4</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">👶</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Help Beginners</h2>
+        <p class="rule-text">Everyone was new once. Answer with patience, or simply scroll past.</p>
+      </div>
+      <span class="rule-number">5</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">🔞</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Keep It Clean</h2>
+        <p class="rule-text">No NSFW content, excessive profanity, or gambling promotion.</p>
+      </div>
+      <span class="rule-number">6</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">🛡️</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Report, Don't Retaliate</h2>
+        <p class="rule-text">Use the report button. Let moderators handle it — don't escalate.</p>
+      </div>
+      <span class="rule-number">7</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">🏆</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Earn Your Reputation</h2>
+        <p class="rule-text">Badges and likes reward quality contributions. There are no shortcuts.</p>
+      </div>
+      <span class="rule-number">8</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-icon">⚖️</span>
+      <div class="rule-body">
+        <h2 class="rule-title">Mod Decisions Are Final</h2>
+        <p class="rule-text">Disagree with a decision? DM a moderator. No public arguments about moderation.</p>
+      </div>
+      <span class="rule-number">9</span>
+    </div>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER NOTICE
+       ══════════════════════════════════════════════ -->
+
+  <div class="guidelines-footer">
+    <div class="guidelines-notice">
+      <p>By participating in the 9BallShop community, you agree to follow these guidelines.</p>
+      <p>Questions or concerns? Reach out at <a href="mailto:admin@9ballshop.com">admin@9ballshop.com</a></p>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SITE FOOTER
+       ══════════════════════════════════════════════ -->
+
+  <footer class="footer">
+    <p>&copy; 2026 <a href="/">9BallShop.com</a> — The Global Home for 9-Ball Players</p>
+  </footer>
+
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function () {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
