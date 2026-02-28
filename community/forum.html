@@ -14,22 +14,32 @@
   <!-- ── Navbar ── -->
   <nav class="navbar">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">&#9776;</button>
+      <a href="index.html" class="nav-logo">&#127921; <span>9BALLSHOP</span></a>
       <div class="nav-links">
         <a href="forum.html" class="nav-link active">Forum</a>
-        <a href="#" class="nav-link">Events</a>
-        <a href="#" class="nav-link">Clubs</a>
+        <a href="learn.html" class="nav-link">Learn</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
       </div>
-      <div class="nav-right" id="navRight">
-        <!-- filled by JS -->
-      </div>
+      <div class="nav-right" id="navRight"></div>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="forum.html" class="nav-link active">Forum</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="events.html" class="nav-link">Events</a>
+    <a href="clubs.html" class="nav-link">Clubs</a>
+    <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+    <a href="about.html" class="nav-link">About</a>
+  </div>
 
   <!-- ── Guest Banner ── -->
   <div class="guest-banner" id="guestBanner" style="display:none">
     <div class="guest-inner">
-      <span>🎱 <strong>Join 9BallShop Community</strong> — Post threads, share videos, and connect with players worldwide.</span>
+      <span>&#127921; <strong>Join 9BallShop Community</strong> — Post threads, share videos, and connect with players worldwide.</span>
       <a href="register.html" class="guest-btn">Sign Up Free &rarr;</a>
     </div>
   </div>
@@ -46,19 +56,19 @@
         </div>
         <div class="stats-bar" id="statsBar">
           <div class="stat skeleton-stat">
-            <span class="stat-value" id="statMembers">—</span>
+            <span class="stat-value" id="statMembers">&mdash;</span>
             <span class="stat-label">Members</span>
           </div>
           <div class="stat skeleton-stat">
-            <span class="stat-value" id="statThreads">—</span>
+            <span class="stat-value" id="statThreads">&mdash;</span>
             <span class="stat-label">Threads</span>
           </div>
           <div class="stat skeleton-stat">
-            <span class="stat-value" id="statPosts">—</span>
+            <span class="stat-value" id="statPosts">&mdash;</span>
             <span class="stat-label">Posts</span>
           </div>
           <div class="stat skeleton-stat">
-            <span class="stat-value" id="statCountries">—</span>
+            <span class="stat-value" id="statCountries">&mdash;</span>
             <span class="stat-label">Countries</span>
           </div>
         </div>
@@ -69,9 +79,6 @@
     <section class="categories-section">
       <div class="categories-header">
         <h2>Categories</h2>
-        <a href="new-thread.html" class="btn-new-thread" id="newThreadBtn" style="display:none">
-          + New Thread
-        </a>
       </div>
 
       <!-- Skeleton loader -->
@@ -98,18 +105,24 @@
   <!-- ── Footer ── -->
   <footer class="footer">
     <div class="footer-inner">
-      <span>🎱 9BallShop Community</span>
-      <span class="footer-sep">·</span>
-      <a href="/">Home</a>
-      <span class="footer-sep">·</span>
-      <a href="register.html">Join</a>
-      <span class="footer-sep">·</span>
-      <a href="login.html">Log In</a>
+      <span>&#127921; 9BallShop Community</span>
+      <span class="footer-sep">&middot;</span>
+      <a href="index.html">Home</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="forum.html">Forum</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="events.html">Events</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="clubs.html">Clubs</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="learn.html">Learn</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="about.html">About</a>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="supabase-client.js" defer></script>
-  <script src="forum.app.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="forum.app.js"></script>
 </body>
 </html>

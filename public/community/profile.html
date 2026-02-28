@@ -15,15 +15,26 @@
   <!-- ── Navbar ── -->
   <nav class="navbar">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">🎱 <span>9BALLSHOP</span></a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">&#9776;</button>
+      <a href="index.html" class="nav-logo">&#127921; <span>9BALLSHOP</span></a>
       <div class="nav-links">
         <a href="forum.html" class="nav-link">Forum</a>
-        <a href="#" class="nav-link">Events</a>
-        <a href="#" class="nav-link">Clubs</a>
+        <a href="learn.html" class="nav-link">Learn</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
       </div>
       <div class="nav-right" id="navRight"></div>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="forum.html" class="nav-link">Forum</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="events.html" class="nav-link">Events</a>
+    <a href="clubs.html" class="nav-link">Clubs</a>
+    <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+  </div>
 
   <main class="main">
 
@@ -201,13 +212,17 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <span>🎱 9BallShop Community</span>
-      <span class="footer-sep">·</span>
-      <a href="/">Home</a>
-      <span class="footer-sep">·</span>
-      <a href="register.html">Join</a>
-      <span class="footer-sep">·</span>
-      <a href="login.html">Log In</a>
+      <span>&#127921; 9BallShop Community</span>
+      <span class="footer-sep">&middot;</span>
+      <a href="index.html">Home</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="forum.html">Forum</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="events.html">Events</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="clubs.html">Clubs</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="learn.html">Learn</a>
     </div>
   </footer>
 
@@ -297,22 +312,11 @@
     // ── Auth ──
 
     async function initAuth() {
-      const session = await getSession();
+      const session = await initNavAuth();
       if (session) {
         currentUser = session.user;
-        const myProfile = await getProfile(currentUser.id);
-        const name = myProfile?.username || currentUser.email.split('@')[0];
-        navRight.innerHTML = `
-          <div class="nav-user">
-            <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-avatar">${name.charAt(0).toUpperCase()}</a>
-            <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-username">${esc(name)}</a>
-            <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>
-          </div>`;
-      } else {
-        navRight.innerHTML = `
-          <a href="login.html" class="nav-link">Log In</a>
-          <a href="register.html" class="btn-join">Join Free</a>`;
       }
+      initHamburger();
     }
 
 

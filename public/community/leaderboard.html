@@ -412,9 +412,10 @@
   <nav class="nav">
     <div class="nav-inner">
       <button class="hamburger" id="hamburger" type="button" aria-label="Menu">☰</button>
-      <a href="/" class="nav-logo"><span class="logo-ball">🎱</span> 9BALL</a>
+      <a href="index.html" class="nav-logo"><span class="logo-ball">🎱</span> 9BALL</a>
       <div class="nav-links">
         <a href="forum.html" class="nav-link">Forum</a>
+        <a href="learn.html" class="nav-link">Learn</a>
         <a href="events.html" class="nav-link">Events</a>
         <a href="clubs.html" class="nav-link">Clubs</a>
         <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
@@ -427,6 +428,7 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="forum.html" class="nav-link">Forum</a>
+    <a href="learn.html" class="nav-link">Learn</a>
     <a href="events.html" class="nav-link">Events</a>
     <a href="clubs.html" class="nav-link">Clubs</a>
     <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
@@ -554,7 +556,7 @@
        ══════════════════════════════════════════════ -->
 
   <footer class="footer">
-    <p>&copy; 2026 <a href="/">9BallShop.com</a> — The Global Home for 9-Ball Players</p>
+    <p>&copy; 2026 <a href="index.html">9BallShop.com</a> — The Global Home for 9-Ball Players</p>
   </footer>
 
 
@@ -814,26 +816,12 @@
     // ── Auth ─────────────────────────────────────
 
     async function initAuth() {
-      const session = await getSession();
-      if (!session) return;
-      currentUser = session.user;
-
-      myProfile = await getProfile(currentUser.id);
-
-      const name = myProfile?.username || currentUser.email.split('@')[0];
-      const initial = name.charAt(0).toUpperCase();
-
-      const navRight = $('navRight');
-      const joinBtn = $('navJoinBtn');
-      if (joinBtn) joinBtn.remove();
-
-      const userEl = document.createElement('div');
-      userEl.className = 'nav-user';
-      userEl.innerHTML = `
-        <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-avatar">${esc(initial)}</a>
-        <a href="profile.html?u=${encodeURIComponent(name)}" class="nav-username">${esc(name)}</a>
-        <a href="#" class="nav-link" style="color:var(--text-dim)" onclick="signOut();return false;">Log Out</a>`;
-      navRight.appendChild(userEl);
+      var session = await initNavAuth();
+      if (session) {
+        currentUser = session.user;
+        myProfile = await getProfile(currentUser.id);
+      }
+      initHamburger();
     }
 
 
@@ -879,11 +867,6 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeModal();
     });
-
-    $('hamburger').addEventListener('click', function () {
-      $('mobileMenu').classList.toggle('open');
-    });
-
 
     // ── Init ─────────────────────────────────────
 

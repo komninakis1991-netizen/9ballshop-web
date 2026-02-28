@@ -43,26 +43,16 @@ const realtimeInd   = $('realtimeIndicator');
 // ── Auth ──
 
 async function initAuth() {
-  const session = await getSession();
+  const session = await initNavAuth();
   if (session) {
     currentUser = session.user;
-    const profile = await getProfile(currentUser.id);
-    const name = profile?.username || currentUser.email.split('@')[0];
-    navRight.innerHTML = `
-      <div class="nav-user">
-        <div class="nav-avatar">${name.charAt(0).toUpperCase()}</div>
-        <span class="nav-username">${esc(name)}</span>
-        <a href="#" class="nav-link nav-logout" onclick="signOut();return false;">Log Out</a>
-      </div>`;
     replySection.style.display = 'block';
     guestPrompt.style.display  = 'none';
   } else {
-    navRight.innerHTML = `
-      <a href="login.html" class="nav-link">Log In</a>
-      <a href="register.html" class="btn-join">Join Free</a>`;
     replySection.style.display = 'none';
     guestPrompt.style.display  = 'block';
   }
+  initHamburger();
 }
 
 // ── Load thread ──
