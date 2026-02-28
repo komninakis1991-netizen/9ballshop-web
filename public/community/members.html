@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Members — 9BallShop Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="forum.css">
+  <style>
+    /* ── Members Page ─────────────────────────── */
+
+    .members-section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    .members-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .members-header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .members-count {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    /* ── Filters ── */
+
+    .members-filters {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 360px;
+      padding: 0.55rem 0.85rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      transition: border-color var(--transition);
+    }
+
+    .filter-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .filter-input::placeholder { color: var(--text-dim); }
+
+    .filter-select {
+      padding: 0.55rem 0.85rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    /* ── Members Grid ── */
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .member-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .member-card:hover {
+      background: var(--card-hover);
+      border-color: var(--gold-dark);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+
+    .member-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .member-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .member-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .member-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .member-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-beginner    { background: rgba(34,197,94,0.12);  color: #22C55E; }
+    .badge-intermediate { background: rgba(59,130,246,0.12); color: #3B82F6; }
+    .badge-advanced    { background: rgba(168,85,247,0.12);  color: #A855F7; }
+    .badge-semi_pro    { background: rgba(245,158,11,0.12);  color: #F59E0B; }
+    .badge-professional { background: rgba(239,68,68,0.12);  color: #EF4444; }
+
+    .member-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .member-stat-row {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .member-stat-row strong {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ── Empty & Loading ── */
+
+    .members-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .members-loading {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    /* ── Skeleton cards ── */
+
+    .member-skeleton {
+      height: 76px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, var(--card) 25%, var(--card-hover) 50%, var(--card) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    /* ── Responsive ── */
+
+    @media (max-width: 640px) {
+      .members-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .members-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .filter-input {
+        max-width: 100%;
+      }
+
+      .member-stats {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">&#9776;</button>
+      <a href="index.html" class="nav-logo">&#127921; <span>9BALLSHOP</span></a>
+      <div class="nav-links">
+        <a href="forum.html" class="nav-link">Forum</a>
+        <a href="learn.html" class="nav-link">Learn</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="clubs.html" class="nav-link">Clubs</a>
+      </div>
+      <div class="nav-right" id="navRight"></div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="forum.html" class="nav-link">Forum</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="events.html" class="nav-link">Events</a>
+    <a href="clubs.html" class="nav-link">Clubs</a>
+    <a href="members.html" class="nav-link active">Members</a>
+    <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+    <a href="about.html" class="nav-link">About</a>
+  </div>
+
+  <!-- ── Main ── -->
+  <main class="main">
+    <section class="members-section">
+
+      <div class="members-header">
+        <div>
+          <h1>Members Directory</h1>
+          <span class="members-count" id="membersCount"></span>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="members-filters">
+        <input class="filter-input" type="text" id="searchInput" placeholder="Search by username or country...">
+        <select class="filter-select" id="levelFilter">
+          <option value="">All Levels</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+          <option value="semi_pro">Semi-Pro</option>
+          <option value="professional">Professional</option>
+        </select>
+      </div>
+
+      <!-- Skeleton loader -->
+      <div class="members-grid" id="skeletonGrid">
+        <div class="member-skeleton"></div>
+        <div class="member-skeleton"></div>
+        <div class="member-skeleton"></div>
+        <div class="member-skeleton"></div>
+        <div class="member-skeleton"></div>
+        <div class="member-skeleton"></div>
+      </div>
+
+      <!-- Real grid (populated by JS) -->
+      <div class="members-grid" id="membersGrid" style="display:none"></div>
+
+      <!-- Empty state -->
+      <div class="members-empty" id="emptyState" style="display:none">
+        No members found matching your filters.
+      </div>
+
+      <!-- Error state -->
+      <div class="error-state" id="errorState" style="display:none">
+        <p>Failed to load members. <a href="#" onclick="location.reload()">Try again</a></p>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>&#127921; 9BallShop Community</span>
+      <span class="footer-sep">&middot;</span>
+      <a href="index.html">Home</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="forum.html">Forum</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="events.html">Events</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="clubs.html">Clubs</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="learn.html">Learn</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="about.html">About</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ──────────────────────────────────────────────
+       Members Directory
+       ────────────────────────────────────────────── */
+
+    var allMembers = [];
+
+    var skeletonGrid = document.getElementById('skeletonGrid');
+    var membersGrid  = document.getElementById('membersGrid');
+    var emptyState   = document.getElementById('emptyState');
+    var errorState   = document.getElementById('errorState');
+    var searchInput  = document.getElementById('searchInput');
+    var levelFilter  = document.getElementById('levelFilter');
+    var membersCount = document.getElementById('membersCount');
+
+    var levelLabels = {
+      beginner: 'Beginner',
+      intermediate: 'Intermediate',
+      advanced: 'Advanced',
+      semi_pro: 'Semi-Pro',
+      professional: 'Professional'
+    };
+
+    // ── Init ──
+
+    async function init() {
+      initNavAuth();
+      initHamburger();
+      await loadMembers();
+    }
+
+    // ── Load members from Supabase ──
+
+    async function loadMembers() {
+      try {
+        var { data, error } = await supabase
+          .from('profiles')
+          .select('username, avatar_url, playing_level, country, country_flag, fargo_rating, cue_setup, home_club, post_count, thread_count, likes_received, created_at')
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        allMembers = data || [];
+        skeletonGrid.style.display = 'none';
+        membersGrid.style.display = '';
+        renderMembers(allMembers);
+
+      } catch (err) {
+        console.error('Failed to load members:', err);
+        skeletonGrid.style.display = 'none';
+        errorState.style.display = '';
+      }
+    }
+
+    // ── Render member cards ──
+
+    function renderMembers(members) {
+      membersCount.textContent = members.length + ' member' + (members.length !== 1 ? 's' : '');
+
+      if (members.length === 0) {
+        membersGrid.style.display = 'none';
+        emptyState.style.display = '';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      membersGrid.style.display = '';
+
+      var html = '';
+      for (var i = 0; i < members.length; i++) {
+        var m = members[i];
+        var name = m.username || 'Anonymous';
+        var initial = name.charAt(0).toUpperCase();
+        var level = m.playing_level || 'intermediate';
+        var levelLabel = levelLabels[level] || level;
+        var flag = m.country_flag || '';
+        var country = m.country || '';
+        var posts = m.post_count || 0;
+        var threads = m.thread_count || 0;
+        var joined = m.created_at ? formatDate(m.created_at) : '';
+
+        var avatarHtml;
+        if (m.avatar_url) {
+          avatarHtml = '<div class="member-avatar"><img src="' + esc(m.avatar_url) + '" alt="' + esc(name) + '"></div>';
+        } else {
+          avatarHtml = '<div class="member-avatar">' + esc(initial) + '</div>';
+        }
+
+        var locationHtml = '';
+        if (country) {
+          locationHtml = (flag ? flag + ' ' : '') + esc(country);
+        }
+
+        html +=
+          '<a href="profile.html?user=' + encodeURIComponent(name) + '" class="member-card">' +
+            avatarHtml +
+            '<div class="member-info">' +
+              '<div class="member-name">' + esc(name) + '</div>' +
+              '<div class="member-meta">' +
+                '<span class="member-badge badge-' + esc(level) + '">' + esc(levelLabel) + '</span>' +
+                (locationHtml ? '<span>' + locationHtml + '</span>' : '') +
+                (m.fargo_rating ? '<span>Fargo ' + esc(String(m.fargo_rating)) + '</span>' : '') +
+              '</div>' +
+            '</div>' +
+            '<div class="member-stats">' +
+              '<div class="member-stat-row"><strong>' + posts + '</strong> posts</div>' +
+              '<div class="member-stat-row"><strong>' + threads + '</strong> threads</div>' +
+              (joined ? '<div class="member-stat-row">Joined ' + joined + '</div>' : '') +
+            '</div>' +
+          '</a>';
+      }
+
+      membersGrid.innerHTML = html;
+    }
+
+    // ── Filter ──
+
+    function applyFilters() {
+      var query = searchInput.value.trim().toLowerCase();
+      var level = levelFilter.value;
+
+      var filtered = allMembers.filter(function(m) {
+        var matchesQuery = !query ||
+          (m.username && m.username.toLowerCase().indexOf(query) !== -1) ||
+          (m.country && m.country.toLowerCase().indexOf(query) !== -1);
+
+        var matchesLevel = !level || m.playing_level === level;
+
+        return matchesQuery && matchesLevel;
+      });
+
+      renderMembers(filtered);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    levelFilter.addEventListener('change', applyFilters);
+
+    // ── Format date ──
+
+    function formatDate(dateStr) {
+      var d = new Date(dateStr);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    // ── Start ──
+    init();
+  </script>
+</body>
+</html>
