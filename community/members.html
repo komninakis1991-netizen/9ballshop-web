@@ -38,6 +38,28 @@
       font-weight: 500;
     }
 
+    .btn-forum {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 8px;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-forum:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(245, 197, 24, 0.3);
+    }
+
     /* ── Filters ── */
 
     .members-filters {
@@ -287,6 +309,7 @@
           <h1>Members Directory</h1>
           <span class="members-count" id="membersCount"></span>
         </div>
+        <a href="forum.html" class="btn-forum">Enter the Forum &rarr;</a>
       </div>
 
       <!-- Filters -->
