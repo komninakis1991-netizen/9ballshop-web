@@ -83,6 +83,9 @@ export default function Navbar() {
             <Link href="/members" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.members}
             </Link>
+            <Link href="/community/forum.html" className="text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              {t.nav.community}
+            </Link>
             {authLink}
             {!loading && user?.isAdmin && (
               <Link
@@ -140,6 +143,9 @@ export default function Navbar() {
             </Link>
             <Link href="/members" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
               {t.nav.members}
+            </Link>
+            <Link href="/community/forum.html" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-sm uppercase tracking-widest">
+              {t.nav.community}
             </Link>
             {mobileAuthLink}
             {!loading && user?.isAdmin && (

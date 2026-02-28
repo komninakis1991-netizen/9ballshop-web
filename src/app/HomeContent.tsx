@@ -108,6 +108,48 @@ export default function HomeContent({ latestPosts }: HomeContentProps) {
         </div>
       </section>
 
+      {/* Community */}
+      <section className="bg-navy-light py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">
+              {t.home.communitySubtitle}
+            </p>
+            <h2 className="font-heading text-3xl md:text-4xl text-cream mb-6">
+              {t.home.communityTitle}
+            </h2>
+            <p className="text-cream/60 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+              {t.home.communityDescription}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+              <div className="flex items-center gap-2 text-cream/50 text-sm">
+                <span className="text-gold">&#9679;</span> {t.home.communityFeature1}
+              </div>
+              <div className="flex items-center gap-2 text-cream/50 text-sm">
+                <span className="text-gold">&#9679;</span> {t.home.communityFeature2}
+              </div>
+              <div className="flex items-center gap-2 text-cream/50 text-sm">
+                <span className="text-gold">&#9679;</span> {t.home.communityFeature3}
+              </div>
+            </div>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Link
+                href="/community/register.html"
+                className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
+              >
+                {t.home.communityJoin}
+              </Link>
+              <Link
+                href="/community/forum.html"
+                className="border border-gold/40 hover:border-gold text-gold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
+              >
+                {t.home.communityForum}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Newsletter */}
       <NewsletterForm variant="full" />
     </div>
