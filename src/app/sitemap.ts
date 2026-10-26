@@ -6,6 +6,7 @@ const BASE = "https://9ballshop.com";
 const PAGES: { path: string; priority: number }[] = [
   { path: "/", priority: 1 },
   { path: "/lessons", priority: 0.9 },
+  { path: "/el/mathimata-bilardou", priority: 0.9 },
   { path: "/about", priority: 0.8 },
   { path: "/blog", priority: 0.7 },
   { path: "/videos", priority: 0.6 },
