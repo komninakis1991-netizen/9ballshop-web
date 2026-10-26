@@ -40,21 +40,22 @@ const en = {
 
   // Home page
   home: {
-    heroSubtitle: "Curated by Marios Komninakis",
-    heroTitle1: "Premium Billiards",
-    heroTitle2: "Equipment",
+    heroSubtitle: "Coach \u00b7 Player \u00b7 Creator",
+    heroTitle1: "Pool Coaching by",
+    heroTitle2: "Marios Komninakis",
     heroDescription:
       "Coaching, strategy, community, and everything competitive billiards \u2014 by Marios Komninakis.",
     shopNow: "Shop Now",
     exploreTournaments: "Explore Tournaments",
+    bookLesson: "Book a Lesson",
     ourStory: "Our Story",
     featuredSubtitle: "Handpicked Selection",
     featuredTitle: "Featured Products",
     viewAll: "View All Products",
-    curatorSubtitle: "The Curator",
+    curatorSubtitle: "Your Coach",
     curatorName: "Marios Komninakis",
     curatorDescription:
-      "From the pool halls of Greece to the competitive tables of America, Marios has spent years mastering the art and science of billiards. Every product in our collection is personally vetted to meet the highest standards of quality and performance.",
+      "From the pool halls of Greece to the competitive tables of America, Marios has spent years mastering the art and science of billiards. He has coached more than 100 players in technique, strategy and the mental game \u2014 from first-timers to tournament competitors.",
     readStory: "Read Full Story",
     blogSubtitle: "Insights & Stories",
     blogTitle: "From the Blog",
@@ -121,9 +122,9 @@ const en = {
     sharingMedium: "Medium",
     sharingText5:
       "where he writes about the mental side of billiards, discipline, and personal growth \u2014 topics shaped by his experience both at the table and in life.",
-    visionTitle: "The 9BallShop Vision",
+    visionTitle: "The Vision",
     visionText:
-      "9BallShop was born from Marios\u2019s firsthand experience as a competitive pool player who knows exactly what equipment makes a difference. Too many billiards shops offer everything without expertise. 9BallShop is different \u2014 every cue, shaft, case, and accessory is personally selected and tested by someone who has spent thousands of hours at the table, competed internationally, and coached over a hundred players. Whether you play 9-ball, 8-ball, straight pool, or any other cue sport, 9BallShop provides the gear trusted by serious players.",
+      "9BallShop is Marios\u2019s home online: lessons, tournaments, videos and a community for players who want to improve. Everything here comes from someone who has spent thousands of hours at the table, competed internationally, and coached over a hundred players. Whether you play 9-ball, 8-ball, straight pool, or any other cue sport, the goal is the same \u2014 to help you play better.",
     statYears: "Years Playing",
     statCoached: "Players Coached",
     statCountries: "Countries Visited",

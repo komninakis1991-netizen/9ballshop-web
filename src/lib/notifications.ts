@@ -32,7 +32,7 @@ export async function sendDiscoveryBookingEmail(
         <p style="color:#888;font-size:14px;">Someone just booked a free discovery call through the website.</p>
       </div>
       <div style="background:#f5f5f5;padding:16px;text-align:center;font-size:12px;color:#999;">
-        9BallShop &mdash; Premium Billiards Equipment
+        9BallShop &mdash; Pool Coaching by Marios Komninakis
       </div>
     </div>
   `;
@@ -95,7 +95,7 @@ export async function sendDiscoveryBookingConfirmationEmail(
         <p>Μάριος Κομνηνάκης</p>
       </div>
       <div style="background:#f5f5f5;padding:16px;text-align:center;font-size:12px;color:#999;">
-        9BallShop &mdash; Premium Billiards Equipment
+        9BallShop &mdash; Pool Coaching by Marios Komninakis
       </div>
     </div>
     `
@@ -117,7 +117,7 @@ export async function sendDiscoveryBookingConfirmationEmail(
         <p>Marios Komninakis</p>
       </div>
       <div style="background:#f5f5f5;padding:16px;text-align:center;font-size:12px;color:#999;">
-        9BallShop &mdash; Premium Billiards Equipment
+        9BallShop &mdash; Pool Coaching by Marios Komninakis
       </div>
     </div>
     `;

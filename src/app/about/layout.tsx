@@ -1,28 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Marios Komninakis | Pool Player, Coach & Billiards Entrepreneur | 9BallShop",
+  title: { absolute: "About Marios Komninakis | Pool Player & Coach" },
   description:
-    "Meet Marios Komninakis — Greek national youth pool champion, European Championship competitor, billiards coach with 100+ students, and founder of 9BallShop. Discover his journey through pool tournaments across 20+ countries.",
-  keywords: [
-    "Marios Komninakis",
-    "pool player",
-    "billiards",
-    "9ball",
-    "9 ball",
-    "pool tournaments",
-    "billiards coach",
-    "Greek pool champion",
-    "European Championship pool",
-    "Euro Tour billiards",
-    "pool coaching",
-    "cue sports",
-    "billiards equipment",
-    "pool hall",
-    "8 ball",
-    "straight pool",
-    "9BallShop",
-  ],
+    "Greek national youth pool champion at 14, European Championship player and coach of 100+ students. The story of Marios Komninakis, from Athens to tournaments in 20+ countries.",
+  alternates: { canonical: "/about" },
+  openGraph: { type: "profile", url: "/about", title: "About Marios Komninakis | Pool Player & Coach" },
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

@@ -1,6 +1,14 @@
 import { getPrisma } from "@/lib/prisma";
 import BlogCard from "@/components/BlogCard";
 import T from "@/components/T";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pool Training & Mindset Blog",
+  description:
+    "Articles on pool technique, practice routines and the competitive mindset, from national youth champion and coach Marios Komninakis.",
+  alternates: { canonical: "/blog" },
+};
 
 export default async function BlogPage() {
   const prisma = await getPrisma();

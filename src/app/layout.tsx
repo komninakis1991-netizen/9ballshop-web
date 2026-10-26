@@ -19,8 +19,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "9BallShop - Premium Billiards Equipment",
-  description: "Premium billiards equipment curated by Marios Komninakis. Shop cues, shafts, balls, and accessories from top brands.",
+  metadataBase: new URL("https://9ballshop.com"),
+  title: {
+    default: "Marios Komninakis \u2013 Pool Coach & Player | 9BallShop",
+    template: "%s | Marios Komninakis",
+  },
+  description:
+    "Pool and 9-ball coaching by Marios Komninakis, 2x Greek national youth champion. Lessons in technique, strategy and mindset, plus free drills.",
+  applicationName: "9BallShop",
+  authors: [{ name: "Marios Komninakis", url: "https://9ballshop.com/about" }],
+  openGraph: {
+    type: "website",
+    siteName: "9BallShop \u2013 Marios Komninakis",
+    locale: "en_US",
+    alternateLocale: ["el_GR"],
+  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

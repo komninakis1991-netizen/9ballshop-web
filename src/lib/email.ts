@@ -95,7 +95,7 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
         <p style="color:#888;font-size:14px;">We'll notify you when your order ships. If you have any questions, reply to this email.</p>
       </div>
       <div style="background:#f5f5f5;padding:16px;text-align:center;font-size:12px;color:#999;">
-        9BallShop &mdash; Premium Billiards Equipment
+        9BallShop &mdash; Pool Coaching by Marios Komninakis
       </div>
     </div>
   `;
@@ -137,7 +137,7 @@ export async function sendOrderShippedEmail(
         <p style="color:#888;font-size:14px;">If you have any questions, reply to this email.</p>
       </div>
       <div style="background:#f5f5f5;padding:16px;text-align:center;font-size:12px;color:#999;">
-        9BallShop &mdash; Premium Billiards Equipment
+        9BallShop &mdash; Pool Coaching by Marios Komninakis
       </div>
     </div>
   `;
@@ -183,7 +183,7 @@ export async function sendLeadMagnetEmail(email: string, locale: string) {
 
   const footerText = isGreek
     ? "9BallShop &mdash; \u039a\u03bf\u03c1\u03c5\u03c6\u03b1\u03af\u03bf\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03cc\u03c2 \u039c\u03c0\u03b9\u03bb\u03b9\u03ac\u03c1\u03b4\u03bf\u03c5"
-    : "9BallShop &mdash; Premium Billiards Equipment";
+    : "9BallShop &mdash; Pool Coaching by Marios Komninakis";
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#333;">

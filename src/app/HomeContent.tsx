@@ -34,7 +34,7 @@ export default function HomeContent({ latestPosts }: HomeContentProps) {
             {t.home.heroSubtitle}
           </p>
           <h1 className="font-heading text-5xl md:text-7xl text-cream mb-6 leading-tight">
-            {t.home.heroTitle1}
+            {t.home.heroTitle1}{" "}
             <span className="block text-gold">{t.home.heroTitle2}</span>
           </h1>
           <p className="text-cream/60 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-body leading-relaxed">
@@ -42,10 +42,10 @@ export default function HomeContent({ latestPosts }: HomeContentProps) {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
-              href="/tournaments"
+              href="/lessons"
               className="bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
             >
-              {t.home.exploreTournaments}
+              {t.home.bookLesson}
             </Link>
             <Link
               href="/about"
