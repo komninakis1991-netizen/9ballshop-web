@@ -3,6 +3,9 @@ import { CATEGORIES, isValidCategoryKey, categoryLabel } from "@/lib/categories"
 import { notFound } from "next/navigation";
 import CategoryContent from "./CategoryContent";
 
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   return CATEGORIES.map((c) => ({ key: c.key }));
 }

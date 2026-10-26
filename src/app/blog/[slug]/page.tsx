@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import BlogPostContent from "@/components/BlogPostContent";
 import type { Metadata } from "next";
 
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const prisma = await getPrisma();
   const { slug } = await params;
@@ -23,12 +26,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       ...(post.coverImage ? { images: [{ url: post.coverImage }] } : {}),
     },
   };
-}
-
-export async function generateStaticParams() {
-  const prisma = await getPrisma();
-  const posts = await prisma.blogPost.findMany({ select: { slug: true } });
-  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

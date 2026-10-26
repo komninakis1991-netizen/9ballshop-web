@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getPrisma } from "@/lib/prisma";
 
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
+
 const BASE = "https://9ballshop.com";
 
 const PAGES: { path: string; priority: number }[] = [

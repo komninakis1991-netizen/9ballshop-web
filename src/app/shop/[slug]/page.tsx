@@ -7,11 +7,8 @@ import ProductGallery from "@/components/ProductGallery";
 import { categoryLabel } from "@/lib/categories";
 import T from "@/components/T";
 
-export async function generateStaticParams() {
-  const prisma = await getPrisma();
-  const products = await prisma.product.findMany({ select: { slug: true } });
-  return products.map((p) => ({ slug: p.slug }));
-}
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const prisma = await getPrisma();

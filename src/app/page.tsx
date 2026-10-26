@@ -2,6 +2,9 @@ import { getPrisma } from "@/lib/prisma";
 import HomeContent from "./HomeContent";
 import type { Metadata } from "next";
 
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: { url: "/" },

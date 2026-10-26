@@ -2,6 +2,9 @@ import { getPrisma } from "@/lib/prisma";
 import { CATEGORIES } from "@/lib/categories";
 import ShopCategories from "./ShopCategories";
 
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
+
 export default async function ShopPage() {
   const prisma = await getPrisma();
 

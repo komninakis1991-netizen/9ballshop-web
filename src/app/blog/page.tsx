@@ -3,6 +3,9 @@ import BlogCard from "@/components/BlogCard";
 import T from "@/components/T";
 import type { Metadata } from "next";
 
+// Read from the live database on each request instead of at build time.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Pool Training & Mindset Blog",
   description:
