@@ -51,12 +51,17 @@ const jsonLd = {
 };
 
 export default async function Home() {
-  const prisma = await getPrisma();
-
-  const latestPosts = await prisma.blogPost.findMany({
-    orderBy: { publishedAt: "desc" },
-    take: 3,
-  });
+  let latestPosts;
+  try {
+    const prisma = await getPrisma();
+    latestPosts = await prisma.blogPost.findMany({
+      orderBy: { publishedAt: "desc" },
+      take: 3,
+    });
+  } catch (e) {
+    const err = e as Error;
+    return <pre id="debug-error">{String(err?.name)}: {String(err?.message)}{"\n"}{String(err?.stack)}</pre>;
+  }
 
   return (
     <>
