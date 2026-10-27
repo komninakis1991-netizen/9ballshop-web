@@ -11,9 +11,7 @@ export async function getPrisma(): Promise<PrismaClient> {
     const ctx = await getCloudflareContext();
     if (ctx?.env?.DB) {
       const { PrismaD1 } = await import("@prisma/adapter-d1");
-      // Use the WebAssembly build: the default build loads a native engine
-      // from disk, which Cloudflare Workers can't do.
-      const { PrismaClient: PC } = await import("@prisma/client/wasm");
+      const { PrismaClient: PC } = await import("@prisma/client");
       const adapter = new PrismaD1(ctx.env.DB);
       const client = new PC({ adapter }) as unknown as PrismaClient;
       globalForPrisma.prisma = client;
