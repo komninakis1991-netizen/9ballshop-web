@@ -18,14 +18,14 @@ export default function Navbar() {
   const authLink = loading ? null : user ? (
     <Link
       href="/account"
-      className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium"
+      className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap"
     >
       {t.nav.account}
     </Link>
   ) : (
     <Link
       href="/login"
-      className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium"
+      className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap"
     >
       {t.nav.login}
     </Link>
@@ -51,46 +51,49 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/85 backdrop-blur-md border-b border-line">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="font-heading font-black uppercase text-[26px] leading-none tracking-[0.04em] text-cream flex-shrink-0">
             Marios<span className="text-gold">·</span>K
           </Link>
 
           {/* Desktop nav links */}
-          <div className="hidden xl:flex items-center gap-5">
-            <Link href="/tournaments" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+          <div className="hidden min-[1380px]:flex items-center gap-[18px] mx-6">
+            <Link href="/tournaments" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.tournaments}
             </Link>
-            <Link href="/lessons" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/lessons" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.lessons}
             </Link>
-            <Link href="/videos" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/courses" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
+              {t.nav.courses}
+            </Link>
+            <Link href="/videos" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.videos}
             </Link>
-            <Link href="/blog" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/blog" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.blog}
             </Link>
-            <Link href="/about" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/about" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.about}
             </Link>
-            <Link href="/collaborate" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/collaborate" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.collaborate}
             </Link>
-            <Link href="/custom-jerseys" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/custom-jerseys" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.customJerseys}
             </Link>
-            <Link href="/members" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/members" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.members}
             </Link>
-            <Link href="/community/forum.html" className="text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+            <Link href="/community/forum.html" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.community}
             </Link>
             {authLink}
             {!loading && user?.isAdmin && (
               <Link
                 href="/admin"
-                className="text-gold hover:text-gold-light transition-colors text-[15px] font-bold"
+                className="text-gold hover:text-gold-light transition-colors text-[14px] font-bold whitespace-nowrap"
               >
                 {t.nav.admin}
               </Link>
@@ -102,13 +105,13 @@ export default function Navbar() {
             <LanguageToggle />
             <Link
               href="/lessons"
-              className="hidden sm:inline-flex items-center min-h-[44px] rounded-full bg-gold hover:bg-gold-light text-navy font-bold px-5 text-[15px] transition-colors"
+              className="hidden sm:inline-flex items-center min-h-[44px] rounded-full bg-gold hover:bg-gold-light text-navy font-bold px-5 text-[15px] whitespace-nowrap transition-colors"
             >
               {t.home.bookLesson}
             </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="xl:hidden text-cream p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="min-[1380px]:hidden text-cream p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,13 +127,16 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="xl:hidden bg-navy-light border-t border-line">
+        <div className="min-[1380px]:hidden bg-navy-light border-t border-line">
           <div className="px-4 py-4 space-y-1">
             <Link href="/tournaments" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
               {t.nav.tournaments}
             </Link>
             <Link href="/lessons" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
               {t.nav.lessons}
+            </Link>
+            <Link href="/courses" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+              {t.nav.courses}
             </Link>
             <Link href="/videos" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
               {t.nav.videos}
@@ -158,7 +164,7 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 onClick={() => setMobileOpen(false)}
-                className="block py-3 text-gold hover:text-gold-light transition-colors text-[15px] font-bold"
+                className="block py-3 text-gold hover:text-gold-light transition-colors text-[14px] font-bold whitespace-nowrap"
               >
                 {t.nav.admin}
               </Link>

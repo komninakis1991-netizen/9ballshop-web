@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getPrisma } from "@/lib/prisma";
+import { COURSES, isForSale } from "@/lib/courses";
 
 // Read from the live database on each request instead of at build time.
 export const dynamic = "force-dynamic";
@@ -9,6 +10,8 @@ const BASE = "https://9ballshop.com";
 const PAGES: { path: string; priority: number }[] = [
   { path: "/", priority: 1 },
   { path: "/lessons", priority: 0.9 },
+  { path: "/courses", priority: 0.9 },
+  ...COURSES.filter(isForSale).map((c) => ({ path: `/courses/${c.slug}`, priority: 0.8 })),
   { path: "/el/mathimata-bilardou", priority: 0.9 },
   { path: "/about", priority: 0.8 },
   { path: "/blog", priority: 0.7 },

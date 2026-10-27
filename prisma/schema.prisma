@@ -147,3 +147,16 @@ model Subscriber {
   locale    String   @default("en")
   createdAt DateTime @default(now())
 }
+
+model CoursePurchase {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  courseSlug      String
+  stripeSessionId String   @unique
+  amount          Float    @default(0)
+  currency        String   @default("EUR")
+  customerEmail   String   @default("")
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, courseSlug])
+}

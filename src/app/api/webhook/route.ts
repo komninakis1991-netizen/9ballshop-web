@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getPrisma } from "@/lib/prisma";
 import { sendOrderConfirmationEmail } from "@/lib/email";
+import { grantFromCheckoutSession } from "@/lib/coursePurchases";
 
 export async function POST(request: NextRequest) {
   const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -41,9 +42,16 @@ export async function POST(request: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session;
       if (session.metadata?.type === "membership") {
         await handleMembershipCheckout(session);
+      } else if (session.metadata?.type === "course") {
+        await grantFromCheckoutSession(session);
       } else {
         await handleCheckoutCompleted(stripe, session);
       }
+      break;
+    }
+    case "checkout.session.async_payment_succeeded": {
+      // Delayed payment methods (e.g. bank debits) confirm after checkout.
+      await grantFromCheckoutSession(event.data.object as Stripe.Checkout.Session);
       break;
     }
     case "customer.subscription.updated": {

@@ -1,5 +1,7 @@
 "use client";
 
+import { getSafeNext } from "@/lib/safeNext";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -26,7 +28,7 @@ export default function LoginPage() {
     if (err) {
       setError(err);
     } else {
-      router.push("/account");
+      router.push(getSafeNext());
     }
   };
 
@@ -91,7 +93,7 @@ export default function LoginPage() {
 
         <p className="text-center text-cream/50 text-sm mt-6">
           {t.login.noAccount}{" "}
-          <Link href="/register" className="text-gold hover:underline">
+          <Link href="/register" onClick={(e) => { const n = getSafeNext(""); if (n) { e.preventDefault(); router.push(`/register?next=${encodeURIComponent(n)}`); } }} className="text-gold hover:underline">
             {t.login.createOne}
           </Link>
         </p>
