@@ -19,8 +19,13 @@ export async function getPrisma(): Promise<PrismaClient> {
       globalForPrisma.prisma = client;
       return client;
     }
-  } catch {
-    // Not in Cloudflare Workers environment
+  } catch (err) {
+    // Not in Cloudflare Workers environment, or the D1 client failed to start.
+    console.error("[prisma] D1 client setup failed:", err);
+    if (typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers") {
+      // On Workers there is no local database to fall back to.
+      throw err;
+    }
   }
 
   // Local development with SQLite
