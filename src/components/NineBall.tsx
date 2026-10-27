@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * A CSS-rendered 9-ball that tilts toward the cursor and floats slowly.
+ * A CSS-rendered 9-ball (black-pole tournament style) that tilts toward the cursor and floats slowly.
  * Can be swapped for a Spline 3D scene later without changing the layout.
  */
 export default function NineBall() {
@@ -55,11 +55,11 @@ export default function NineBall() {
         className="absolute inset-[8%] rounded-full overflow-hidden will-change-transform shadow-[0_60px_120px_rgba(0,0,0,0.6)]"
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* white ball with yellow stripe */}
-        <div className="absolute inset-0 bg-[#f7f4ec]" />
-        <div className="absolute inset-x-0 top-[25%] bottom-[25%] bg-ball-1" />
+        {/* Black-style 9-ball: yellow stripe, black poles instead of white */}
+        <div className="absolute inset-0 bg-[#0d0d0d]" />
+        <div className="absolute inset-x-0 top-[22%] bottom-[22%] bg-ball-1" />
         {/* number disc */}
-        <div className="absolute left-1/2 top-1/2 w-[34%] aspect-square -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#fbfaf5] flex items-center justify-center font-heading font-black text-[#0b0b0b] text-[clamp(44px,7vw,84px)] leading-none">
+        <div className="absolute left-1/2 top-1/2 w-[40%] aspect-square -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#fbfaf5] flex items-center justify-center font-heading font-black text-[#0b0b0b] text-[clamp(52px,8.5vw,104px)] leading-none">
           9
         </div>
         {/* lighting */}
