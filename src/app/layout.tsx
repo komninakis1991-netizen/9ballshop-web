@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Fira_Sans_Extra_Condensed, Manrope } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/components/AuthProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin", "latin-ext"],
+// Both fonts include Greek, so headings and body look the same in EL and EN.
+const display = Fira_Sans_Extra_Condensed({
+  variable: "--font-display",
+  weight: ["600", "800", "900"],
+  subsets: ["latin", "greek", "latin-ext"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const sans = Manrope({
+  variable: "--font-sans",
   subsets: ["latin", "greek", "latin-ext"],
   display: "swap",
 });
@@ -52,7 +54,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${playfair.variable} ${inter.variable} antialiased`}>
+      <body className={`${display.variable} ${sans.variable} antialiased`}>
         <AuthProvider>
           <LanguageProvider>
             <Navbar />

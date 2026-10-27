@@ -51,10 +51,10 @@ export default function NewsletterForm({ variant }: NewsletterFormProps) {
 
   if (variant === "full") {
     return (
-      <section className="bg-navy-light py-20">
+      <section className="bg-navy-light border-t border-line py-24">
         <div className="max-w-xl mx-auto px-4 text-center">
-          <p className="text-gold/60 text-xs uppercase tracking-[0.3em] mb-3">{t.home.newsletterSubtitle}</p>
-          <h2 className="font-heading text-3xl text-cream mb-4">{t.home.newsletterTitle}</h2>
+          <p className="text-gold text-[13px] font-bold uppercase tracking-[0.18em] mb-4">{t.home.newsletterSubtitle}</p>
+          <h2 className="font-heading font-black uppercase leading-[0.95] text-[clamp(36px,4.5vw,56px)] text-cream mb-5">{t.home.newsletterTitle}</h2>
           <p className="text-cream/50 mb-8">{t.home.newsletterDescription}</p>
 
           {status === "success" ? (
@@ -63,24 +63,25 @@ export default function NewsletterForm({ variant }: NewsletterFormProps) {
               <a
                 href="/downloads/9ballshop-billiards-guide.pdf"
                 download
-                className="inline-block bg-gold hover:bg-gold-light text-navy font-semibold px-8 py-3 rounded transition-colors text-sm uppercase tracking-wider"
+                className="inline-flex items-center min-h-[48px] bg-gold hover:bg-gold-light text-navy font-bold px-8 py-3 rounded-full transition-colors text-[15px]"
               >
                 {t.newsletter.downloadButton}
               </a>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t.home.newsletterPlaceholder}
-                className="flex-1 bg-navy border border-gold/20 rounded px-4 py-3 text-cream placeholder:text-cream/30 focus:outline-none focus:border-gold/60 text-sm"
+                aria-label={t.home.newsletterPlaceholder}
+                className="flex-1 min-w-0 min-h-[48px] bg-navy border border-[#2e463b] rounded-full px-5 py-3 text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold text-sm"
               />
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="bg-gold hover:bg-gold-light text-navy font-semibold px-6 py-3 rounded transition-colors text-sm uppercase tracking-wider whitespace-nowrap disabled:opacity-50"
+                className="min-h-[48px] bg-gold hover:bg-gold-light text-navy font-bold px-7 py-3 rounded-full transition-colors text-[15px] whitespace-nowrap disabled:opacity-50"
               >
                 {status === "submitting" ? t.newsletter.submitting : t.home.subscribe}
               </button>
