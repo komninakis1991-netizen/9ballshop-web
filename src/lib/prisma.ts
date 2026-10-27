@@ -19,6 +19,7 @@ export async function getPrisma(): Promise<PrismaClient> {
       globalForPrisma.prisma = client;
       return client;
     }
+    console.error("[prisma] No D1 binding found in Cloudflare context; env keys:", Object.keys(ctx?.env ?? {}));
   } catch (err) {
     // Not in Cloudflare Workers environment, or the D1 client failed to start.
     console.error("[prisma] D1 client setup failed:", err);
