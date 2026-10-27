@@ -1,44 +1,91 @@
 @import "tailwindcss";
 
+/*
+ * "Midnight Felt" theme.
+ * Token names are kept from the previous theme (navy / gold / cream) so every
+ * page picks up the new look automatically:
+ *   navy*  -> near-black felt greens (backgrounds)
+ *   gold*  -> chalk blue (the single accent)
+ *   cream  -> warm off-white text
+ */
 @theme inline {
-  --color-navy: #0a0f1a;
-  --color-navy-light: #111827;
-  --color-navy-lighter: #1a2332;
-  --color-gold: #d4a843;
-  --color-gold-light: #e8c87a;
-  --color-gold-dark: #b8912e;
-  --color-emerald: #10b981;
-  --color-emerald-dark: #059669;
-  --color-slate-dark: #111827;
-  --color-slate-mid: #1f2937;
-  --color-slate-light: #374151;
-  --color-cream: #f5f0e8;
+  --color-navy: #080d0b;
+  --color-navy-light: #0b1310;
+  --color-navy-lighter: #0f1a16;
+  --color-felt: #0f3b2e;
+  --color-felt-light: #1b5a44;
+  --color-line: #1f3129;
+  --color-gold: #8ec9ee;
+  --color-gold-light: #b5dcf4;
+  --color-gold-dark: #5fa9d6;
+  --color-emerald: #7fd1a8;
+  --color-emerald-dark: #4fb184;
+  --color-slate-dark: #0b1310;
+  --color-slate-mid: #13231d;
+  --color-slate-light: #22372e;
+  --color-cream: #ede8dc;
 
-  --font-heading: var(--font-playfair);
-  --font-body: var(--font-inter);
+  /* pool ball colours, used as section markers */
+  --color-ball-1: #e9b419;
+  --color-ball-2: #2f6fd0;
+  --color-ball-3: #d8402f;
+
+  --font-heading: var(--font-display), "Arial Narrow", sans-serif;
+  --font-body: var(--font-sans), system-ui, sans-serif;
 }
 
 :root {
-  --background: #0a0f1a;
-  --foreground: #f5f0e8;
+  --background: #080d0b;
+  --foreground: #ede8dc;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d4a843 #111827;
+  scrollbar-color: #2e463b #0b1310;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), Georgia, serif;
+  font-family: var(--font-heading);
+  letter-spacing: -0.005em;
 }
 
 ::selection {
-  background-color: #d4a843;
-  color: #0a0f1a;
+  background-color: #8ec9ee;
+  color: #080d0b;
+}
+
+/* Scroll-reveal used by <Reveal>. Content stays visible without JS. */
+.reveal {
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal[data-hidden="true"] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-hidden="true"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
 }
