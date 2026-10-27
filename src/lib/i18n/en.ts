@@ -5,6 +5,7 @@ const en = {
     lessons: "Lessons",
     courses: "Courses",
     videos: "Videos",
+    gallery: "Gallery",
     blog: "Blog",
     about: "About",
     cart: "Cart",
@@ -371,6 +372,16 @@ const en = {
     psychologyOfPool: "Psychology of Pool",
     vlogs: "Vlogs",
     subscribeOnYouTube: "Subscribe on YouTube",
+  },
+
+  gallery: {
+    subtitle: "Marios Komninakis",
+    title: "Gallery",
+    description: "Tournaments, lessons and moments from the table.",
+    empty: "Photos coming soon.",
+    close: "Close",
+    previous: "Previous photo",
+    next: "Next photo",
   },
 
   // Lessons

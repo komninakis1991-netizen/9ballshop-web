@@ -5,6 +5,7 @@ const el = {
     lessons: "Μαθήματα",
     courses: "Online Μαθήματα",
     videos: "Βίντεο",
+    gallery: "Φωτογραφίες",
     blog: "Blog",
     about: "Σχετικά",
     cart: "Καλάθι",
@@ -372,6 +373,16 @@ const el = {
     psychologyOfPool: "Ψυχολογία του Μπιλιάρδου",
     vlogs: "Vlogs",
     subscribeOnYouTube: "Εγγραφείτε στο YouTube",
+  },
+
+  gallery: {
+    subtitle: "Μάριος Κομνηνάκης",
+    title: "Φωτογραφίες",
+    description: "Τουρνουά, μαθήματα και στιγμές από το τραπέζι.",
+    empty: "Οι φωτογραφίες έρχονται σύντομα.",
+    close: "Κλείσιμο",
+    previous: "Προηγούμενη φωτογραφία",
+    next: "Επόμενη φωτογραφία",
   },
 
   // Lessons

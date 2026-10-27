@@ -71,6 +71,9 @@ export default function Navbar() {
             <Link href="/videos" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.videos}
             </Link>
+            <Link href="/gallery" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
+              {t.nav.gallery}
+            </Link>
             <Link href="/blog" className="text-cream/80 hover:text-gold transition-colors text-[14px] font-medium whitespace-nowrap">
               {t.nav.blog}
             </Link>
@@ -140,6 +143,9 @@ export default function Navbar() {
             </Link>
             <Link href="/videos" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
               {t.nav.videos}
+            </Link>
+            <Link href="/gallery" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
+              {t.nav.gallery}
             </Link>
             <Link href="/blog" onClick={() => setMobileOpen(false)} className="block py-3 text-cream/80 hover:text-gold transition-colors text-[15px] font-medium">
               {t.nav.blog}
